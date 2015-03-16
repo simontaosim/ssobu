@@ -1,4 +1,4 @@
-*{padding: 0px; margin: 0px; list-style: none; font-size: 12px; background-repeat: no-repeat; color: black; text-decoration: none;}
+*{padding: 0px; margin: 0px; list-style: none; font-size: 12px; background-repeat: no-repeat; color: black; text-decoration: none; font: "黑体";}
 /*top_nav*/
 .top_nav{width: 100%; height: 79px; border-bottom: 1px #DCDCDC solid; position: fixed; top: 0px; left: 0px; background-color: #FFFFFF;}
 .nav{ width: 80%; height: 79px; margin: 0px auto; background-image: url(../img/logo.png);}
@@ -113,3 +113,40 @@
 .count_btn{width: 160px; height: 32px; float: right; padding-top: 20px;}
 .count_apply{ width: 60px; height: 20px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px; float: left; margin-right: 10px ;}
 .count_record{ width: 60px; height: 20px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px; float: left;}
+
+/*seting*/
+.main_setting{ width: 80%; margin: 80px auto; height: 100%;}
+.set_left{ width: 300px; float: left;}
+.set_left li{width: 300px; height: 58px; font-size: 14px; line-height: 50px;  text-align: center;}
+.set_right{ float: left; padding: 60px 0px 0px 180px;}
+.set_icon{ width: 100px;text-align: center; position: relative; left: 50px;}
+.set_form{ padding-top: 20px;}
+.save_set{ width: 60px; height: 20px; margin: 10px 0px 0px 100px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px;}
+.set_bind{ float: left;}
+.set_bind ul{ float: left;}
+.set_bind li{ width: 100px; float: left;}
+.save_bind{ width: 60px; height: 20px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px; float: left;}
+.bind_pic{ height: 80px;}
+.add_class{ background-color: white;}
+.no_click{ background-color: #F0F0F0;}
+.all_display {display: none;}
+
+/*relation*/
+.main_relation{padding-top: 140px; padding-left: 100px; width: 450px; font-size: 14px; margin: 0px auto; height: 100%; border: 1px #EEEEEE solid;}
+.relation_title{ width: 400px; height:36px; border-bottom: 1px #EEEEEE solid; padding-left: 40px;}
+.mrelation{ font-size: 16px; color: black; width: 200px; height: 36px; float: left;}
+.mrelation_t{ font-size: 16px; width: 200px; height: 16px; font-weight: 300; line-height: 10px; position: relative; top: -10px; padding-left: 20px;}
+.t_relation_val{width: 100px; height: 30px;float: right; text-align: center; font-size: 14px; line-height: 30px; font-weight: bold;}
+.relation_list{width: 280px;}
+.relation_list li{width: 100%; height: 25px; font-size: 14px; background-image: url(../img/friends.png); background-position-x: 40px; border-bottom: 1px #EEEEEE solid; border-top: 1px #EEEEEE solid; line-height: 25px; padding: 5px 0 5px 100px;}
+.relation_name{ width: 100px; height: 25px; float: left; color: #c41e1e;}
+.relation_val{ width: 80px; height: 25px; float: right; color: #c41e1e;}
+.relation_btn{width: 100px; height: 32px; float: right; padding-top: 20px;}
+.relation_apply{ width: 60px; height: 20px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px; float: left; margin-right: 10px ;}
+.relation_record{ width: 60px; height: 20px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px; float: left;}
+
+
+
+
+
+

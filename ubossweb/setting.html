@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<script type="text/javascript" src="js/jq.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('.set_left ul li').click(
+					function(){
+						var a = $(this).index();
+						$('.set_left ul li').addClass('no_click');
+						$(this).removeClass('no_click');
+						$('.set_right > div').addClass('all_display');
+						$('.set_right > div').eq(a).removeClass('all_display');
+					}
+				)
+			});
+		</script>
+		<title>申请提现</title>
+		<link type="text/css" href="css/css.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="top_nav">
+			<div class="nav">
+				<ul class="menu">
+					<li id="light"><a href="#" target="_blank">首页</a></li>
+					<li><a href="#" target="_blank">首页</a></li>
+					<li><a href="#" target="_blank">首页</a></li>
+					<li><a href="#" target="_blank">首页</a></li>
+				</ul>
+				<ul class="regis">
+					<li><a href="#" target="_blank">爱加密</a></li>
+					<li><a href="#" target="_blank">个人中心</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="main_setting">
+			<div class="set_left">
+				<ul>
+					<li>修改基本资料</li>
+					<li class="no_click">修改密码</li>
+					<li class="no_click">修改绑定账号</li>
+				</ul>
+			</div>
+			<div class="set_right">
+				<div class="set_info" >
+					<div class="set_icon"><img src="img/icon.png" width="100" height="100" alt="头像"/>点击修改头像</div>
+					<div class="set_form">
+						<form>
+						&nbsp;&nbsp;昵称：<input type="text" name="user_name" /><br/><br/>
+						登入邮箱：<input type="text" name="email" />
+						<div class="save_set">保存修改</div>
+						</form>
+					</div>
+				</div>
+				<div class="set_pass all_display">
+						<form>
+						&nbsp;原密码：<input type="password" name="user_name" /><br/><br/>
+						&nbsp;新密码：<input type="password" name="email" /><br/><br/>
+						再输一次：<input type="password" name="email" />
+						<div class="save_set">保存修改</div>
+						</form>
+				</div>
+				<div class="set_bind all_display">
+						<ul>
+							<li><div class="bind_pic"><img src="img/qq_bind.png" alt="qq"></div><div class="save_bind"><a href="#">绑定</a></div></li>
+							<li><div class="bind_pic"><img src="img/weixin_bind.png" alt="qq"></div><div class="save_bind"><a href="#">绑定</a></div></li>
+							<li><div class="bind_pic"><img src="img/yixin_bind.png" alt="qq"></div><div class="save_bind"><a href="#">绑定</a></div></li>
+							<li><div class="bind_pic"><img src="img/weibo_bind.png" alt="qq"></div><div class="save_bind"><a href="#">绑定</a></div></li>
+						</ul>
+				</div>	
+			</div>
+		</div>
+		<div class="bottom">
+			 <div class="introduce">
+			 	© 深圳市优易创网络发展有限公司 2015
+			 </div>
+		</div>
+	</body>
+</html>

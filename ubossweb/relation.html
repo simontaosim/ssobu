@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>我的人脉</title>
+		<link type="text/css" href="css/css.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jq.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('.rel_list').click(
+					function(){
+						$('.rel_list ~ ul').slideUp();
+						$(this).next('.member').slideDown();
+					}
+				);
+			});
+		</script>
+	</head>
+	<body>
+		<div class="top_nav">
+			<div class="nav">
+				<ul class="menu">
+					<li id="light"><a href="#" target="_blank">首页</a></li>
+					<li><a href="#" target="_blank">首页</a></li>
+					<li><a href="#" target="_blank">首页</a></li>
+					<li><a href="#" target="_blank">首页</a></li>
+				</ul>
+				<ul class="regis">
+					<li><a href="#" target="_blank">爱加密</a></li>
+					<li><a href="#" target="_blank">个人中心</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="main_relation">
+			<div class="relation_title">
+				<div class="mrelation"><img src="img/list_2.png" height="32" width="38" /><span class="mrelation_t">我的人脉</span></div>
+				<div class="t_relation_val">10人</div>
+			</div>
+			<ul class="relation_list">
+				<li>
+					<div class="rel_list">
+						<div class="relation_name">1级会员</div>
+						<div class="relation_val">10人</div>
+					</div>
+					<ul class="member rel_dis">
+						<li>1凯</li>
+						<li>1强</li>
+					</ul>					
+				</li>
+				<li>
+					<div class="rel_list">
+						<div class="relation_name">2级会员</div>
+						<div class="relation_val">10人</div>
+					</div>
+					<ul class="member rel_dis">
+						<li>2凯</li>
+						<li>2强</li>
+					</ul>					
+				</li>
+				<li>
+					<div class="rel_list">
+						<div class="relation_name">3级会员</div>
+						<div class="relation_val">10人</div>
+					</div>
+					<ul class="member rel_dis">
+						<li>3凯</li>
+						<li>3强</li>
+					</ul>					
+				</li>
+			</ul>
+		</div>
+		
+		<div class="bottom">
+			 <div class="introduce">
+			 	© 深圳市优易创网络发展有限公司 2015
+			 </div>
+		</div>
+	</body>
+</html>

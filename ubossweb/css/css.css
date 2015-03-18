@@ -1,0 +1,154 @@
+*{padding: 0px; margin: 0px; list-style: none; font-size: 12px; background-repeat: no-repeat; color: black; text-decoration: none; font: "黑体";}
+/*top_nav*/
+.top_nav{width: 100%; height: 79px; border-bottom: 1px #DCDCDC solid; position: fixed; top: 0px; left: 0px; background-color: #FFFFFF;}
+.nav{ width: 80%; height: 79px; margin: 0px auto; background-image: url(../img/logo.png);}
+.menu {width: 40%; height: 79px; float: left; padding-left: 225px;}
+.regis{width: 30%; height: 79px; float: right;}
+.menu li{ float: left; width: 32px; padding-left: 45px; line-height: 79px;}
+.menu li a{ font-size: 16px; color: #666666}
+.regis li{ float: left; width: 100px; line-height: 79px;}
+.regis li a{ font-size: 16px; color: #666666;}
+#light a{ color: #1ab99b;}
+
+/*main*/
+.main_1{ width: 100%; height: 546px; margin-top: 80px; float: left; clear: both;}
+.main_1 img{ width: 100%; height: 546px;}
+
+.main_2{background-image: url(../img/toc.png); width: 100%; height: 115px; clear: both; background-position-x: 49%; background-position-y: 50%; }
+.toc{ width: 10%; height: 20px; margin: 0px auto; font-size: 16px; color: black; padding-top: 10px;}
+
+.main_3{ width: 100%; height: 600px; float: left; clear: both;}
+.main_3 img{ width: 100%; height: 600px;}
+
+.main_4,.main_6,.main_8{ width: 100%; height: 370px; float: left; clear: both;}
+.main_4_content,.main_6_content,.main_8_content{ width: 620px;height: 250px; padding: 120px 0 0 300px;}
+.main_4_content h3,.main_6_content h3,.main_8_content h3{ font-size: 16px; font-weight: bold; color: #292929; padding-bottom: 10px;}
+.main_4_content p,.main_6_content p,.main_8_content p{ line-height: 30px; color: #323232;}
+
+.main_5{ width: 100%; height: 600px; float: left; clear: both;}
+.main_5 img{ width: 100%; height: 600px;}
+
+.main_7{ width: 100%; height: 600px; float: left; clear: both;}
+.main_7 img{ width: 100%; height: 600px;}
+
+/*bottom*/
+.bottom{ width: 100%; height: 30px; background-color: #1AB99B; float: left; position: fixed; bottom: 0px;}
+.bottom .introduce{ width: 360px; height: 44px; margin: 0 auto; font-size: 14px; color: #FFFFFF; padding-top: 5px;}
+
+/*login*/
+.main_login{ padding-top: 180px; width: 100%;}
+.writen{ width:300px; height: 230px; margin: 7% auto;}
+.writen form{ font-size: 14px;}
+.writen input{ font-size: 14px;}
+.rememed{ width: 100px; height: 20px; font-size: 10px; float: left;}
+#remem{ float: left;}
+.is_remm{ padding-left: 40px; padding-top: 5px;}
+.forgot{ width: 56px; height: 12px;}
+.forgot a{ color: #0a8cd2;}
+
+.submit{ width: 60%; height: 21px; background-color: #1AB99B; margin-left: 40px; margin-top: 15px; margin-bottom: 20px; text-align: center; line-height: 21px; color: #FFFFFF;};
+#third{ color: #646464;}
+
+.third_pic{ width: 250px; height: 33px; margin-top: 25px;}
+.third_pic li{ float: left; width: 33px;height: 33px; padding-left:25px ;}
+
+/*center*/
+.main_center{padding-top: 180px; width: 950px; height: 290px; padding-left: 20%;}
+.p_info { width: 310px; height: 280px; float: left;}
+.p_info_top{ width: 310px; height: 100px;}
+.p_icon{width: 100px;height: 100px;float: left;}
+.p_content{ width: 200px; height: 70px; float: left;padding-top: 30px; padding-left: 10px;}
+.p_content li{ color:#777777; font-size: 12px; width: 200px; height: 15px; padding-top: 5px; line-height: 15px;}
+.p_info_bottom{ width: 310px; height: 150px; float: left; padding-top: 32px;}
+.info_list{width: 300px; height: 40px; color:#777777; padding-top: 20px;}
+.revenue{ width: 250px;height: 15px; color:#777777; float: left; font-size: 14px; padding-bottom: 5px;}
+.revenue_c{ width: 250px;height: 15px; float: left;color:#777777; padding-left: 50px;font-size: 14px;}
+.cen_list{width: 550px; height: 260px; float: left;}
+.cen_list li{width: 200px;height: 70px;float: left; margin: 20px; }
+.cen_list li a{font-size: 16px; display:block;width: 80px; height: 16px;padding: 50px 0px 0px 120px;}
+.my_count{ background-image: url(../img/list_1.png);}
+.my_relation{ background-image: url(../img/list_2.png);}
+.my_setting{ background-image: url(../img/list_3.png);}
+.my_order{ background-image: url(../img/list_4.png);}
+
+/*apply*/
+.main_apply{ padding-top: 180px; width: 100%; font-size: 14px;}
+.main_apply .writen form{ font-size: 14px;}
+.cash{ text-align: center;}
+.apply_tb{ width:300px; height: 230px; margin: 7% auto;}
+.apply_tb form{ font-size: 14px;}
+.apply_tb input{ font-size: 14px;}
+.applying{ width: 30%; height: 21px; background-color: #F4F4F4; margin-left: 100px; margin-top: 15px; margin-bottom: 20px; text-align: center; line-height: 21px; color: black;}
+
+/*record*/
+.main_record{ padding-top: 180px; width: 500px; font-size: 14px; margin: 0px auto; height: 100%; color: #505050;}
+.main_record table{ color: #505050;}
+.tb_title{ padding-bottom: 20px;};
+.tb_title tr{text-align: center;}
+
+/*introduc*/
+.main_introduce{ padding-top: 180px; width: 650px; font-size: 14px; margin: 0px auto; height: 100%; color: #505050;}
+.main_introduce p{color: #323232; font-size: 14px; line-height: 20px;}
+
+/*order*/
+.main_order{ padding-top: 180px; width: 650px; font-size: 14px; margin: 0px auto; height: 100%; color: #505050;}
+.order_h{ padding-top: 10px;}
+.order_h span{ font-size: 16px;}
+.sp_1{ color: #ff2828;}
+.sp_2{ color: #0a8cd2;}
+.sp_3{color: #282828;}
+.order_state{ padding-top: 10px;}
+.order_state li{ color: #646464; padding-bottom: 5px;}
+
+/*count*/
+.main_count{padding-top: 140px; padding-left: 100px; width: 650px; font-size: 14px; margin: 0px auto; height: 100%; border: 1px #EEEEEE solid;}
+.count_title{ width: 600px; height:36px; border-bottom: 1px #EEEEEE solid; padding-left: 20px;}
+.mcount{ font-size: 16px; color: black; width: 150px; height: 36px; float: left;}
+.mcount_t{ font-size: 16px; width: 64px; height: 16px; font-weight: 300; line-height: 10px; position: relative; top: -10px; padding-left: 20px;}
+.t_count_val{width: 130px; height: 30px; background-color: #C41E1E; float: right; text-align: center; font-size: 14px; line-height: 30px; color: white; font-weight: bold;}
+.count_list{width: 480px;}
+.count_list li{width: 100%; height: 25px; border-bottom: 1px #EEEEEE solid; border-top: 1px #EEEEEE solid; line-height: 25px; padding: 5px 0 5px 100px;}
+.count_name{ width: 180px; height: 25px; float: left;}
+.count_val{ width: 80px; height: 25px; float: right; color: #c41e1e;}
+.count_btn{width: 160px; height: 32px; float: right; padding-top: 20px;}
+.count_apply{ width: 60px; height: 20px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px; float: left; margin-right: 10px ;}
+.count_record{ width: 60px; height: 20px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px; float: left;}
+
+/*seting*/
+.main_setting{ width: 80%; margin: 80px auto; height: 100%;}
+.set_left{ width: 300px; float: left;}
+.set_left li{width: 300px; height: 58px; font-size: 14px; line-height: 50px;  text-align: center;}
+.set_right{ float: left; padding: 60px 0px 0px 180px;}
+.set_icon{ width: 100px;text-align: center; position: relative; left: 50px;}
+.set_form{ padding-top: 20px;}
+.save_set{ width: 60px; height: 20px; margin: 10px 0px 0px 100px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px;}
+.set_bind{ float: left;}
+.set_bind ul{ float: left;}
+.set_bind li{ width: 100px; float: left;}
+.save_bind{ width: 60px; height: 20px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px; float: left;}
+.bind_pic{ height: 80px;}
+.add_class{ background-color: white;}
+.no_click{ background-color: #F0F0F0;}
+.all_display {display: none;}
+
+/*relation*/
+.main_relation{padding-top: 140px; padding-left: 100px; width: 450px; font-size: 14px; margin: 0px auto; height: 100%; border: 1px #EEEEEE solid;}
+.relation_title{ width: 400px; height:36px; border-bottom: 1px #EEEEEE solid; padding-left: 40px;}
+.mrelation{ font-size: 16px; color: black; width: 200px; height: 36px; float: left;}
+.mrelation_t{ font-size: 16px; width: 200px; height: 16px; font-weight: 300; line-height: 10px; position: relative; top: -10px; padding-left: 20px;}
+.t_relation_val{width: 100px; height: 30px;float: right; text-align: center; font-size: 14px; line-height: 30px; font-weight: bold;}
+.relation_list{width: 280px;}
+.relation_list li{width: 100%; font-size: 14px; background-image: url(../img/friends.png); background-position-x: 40px; border-bottom: 1px #EEEEEE solid; border-top: 1px #EEEEEE solid; line-height: 25px; padding: 10px 0px 0px 100px;}
+.relation_name{ width: 100px; height: 25px; float: left; color: #c41e1e;}
+.relation_val{ width: 80px; height: 25px; float: right; color: #c41e1e;}
+.relation_btn{width: 100px; height: 32px; float: right; padding-top: 20px;}
+.relation_apply{ width: 60px; height: 20px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px; float: left; margin-right: 10px ;}
+.relation_record{ width: 60px; height: 20px; background-color: #F4F4F4; border: 1px #C8C8C8 solid; text-align: center; line-height: 20px; float: left;}
+.member{ width: 430px; position: relative;left:-100px;}
+.rel_list{ height: 25px;}
+.rel_list div { font-size: 14px; font-weight: bold;}
+.member li{ background-image: none; padding: 0px; margin: 0px; background-color: #CCCCCC; color: white; font-size: 14px; font-weight: bold;text-indent: 120px;}
+.rel_dis{ display: none;}
+
+
+

@@ -1,0 +1,41 @@
+<%= form_for @session, :html => { :class => "form-horizontal session" } do |f| %>
+
+    <% if @session.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@session.errors.count, "error") %> prohibited this session from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @session.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :用户名, :class => 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag :username, nil, :class => 'form-control' %>
+    </div>
+    <%= error_span(@session[:username]) %>
+  </div>
+
+  <div class="control-group">
+    <%=  f.label :密码, :class => 'control-label' %>
+    <div class="controls">
+      <%= password_field_tag :password, nil, :class => 'form-control' %>
+    </div>
+    <%= error_span(@session[:username]) %>
+  </div>
+<br>
+
+  <%= f.submit '登录', :class => 'btn btn-primary' %>
+  <%= link_to("使用第三方账号登录", '', :class => 'btn btn-primary') %> 
+
+<% end %>
+
+
+

@@ -1,0 +1,23 @@
+<div class="main_login">
+      <div class="writen">
+        <%= form_for @session do |f| %>
+          账号：<%= text_field_tag :username, nil, placeholder: '邮箱／手机号／用户名' %><br/><br/>
+          密码：<%= password_field_tag :password, nil, placeholder: '请输入您的密码' %><br/>
+          <div class="is_remm">
+            <input type="checkbox" name="remem" id="remem" value="" /><span class="rememed">下次自动登入</span>
+            <span class="forgot"><a href="#">忘记密码</a></span></div>
+           
+             <%= f.submit '登录', :class => 'submit' %>
+           
+           
+        <% end %>
+        <div id="third">使用第三方平台登入</div>
+        <div class="third_pic">
+        <div class="row">
+          <div class="col-md-2"><a href="#"><%= image_tag 'qq.png', alt:"使用QQ号登录", width:"31", height:"33" %></a></div>
+          <div class="col-md-2"><a href="#"><%= image_tag 'weixin.png', alt:"使用陌陌号登录", width:"31", height:"33" %></a></div>
+          <div class="col-md-2"><a href="#"><%= image_tag 'weixin3.png', alt:"使用微信号登录", width:"31", height:"33" %></a></div>
+          <div class="col-md-2"><a href="#"><%= image_tag 'weibo.png', alt:"使用微博号登录", width:"31", height:"33" %></a></div>
+        </div>
+      </div>
+</div>

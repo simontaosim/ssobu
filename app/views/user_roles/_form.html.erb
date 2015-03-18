@@ -1,0 +1,38 @@
+<%= form_for @user_role, :html => { :class => "form-horizontal user_role" } do |f| %>
+
+    <% if @user_role.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@user_role.errors.count, "error") %> prohibited this user_role from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @user_role.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :user_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :user_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@user_role[:user_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :role_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :role_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@user_role[:role_id]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            user_roles_path, :class => 'btn btn-default' %>
+
+<% end %>

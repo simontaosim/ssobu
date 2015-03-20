@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+  <!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -13,6 +13,7 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= stylesheet_link_tag "bootstrap_and_overrides", :media => "all" %>
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
@@ -38,55 +39,45 @@
   </head>
   <body>
 
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container-fluid">
-       <a class="navbar-brand" href="<%=root_path %>" style="color:white;">Uboss</a> 
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Uboss</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "立刻赚钱", root_path  %></li>
-            <li><%= link_to "玩法", root_path  %></li>
-            <li><%= link_to "下载app", root_path  %></li>
+            <li><%= link_to "Link1", "/path1"  %></li>
+            <li><%= link_to "Link2", "/path2"  %></li>
+            <li><%= link_to "Link3", "/path3"  %></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-        <li><a href="<%= new_session_path %>">登录</a></li>
-        <% if session[:progress_id] %>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">个人中心 <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">我的账户</a></li>
-            <li><a href="#">我的产品</a></li>
-            <li class="divider"></li>
-            <li><%= link_to '安全注销',
-                      session_path(Session.find(session[:progress_id])),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => '确实要退出吗?') } %></li>
-          </ul>
-        </li>
-        <% else %>
-          <li><a href="<%= users_new_register_path %>">注册</a></li>
-        <% end %>
-      </ul>
         </div>
-        
       </div>
     </div>
 
     <div class="container">
-    
-    
-       <p class="alert"><%= alert %></p>
       <div class="row">
-        <div>
+        <div class="col-lg-9">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
+        <div class="col-lg-3">
+          <div class="well sidebar-nav">
+            <h3>Sidebar</h3>
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+              <li><%= link_to "Link1", "/path1"  %></li>
+              <li><%= link_to "Link2", "/path2"  %></li>
+              <li><%= link_to "Link3", "/path3"  %></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
       </div><!--/row-->
 
       <footer>
-
-      <div class="container" style="text-align:center;">
-      <hr> 
-      <p>&copy; 深圳市优易创网络发展有限公司 2015</p></div>
+        <p>&copy; Company 2015</p>
       </footer>
 
     </div> <!-- /container -->

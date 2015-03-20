@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  resources :products
+
+  get 'personal/index'
+
+  get 'personal/my_account'
+
+  get 'personal/myorder'
+
+  get 'personal/account_setting'
+
   resources :user_roles
 
   resources :roles

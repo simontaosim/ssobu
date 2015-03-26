@@ -12,3 +12,50 @@
  *
 
  */
+.login_div{
+            width: 365px;
+            height: 395px;
+            margin: auto;
+            margin-top: 40px;
+            background-color: #fff;
+            border:solid 1px #ddd;
+            border-width: 1px;
+            border-radius: 4px 4px 0 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        .group_top{
+            margin-top: 60px;
+        }
+        .form-control{
+            width: 90%;
+        }
+        .form-horizontal .form-group {
+            margin-top: 30px;
+        }
+        .forget_pwd{
+            padding-top: 7px;
+        }
+        .sub_sty{
+            width: 90%;
+        }
+        .bottom_div{
+            width: 100%;height: 56px;background-color: #1ab99b;position: fixed;bottom: 0;
+            line-height: 56px;text-align: center;color: #ffffff;font-size: 22px;
+        }
+        .span{
+            background-color: #ff453a;
+            padding: 7px 7px 7px 9px;
+            margin-left: -29px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            position: absolute;
+             display: none;
+
+        }
+        .span:before{
+            content: "\25c0";
+            margin-left: -18px;
+            color:#ff453a ;
+        }

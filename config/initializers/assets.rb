@@ -12,3 +12,5 @@ Rails.application.config.assets.version = '1.0'
  Rails.application.config.assets.precompile += %w( bootstrap.js )
  Rails.application.config.assets.precompile += %w( lightgreen.css )
  Rails.application.config.assets.precompile += %w( bootstrap_and_overrides.css )
+ Rails.application.config.assets.precompile += %w( personal.css )
+ 

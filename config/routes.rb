@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
+
+  get 'mobile_texts/send_sms'
+  post 'mobile_texts/send_sms'
+  resources :mobile_texts
+
   resources :products
+
+  
+
+
 
   get 'personal/index'
 

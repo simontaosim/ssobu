@@ -1,29 +1,132 @@
-<div class="main_login">
-      <div class="writen">
-        <%= form_for @session do |f| %>
-          账号：<%= text_field_tag :username, nil, placeholder: '邮箱／手机号／用户名' %><br/><br/>
-          密码：<%= password_field_tag :password, nil, placeholder: '请输入您的密码' %><br/>
-          <div class="is_remm">
-            <input type="checkbox" name="remem" id="remem" value="" /><span class="rememed">下次自动登入</span>
-            <span class="forgot"><a href="#">忘记密码</a></span></div>
-           
-             <%= f.submit '登录', :class => 'submit' %>
-           
-           
-        <% end %>
-        <div id="third">使用第三方平台登入</div>
-        <div class="third_pic">
-        <div class="row">
-          <div class="col-md-2"><a href="#"><%= image_tag 'qq.png', alt:"使用QQ号登录", width:"31", height:"33" %></a></div>
-          <div class="col-md-2"><a href="#"><%= image_tag 'weixin.png', alt:"使用陌陌号登录", width:"31", height:"33" %></a></div>
-          <div class="col-md-2"><a href="#"><%= image_tag 'weixin3.png', alt:"使用微信号登录", width:"31", height:"33" %></a></div>
-          <div class="col-md-2"><a href="#"><%= image_tag 'weibo.png', alt:"使用微博号登录", width:"31", height:"33" %></a></div>
+<div class="container-fluid" style="min-height: 100%;height: 100%">
+    <div class="col-sm-12">
+        <div class="login_div bs-example">
+            <%= form_for @session, :html => { :class => "form-horizontal group_top" } do |f|  %>
+                <div class="form-group">
+                    <label for="inputuser" class="col-sm-3 control-label">用户名</label>
+                    <div class="col-sm-9" style="position: relative">
+                    <%= text_field_tag :username, nil, :class => "form-control" , id: "inputuser", placeholder: "用户名", onblur: "login_user()", onkeydown: "hide_name_span()" %>
+                    </div>
+                    <span class="span name_span">用户名不能为空，长度为3-8个字符</span>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-3 control-label">密码</label>
+                    <div class="col-sm-9">
+                    <%= password_field_tag :password, nil, :class => "form-control", id: "inputPassword", placeholder: "请输入密码", onblur: "login_pwd()", onkeydown: "hide_pwd_span()"  %>
+                    </div>
+                    <span class="span pwd_span">密码不能为空，长度为3-8个字符</span>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-5">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox">下次记住我
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 forget_pwd">
+                        <a href="">忘记密码</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-default sub_sty">登录</button>
+                    </div>
+                </div>
+
+           <% end %>
+            <div>
+                <label class="col-sm-6 control-label" style="">使用第三方平台登入:</label>
+            </div>
+            <!--<input tabindex="0" id="qwe" class="form-control col-sm-3" role="button" data-toggle="popover" data-trigger="focus"  data-content="用户名不能为空，长度为5-10个字符">-->
         </div>
-      </div>
+    </div>
+</div>
+
 </div>
 <script>
-  $(document).ready(function($) {
-    $("#login_nav").addClass('markup');
-    
-  });
+    $("#tab_login").ready(function($) {
+          $(this).addClass('active');
+          $(this).click(function(event) {
+            $(this).addClass('active');
+          });
+        });
+    $(function(){
+        $("title").html('登录uboss');
+        $(".nav li").removeClass('active');
+        $("#inputuser").focus(function(){
+            $(".name_span").show();
+            $(".name_span").html("用户名不能为空，长度为3-8个字符");
+
+        })
+        $("#inputPassword").focus(function(){
+            $(".pwd_span").show();
+            $(".pwd_span").html("用户名不能为空，长度为3-8个字符");
+
+        });
+
+
+    });
+    function login_user(){
+        var input1 = $("#inputuser").val();
+            if(null == input1 || "" == input1){
+                //判断用户名是否为空
+                $(".name_span").html("用户名不能为空");
+                $(".name_span").show();
+                return false;
+            }else{
+                var str = /^[\u4e00-\u9fa5A-Za-z0-9\-\_\*]{5,}$/;
+                if(!str.test(input1)){
+                 //如果不满足正则表达式
+                    $(".name_span").html("用户名不能为空，长度为3-8个字符");
+                    $(".name_span").show();
+                    return false;
+                }else{
+                //满足规则
+                    $(".name_span").html("用户名不能为空，长度为3-8个字符");
+                    $(".name_span").hide();
+                    return true;
+                }
+            }
+    }
+    function hide_name_span(){
+        $(".name_span").hide();
+    }
+    function hide_pwd_span(){
+        $(".pwd_span").hide();
+    }
+    function login_pwd(){
+        var input2 = $("#inputPassword").val();
+        if(null == input2 || "" == input2){
+            //判断用户名是否为空
+            $(".pwd_span").html("密码不能为空");
+            $(".pwd_span").show();
+            return false;
+        }else{
+            var str = /^[\u4e00-\u9fa5A-Za-z0-9\-\_\*]{5,}$/;
+            if(!str.test(input2)){
+                //如果不满足正则表达式
+                $(".pwd_span").html("密码不能为空，长度为3-8个字符");
+                $(".pwd_span").show();
+                return false;
+            }else{
+                //满足规则
+                $(".pwd_span").html("密码不能为空，长度为3-8个字符");
+                $(".pwd_span").hide();
+                return true;
+            }
+        }
+    }
+    function validateAll(){
+        var flag = true;
+        if(login_user() && login_pwd()){
+            flag = true;
+        }else{
+            alert("你输入的用户名或则密码有问题")
+            return flag;
+        }
+    }
+
+
 </script>
+

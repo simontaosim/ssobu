@@ -25,6 +25,8 @@ gem 'weixin_rails_middleware'
 
 gem 'devise'
 
+gem 'rails_kindeditor'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

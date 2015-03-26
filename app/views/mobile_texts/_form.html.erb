@@ -1,0 +1,61 @@
+<%= form_tag('http://222.185.228.25:8000/msm/sdk/http/sendsmsutf8.jsp') do  %>
+  <% if @mobile_text.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mobile_text.errors.count, "error") %> prohibited this mobile_text from being saved:</h2>
+
+      <ul>
+      <% @mobile_text.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag :username %><br>
+    <%= text_field_tag :username %>
+  </div>
+  <div class="field">
+    <%= label_tag :scode %><br>
+    <%= text_field_tag :scode %>
+  </div>
+  <div class="field">
+    <%= label_tag :mobile %><br>
+    <%= text_field_tag :mobile %>
+  </div>
+  <div class="field">
+    <%= label_tag :content %><br>
+    <%= text_field_tag :content %>
+  </div>
+  <div class="field">
+    <%= label_tag :extcode %><br>
+    <%= text_field_tag :extcode %>
+  </div>
+  <div class="field">
+    <%= label_tag :sendtime %><br>
+    <%= text_field_tag :sendtime %>
+  </div>
+  <div class="field">
+    <%= label_tag :msgid %><br>
+    <% msgid_to_send = @mobile_text._id.to_s
+       msgid_to_send[0,8] = '' 
+     %>
+    <%= text_field_tag :msgid, msgid_to_send %>
+  </div>
+  <div class="field">
+    <%= label_tag :msgtype %><br>
+    <%= text_field_tag :msgtype %>
+  </div>
+  <div class="field">
+    <%= label_tag :signtag %><br>
+    <%= text_field_tag :signtag %>
+  </div>
+  <div class="field">
+    <%= label_tag :temid %><br>
+    <%= text_field_tag :temid %>
+  </div>
+  <div class="actions">
+    <%= submit_tag %>
+  </div>
+<% end %>
+<br><br>

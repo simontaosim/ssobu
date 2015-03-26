@@ -29,14 +29,9 @@ class SessionsController < ApplicationController
     @session = Session.new
     @session.username = session_params[:username]
     respond_to do |format|
-      if session[:username] then
-      format.html { redirect_to root_url, notice: '您已经登陆啦！如需要切换账号，请先注销！' }
-      format.json { render :show, status: :created, location: @session }
-     else
-      session[:username] = @session.username
-      session[:progress_id] = @session._id.to_s
-     end
       if @session.save
+        session[:username] = @session.username
+        session[:progress_id] = @session._id.to_s
         format.html { redirect_to @session, notice: 'Session was successfully created.' }
         format.json { render :show, status: :created, location: @session }
       else
@@ -66,7 +61,7 @@ class SessionsController < ApplicationController
     @session.destroy
     session[:progress_id] = nil
     session[:username] = nil
-    respond_to do |format|
+    respond_to do |format| 
       format.html { redirect_to root_url, notice: '客官慢走，下次再来啊！' }
       format.json { head :no_content }
     end

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Uboss" %></title>
+    <title>uboss<% if @article %><%= @article.title %><% end %></title>
     <%= csrf_meta_tags %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -46,41 +46,49 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Uboss</a>
+        <a class="navbar-brand" href="<%= root_url %>">Uboss</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Link1", "/path1"  %></li>
-            <li><%= link_to "Link2", "/path2"  %></li>
-            <li><%= link_to "Link3", "/path3"  %></li>
-          </ul>
+                    <li class="active"><a href="<%= root_url %>">首页</a></li>
+                    <li><%= link_to '立刻挣钱', article_path(Article.where(:title => '立刻挣钱').first) %></li>
+                    <li><a href="">玩法介绍</a></li>
+                    <li><a href="">下载APP</a></li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                <li><a href=""><%= session[:username] %></a></li>
+                    <% if session[:username] %>
+                     <li id="tab_login">
+                    <%= link_to "退出账号",
+                      session_path(Session.find(session[:progress_id])),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }  %>
+                      </li>
+                    <li><a href="<%= personal_index_path %>">个人中心</a></li>
+                    <% else %>
+                    <li id="tab_login"><a href="<%= new_session_path %>">登陆</a></li>
+                    <li><a href="<%= users_new_register_path %>">注册</a></li>
+                    <% end %>
+                    
+                </ul>
         </div>
       </div>
     </div>
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-12">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
-        <div class="col-lg-3">
-          <div class="well sidebar-nav">
-            <h3>Sidebar</h3>
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
+        
       </div><!--/row-->
 
-      <footer>
-        <p>&copy; Company 2015</p>
-      </footer>
+      
 
     </div> <!-- /container -->
+    <div class="bottom_div">@深圳市优易创网诺有限公司</div>
 
   </body>
-</html>
+  </html>

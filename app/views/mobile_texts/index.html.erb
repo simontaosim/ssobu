@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Mobile Texts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Scode</th>
+      <th>Mobile</th>
+      <th>Content</th>
+      <th>Extcode</th>
+      <th>Sendtime</th>
+      <th>Msgid</th>
+      <th>Msgtype</th>
+      <th>Signtag</th>
+      <th>Temid</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mobile_texts.each do |mobile_text| %>
+      <tr>
+        <td><%= mobile_text.username %></td>
+        <td><%= mobile_text.scode %></td>
+        <td><%= mobile_text.mobile %></td>
+        <td><%= mobile_text.content %></td>
+        <td><%= mobile_text.extcode %></td>
+        <td><%= mobile_text.sendtime %></td>
+        <td><%= mobile_text.msgid %></td>
+        <td><%= mobile_text.msgtype %></td>
+        <td><%= mobile_text.signtag %></td>
+        <td><%= mobile_text.temid %></td>
+        <td><%= link_to 'Show', mobile_text %></td>
+        <td><%= link_to 'Edit', edit_mobile_text_path(mobile_text) %></td>
+        <td><%= link_to 'Destroy', mobile_text, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mobile text', new_mobile_text_path %>

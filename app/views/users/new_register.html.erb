@@ -1,5 +1,175 @@
-<%- model_class = User -%>
-<div class="page-header">
-  <h1>注册成为BOSS</h1>
+<div class="container-fluid" style="min-height: 100%;height: 100%">
+    <div class="col-sm-12">
+        <div class="login_div bs-example">
+        <%= form_for @user, url: users_register_path, :html => {:class => "form-horizontal group_top", :onsubmit => "return validateAll()" } do |f| %>
+           
+                <div class="form-group">
+                    <label for="inputuser" class="col-sm-3 control-label">用户名</label>
+                    <div class="col-sm-9" style="position: relative">
+                    <%= f.text_field :username, class: "form-control", id: "inputuser", placeholder: "用户名", onblur: "login_user()", onkeydown: "hide_name_span()"  %>
+
+                    </div>
+                    <span class="span name_span">用户名不能为空，长度为5-20个字符</span>
+                </div>
+                <div class="form-group">
+                    <label for="emai" class="col-sm-3 control-label">邮箱</label>
+                    <div class="col-sm-9" style="position: relative">
+                    <%= f.email_field :email, class: "form-control", id: "inputuser", placeholder: "请输入正确邮箱格式", onblur: "login_email", onkeydown: "hide_email_span" %>
+
+                    </div>
+                    <span class="span emai_span">邮箱不能以 - _ .以及其它特殊字符开头和结束</span>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-3 control-label">密码</label>
+                    <div class="col-sm-9">
+                    <%= f.password_field :password, class: "form-control", id: "inputPassword", placeholder: "请输入密码", onblur: "login_pwd()", onkeydown: "hide_pwd_span()" %>
+                       
+                    </div>
+                    <span class="span pwd_span">用户名不能为空，长度为5-20个字符</span>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword2" class="col-sm-3 control-label">确认密码</label>
+                    <div class="col-sm-9">
+                    <%= f.password_field :password_confirm, class: "form-control", id: "inputPassword2", placeholder: "确认密码", onblur: "login_pwd2()" %>
+                    </div>
+                    <span class="span pwd2_span">用户名不能为空，长度为5-20个字符</span>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-default sub_sty">登录</button>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-5">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox">服务协议
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+           <% end %>
+
+
+        </div>
+    </div>
 </div>
-<%= render :partial => 'form_register' %>
+<script>
+    $(function(){
+        $("#inputuser").focus(function(){
+            $(".name_span").show();
+            $(".name_span").html("用户名不能为空，长度为5-20个字符");
+
+        })
+        $("#inputPassword").focus(function(){
+            $(".pwd_span").show();
+            $(".pwd_span").html("用户名不能为空，长度为5-20个字符");
+
+        })
+        $("#emai").focus(function(){
+            $(".emai_span").show();
+            $(".emai_span").html("邮箱不能以 - _ .以及其它特殊字符开头和结束");
+
+        })
+
+
+    })
+    function login_user(){
+        var input1 = $("#inputuser").val();
+            if(null == input1 || "" == input1){
+                //判断用户名是否为空
+                $(".name_span").html("用户名不能为空");
+                $(".name_span").show();
+                return false;
+            }else{
+                var str = /^[\u4e00-\u9fa5A-Za-z0-9\-\_\*]{5,20}$/;
+                if(!str.test(input1)){
+                 //如果不满足正则表达式
+                    $(".name_span").html("用户名不能为空，长度为5-20个字符");
+                    $(".name_span").show();
+                    return false;
+                }else{
+                //满足规则
+                    $(".name_span").html("用户名不能为空，长度为5-20个字符");
+                    $(".name_span").hide();
+                    return true;
+                }
+            }
+    }
+    function hide_name_span(){
+        $(".name_span").hide();
+    }
+    function hide_pwd_span(){
+        $(".pwd_span").hide();
+    }
+    function hide_email_span(){
+        $(".emai_span").hide();
+    }
+    function login_pwd(){
+        var input2 = $("#inputPassword").val();
+        if(null == input2 || "" == input2){
+            //判断用户名是否为空
+            $(".pwd_span").html("密码不能为空");
+            $(".pwd_span").show();
+            return false;
+        }else{
+            var str = /^[\u4e00-\u9fa5A-Za-z0-9\-\_\*]{5,20}$/;
+            if(!str.test(input2)){
+                //如果不满足正则表达式
+                $(".pwd_span").html("密码不能为空，长度为5-20个字符");
+                $(".pwd_span").show();
+                return false;
+            }else{
+                //满足规则
+                $(".pwd_span").html("密码不能为空，长度为5-20个字符");
+                $(".pwd_span").hide();
+                return true;
+            }
+        }
+    }
+    function login_pwd2(){
+        var pwd1= $("#inputPassword").val();
+        var pwd2= $("#inputPassword2").val();
+        if(pwd1!=pwd2){
+            $(".pwd2_span").html("2个密码输入不一致")
+            return false
+        }else{
+            return true
+        }
+    }
+
+
+function login_email(){
+    var emal = $("#emai").val();
+    if(null == emal || "" == emal){
+        //判断用户名是否为空
+        $(".emai_span").html("邮箱不能为空");
+        $(".emai_span").show();
+        return false;
+    }else{
+        var str = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+        if(!str.test(emal)){
+            //如果不满足正则表达式
+            $(".emai_span").html("邮箱格式有误");
+            $(".emai_span").show();
+            return false;
+        }else{
+            //满足规则
+            $(".emai_span").html("邮箱不能以 - _ .以及其它特殊字符开头和结束");
+            $(".emai_span").hide();
+            return true;
+        }
+    }
+    }
+    function validateAll(){
+        var flag = true;
+        if(login_user() && login_email() && login_pwd() && login_pwd2()){
+            flag = true;
+        }else{
+            alert("你输入的相关信息有问题")
+            return flag;
+        }
+    }
+</script>

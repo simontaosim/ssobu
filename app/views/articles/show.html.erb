@@ -1,19 +1,27 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Article -%>
+<div class="page-header">
+</div>
+  <dd><%= @article.content.html_safe %></dd>
+  
 
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
 
-<p>
-  <strong>Content:</strong>
-  <%= @article.content %>
-</p>
+<% if session[:username] %>
+  
 
-<p>
-  <strong>Comment:</strong>
-  <%= @article.comment %>
-</p>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              articles_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_article_path(@article), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              article_path(@article),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+<% end  %>
+<script type="text/javascript">
+  $(function(){
+    
+  });
+</script>
+<br><br><br><br>

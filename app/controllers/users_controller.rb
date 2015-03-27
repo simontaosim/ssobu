@@ -44,6 +44,7 @@ class UsersController < ApplicationController
 
   def register
     @user = User.new(user_register_params)
+    @user.encrypt_password = @user.md5(user_register_params[:password])
     respond_to do |format|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
       if @user.save
         format.html { redirect_to new_session_path, notice: '注册成功啦！请登录试试吧' }

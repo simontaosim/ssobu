@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'mobile_view/index'
+
+  get 'mobile_view/login'
+
+  get 'mobile_view/regist'
+
   get 'mobile_texts/send_sms'
   post 'mobile_texts/send_sms'
   resources :mobile_texts

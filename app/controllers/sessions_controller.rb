@@ -28,17 +28,28 @@ class SessionsController < ApplicationController
   def create
     @session = Session.new
     @session.username = session_params[:username]
-    respond_to do |format|
-      if @session.save
-        session[:username] = @session.username
-        session[:progress_id] = @session._id.to_s
-        format.html { redirect_to @session, notice: 'Session was successfully created.' }
-        format.json { render :show, status: :created, location: @session }
+    @user = User.where(:username => @session.username).first
+    if @user
+      @user = @user.auth(params[:password])
+      if @user
+        respond_to do |format|
+          if @session.save
+            session[:username] = @session.username
+            session[:progress_id] = @session._id.to_s
+            format.html { redirect_to @session, notice: 'Session was successfully created.' }
+            format.json { render :show, status: :created, location: @session }
+          else
+            format.html { render :new }
+            format.json { render json: @session.errors, status: :unprocessable_entity }
+          end
+        end
       else
-        format.html { render :new }
-        format.json { render json: @session.errors, status: :unprocessable_entity }
+        render json: '密码错误'
       end
+    else
+      render json: '用户名不存在'
     end
+    
   end
 
   # PATCH/PUT /sessions/1

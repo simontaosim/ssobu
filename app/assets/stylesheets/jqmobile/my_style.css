@@ -1,0 +1,156 @@
+/*#afui.android {*/
+    /*background-color: white;*/
+    /*color: black;*/
+/*}*/
+/*#afui.android .button{*/
+    /*color: #000;*/
+    /*background-color: #eee;*/
+/*}*/
+/*#afui.android input{*/
+    /*color:black;*/
+/*}*/
+ /*input{*/
+    /*color:black;*/
+/*}*/
+/*#afui.android .header {*/
+    /*background: inherit;*/
+    /*color: inherit;*/
+    /*border-color: white;*/
+/*}*/
+/*#afui .header {*/
+    /*background: white;*/
+    /*border: none;*/
+    /*border-bottom: 1px solid white;*/
+    /*color: white;*/
+/*}*/
+#afui .formGroupHead{
+    margin-top: 50px;
+}
+#afui input[type="radio"] + label, #afui input[type="checkbox"] + label {
+    width: 45%;
+    float: left;
+    margin-left: 30px;
+}
+.a_zuce{
+    float: right;
+    padding: 10px;
+    text-decoration: none;
+    color: blue;
+}
+.login_button{
+    width: 100%;
+}
+#afui footer>a:not(.button){
+    width: 23%;
+}
+.user_img{
+    position: absolute;
+    left: 50%;
+    margin-left: -30px;
+}
+.user_center_div{
+    position: absolute;top:120px;width: 190px;
+    left:50%;margin-left: -95px;
+    padding: 10px;
+    border:solid 1px #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.user_info{
+    /*margin-top:70px;*/
+    display: inline-block;
+    line-height: 1.5;
+
+}
+.user_info a{
+    text-decoration: none;
+}
+.user_info2{
+    margin-top: 15px;
+}
+.user_info3{
+    margin-top: 15px;
+}
+.span_left{
+    margin-left: 14px;
+}
+.login_div{
+    margin-top: 10px;
+
+}
+.left_div{border: solid 1px rgb(201, 197, 197);line-height: 2.4;}
+.left_span{margin-left: 100px}
+.hide_div{
+    display: none;
+}
+.active .hide_div{
+    display:block;
+}
+.do_div{
+    border-top:none;
+}
+.do_div .hide_div{
+    background-color: #E0DCDC;
+}
+.title_ren{
+    background-color: #cdcdcd;
+	margin-top:50px;
+}
+.yongji_table{
+    width: 100%;
+    margin-top: 50px;
+    border: solid 1px #ddd;
+}
+.yongji_table tr th,td{text-align: center;padding-left:20px}
+.yongji_table tr{
+    height: 29px;
+}
+table{border-collapse:collapse; border-spacing:0;width: 100%}
+
+th{border-right:0; font-weight:bold;border-bottom:1px solid #d6dad0;}
+
+td{border-bottom:1px solid #d6dad0;word-wrap:break-word}
+.yongji_button1{float:left;margin-top: 20px;width:40%;height:45px}
+.yongji_button2{float:right;margin-top: 20px;width:40%;height:45px}
+.order_table tr td{
+    height: 40px;
+}
+.order_table tr th,td{
+    padding-left: 0px;
+}
+.order_table tr th, .order_td{
+    width:78px;
+}
+.img_center{
+    text-align: center;
+    margin-top: 50px;
+}
+.space_img{
+    margin-top: 20px;
+}
+.more_login{
+    margin-top: 50px;
+}
+.more_login a{display: inline-block;width: 23%;text-align: center}
+.tixian_mark tr th,td{text-align: center}
+.pwd_top{margin-top:20px}
+.bangding_img{
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+.bangding_img img{
+    margin-top: 20px;
+}
+.bangding_img a{
+    display:block;
+    width: 95%;
+    margin-top: 20px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border: solid 1px gray;
+}
+

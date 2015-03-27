@@ -8,8 +8,9 @@ class User
   field :username, type: String
   attr_accessor :password, :password_confirm
   field :encrypt_password, type: String
-
   validates :username, uniqueness: true
+  validates :username, presence: true
+  validates :email, presence: true
 
   def md5(pass)
    Digest::MD5.hexdigest(pass)

@@ -202,3 +202,12 @@ zh-CN:
       long: "%Y年%b%d日 %H:%M"
       short: "%b%d日 %H:%M"
     pm: 下午
+  user:
+    username: 用户名 
+    email: 邮箱
+    password: 密码
+    password_confirm: 密码确认
+    encrypt_password: 加密密码
+    third_party: 第三方账号
+    created_at: 创建于
+  Users: 用户

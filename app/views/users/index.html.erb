@@ -1,18 +1,18 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%=I18n.t(:Users) %></h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:third_party) %></th>
-      <th><%= model_class.human_attribute_name(:username) %></th>
-      <th><%= model_class.human_attribute_name(:password) %></th>
-      <th><%= model_class.human_attribute_name(:password_confirm) %></th>
-      <th><%= model_class.human_attribute_name(:encrypt_password) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(t("user.email")) %></th>
+      <th><%= model_class.human_attribute_name(t("user.third_party")) %></th>
+      <th><%= model_class.human_attribute_name(t("user.username")) %></th>
+      <th><%= model_class.human_attribute_name(t("user.password")) %></th>
+      <th><%= model_class.human_attribute_name(t("user.password_confirm")) %></th>
+      <th><%= model_class.human_attribute_name(t("user.encrypt_password")) %></th>
+      <th><%= model_class.human_attribute_name(t("user.created_at")) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -26,7 +26,7 @@
         <td><%= user.password %></td>
         <td><%= user.password_confirm %></td>
         <td><%= user.encrypt_password %></td>
-        <td><%= user.created_at %></td>
+        <td><%= I18n.l(user.created_at) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_path(user), :class => 'btn btn-default btn-xs' %>

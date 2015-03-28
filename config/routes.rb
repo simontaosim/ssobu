@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :orders
 
-  get 'mobile_view/index'
+  get 'mobile_view', to: 'mobile_view#index'
 
   get 'mobile_view/login'
 

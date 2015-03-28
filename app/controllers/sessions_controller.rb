@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   before_action :set_session, only: [:show, :edit, :update, :destroy]
-  #layout 'lightgreen'
+  layout 'application'
 
   # GET /sessions
   # GET /sessions.json

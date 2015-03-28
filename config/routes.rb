@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :orders
+
   get 'mobile_view/index'
 
   get 'mobile_view/login'
@@ -35,6 +37,18 @@ Rails.application.routes.draw do
   get 'users/new_register'
 
   post 'users/register'
+
+  get 'users/username_is_exist'
+
+  post 'users/username_is_exist'
+
+  get 'users/email_is_exist'
+
+  post 'users/email_is_exist'
+
+   get 'users/mobile_is_exist'
+
+  post 'users/mobile_is_exist'
 
   resources :nodes
 

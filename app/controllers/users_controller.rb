@@ -26,6 +26,34 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def username_is_exist
+     user = User.where(username: params[:username]).first
+     if user
+        render json: 0
+     else
+        render json: 1
+     end
+     
+  end
+
+  def email_is_exist
+      user = User.where(email: params[:email]).first
+     if user
+        render json: 0
+     else
+        render json: 1
+     end
+  end
+
+  def mobile_is_exist
+      user = User.where(mobile: params[:mobile]).first
+     if user
+        render json: 0
+     else
+        render json: 1
+     end
+  end
+
   # POST /users
   # POST /users.json
   def create

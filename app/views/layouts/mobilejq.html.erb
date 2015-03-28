@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>手机Uboss页面</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= stylesheet_link_tag "jqmobile/af.ui.css", :media => "all" %>
+    <%= stylesheet_link_tag "jqmobile/icons.css", :media => "all" %>
+    <%= stylesheet_link_tag "jqmobile/my_style.css", :media => "all" %>
+    <%= javascript_include_tag "jqmobile/jq.appframework.min.js" %>
+    <%= javascript_include_tag "jqmobile/appframework.min.js" %>
+    <%= javascript_include_tag "jqmobile/appframework.ui.min.js" %>
+    <%= javascript_include_tag "application" %>
+</head>
+<body>
+     <div id="afui">
+             <!--header头部属于导航栏固定于整个应用的顶部-->
+             <div id="header">
+                 <h1>Uboss</h1>
+             </div>
+             <!--content内容区则用于承载应用的不同页面-->
+             <div id="content">
+                 <div  id="main" class="panel" selected="true">
+                     <img class="user_img" src="img/icon.png" height="60" width="60" style="margin-top:50px">
+                     <div class="user_center_div">
+                     <div class="user_info">
+                         <span>账户名:</span><span>阿加明</span>
+                         <br>
+                         <span>ID信息:</span><span>121212</span>
+                         <br>
+                         <a href="">修改资料</a>
+                     </div>
+                     <div class="user_info2">
+                         <span>营业额：</span>
+                         <span>9999999</span>
+                     </div>
+                     <div class="user_info3">
+                         <span>佣</span><span class="span_left">金：</span>
+                         <span>9999999</span>
+                     </div>
+                     </div>
+                 </div>
+
+                 <div id="ShakePanel"  class="panel" >
+                     <div class="login_div bor_sty">
+                         <div class="left_div title_ren">我的人脉 <span class="left_span">10人</span></div>
+                         <div class="left_div do_div">
+                             <div>一级会员 <span class="left_span">10人</span></div>
+                             <div class="hide_div">
+                                 <div class="" >阿斯达</div>
+                                 <div class="">请问</div>
+                             </div>
+                         </div>
+                         <div class="left_div do_div">
+                             <div>二级会员 <span class="left_span">10人</span></div>
+                             <div class="hide_div">
+                                 <div class="" >阿斯达</div>
+                                 <div class="">请问</div>
+                             </div>
+                         </div>
+                         <div class="left_div do_div">
+                             <div>三级会员 <span class="left_span">10人</span></div>
+                             <div class="hide_div">
+                                 <div class="" >阿斯达</div>
+                                 <div class="">请问</div>
+                             </div>
+                         </div>
+
+                     </div>
+                 </div>
+                 <div id="ShakePane2" class="panel">sdfsdf</div>
+                 <div id="ShakePane3" class="panel">sdfsdf</div>
+             </div>
+             <!--footer底部区则属于标签栏固定于整个应用的底部，用户可以通过点击不同的标签到达不同的页面。-->
+
+
+             <div id="navbar">
+                 <!--<a href="#main" id='navbar_home' class='icon home pressed'>home</a>-->
+                 <!--<a href="#ShakePanel" id='navbar_shake' class='icon location'>Shake</a>-->
+                 <a class="icon home pressed" href="#main">我的账户</a>
+                 <a class="icon settings" href="#ShakePanel">我的人脉</a>
+                 <a class="icon bug" href="#ShakePane2">账户设置</a>
+                 <a class="icon info" href="#ShakePane3">我的订单</a>
+             </div>
+
+        </div>
+ </body>
+<script>
+    $(function(){
+        $(".do_div").click(function(){
+            $('.do_div').removeClass('active');
+            $(this).addClass("active");
+        })
+    })
+</script>
+</html>

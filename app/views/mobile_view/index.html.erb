@@ -1,2 +1,6 @@
-<h1>MobileView#index</h1>
-<p>Find me in app/views/mobile_view/index.html.erb</p>
+<% if session[:user_agent].include?('iPhone') %>
+<h1>哈哈，我是iPhone</h1>
+<% end %>
+<% if session[:user_agent].include?('Android') %>
+<h1>哈哈，我是Andriod</h1>
+<% end %>

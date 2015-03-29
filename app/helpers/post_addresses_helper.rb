@@ -1,0 +1,2 @@
+module PostAddressesHelper
+end

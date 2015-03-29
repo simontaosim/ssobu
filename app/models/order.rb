@@ -1,4 +1,5 @@
 class Order
   include Mongoid::Document
-  embedded_in :user
+  belongs :user
+  belongs :post_address
 end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  planet_id: 
+  country_id: 
+  province_id: 
+  city_id: 
+  area_id: 
+
+two:
+  planet_id: 
+  country_id: 
+  province_id: 
+  city_id: 
+  area_id: 

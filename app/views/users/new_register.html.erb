@@ -1,6 +1,7 @@
+<%= javascript_include_tag "jquery.md5.js" %>
 <div class="container-fluid" style="min-height: 100%;height: 100%">
     <div class="col-sm-14">
-        <div class="login_div bs-example">
+        <div class="register_div login_register_div bs-example">
         <%= form_for @user, url: users_register_path, :html => {:class => "form-horizontal group_top", :onsubmit => "return validateAll()" } do |f| %>
            
                 <div class="form-group">
@@ -61,14 +62,14 @@
                     <div class="col-sm-offset-3 col-sm-5">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox">服务协议
+                                <input type="checkbox" id="checkbox_agree">服务协议
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-default sub_sty">注 册</button>
+                        <button type="submit" class="btn btn-default sub_sty" id="btn_register">注 册</button>
                     </div>
 
                 </div>
@@ -108,45 +109,41 @@
         email: '请输入正确的邮箱'
     };
 
-    var num = 4;
+    var num = 5;
 
     var tipsDiv = {};
 
     var validate = {};
 
-    var btnSubmit;
+    var btnRegister;
+    var checkboxAgree;
 
     $(function(){
         tipsDiv['username'] = $(".tips_username");
         tipsDiv['email'] = $(".tips_email");
         tipsDiv['pwd'] = $(".tips_pwd");
         tipsDiv['pwd2'] = $(".tips_pwd2");
-        btnSubmit = $(".sub_sty");
+        btnRegister = $("#btn_register");
+        checkboxAgree = $("#checkbox_agree");
+        validate["agree"] = checkboxAgree.prop('checked');
         checkAllAndSetButton();
+        checkboxAgree.change(checkBoxOnChange);
     });
 
     var pwd = "";
+    var pwd2 = "";
+
+    function checkBoxOnChange(){
+        validate["agree"] = checkboxAgree.prop('checked');
+        checkAllAndSetButton();
+    }
 
     function checkOnBlur(e){
         var jqElement = $(e);
         var value = jqElement.val();
         var type = jqElement.attr("inputtype");
-        if (type == "pwd"){
-            pwd = value;
-        }
-
-        //确认密码为空时
-        if (type == "pwd2"){
-            if (value != pwd){
-                tryShowTips(blurErrorTips, type);
-                validate[type] = false;
-                return;
-            }
-            hideTips(type);
-            validate[type] = true;
-            checkAllAndSetButton();
-            return;
-        }
+        pwd = (type == "pwd") ? value : pwd;
+        pwd2 = (type == "pwd2") ? value : pwd2;
 
         //输入为空时
         if (isInputEmpty(value)){
@@ -162,6 +159,12 @@
             return;
         }
 
+        if (type == "pwd" || type == "pwd2"){
+            if (!checkPwdEquals()){
+                return;
+            }    
+        }
+
         hideTips(type);
         validate[type] = true;
         checkAllAndSetButton();
@@ -172,9 +175,8 @@
         var jqElement = $(e);
         var value = jqElement.val();
         var type = jqElement.attr("inputtype");
-        if (type == "pwd"){
-            pwd = value;
-        }
+        pwd = (type == "pwd") ? value : pwd;
+        pwd2 = (type == "pwd2") ? value : pwd2;
 
         if (isInputEmpty(value)){
             tryShowTips(emptyTips, type);
@@ -189,29 +191,50 @@
             return;
         }
 
+        //确认密码
+        if (type == "pwd" || type == "pwd2"){
+            if (!checkPwdEquals()){
+                checkAllAndSetButton();
+                return;
+            }    
+        }
+        
+
         hideTips(type);
         validate[type] = true;
         checkAllAndSetButton();
         return;
     }
 
+    function checkPwdEquals(){        
+        if (pwd != pwd2 && pwd2 != ""){
+            tryShowTips(inputErrorTips, "pwd2");
+            validate["pwd2"] = false;
+            return false;
+        }
+        hideTips("pwd2");
+        validate["pwd2"] = true;
+        return true;
+    }
+
     function checkAllAndSetButton(){
         if (isAllLegal()){
-            btnSubmit.removeAttr("disabled");
+            btnRegister.removeAttr("disabled");
             return;
         }
-        btnSubmit.attr({"disabled":"disabled"});
+        btnRegister.attr({"disabled":"disabled"});
     }
 
     function isAllLegal(){
-        if (validate.length < num || validate == undefined)
-        {
-            return false;
-        }
+        var count = 0;
         for (eachVal in validate){
-            if (!eachVal){
+            if (validate[eachVal] != true){
                 return false;
             }
+            count++;
+        }
+        if (count < num){
+            return false;
         }
         return true;
     }
@@ -221,7 +244,10 @@
     }
 
     function isInputLegal(value, type){
-        return rules[type].test(value);
+        if (rules[type] != null){
+            return rules[type].test(value);
+        }
+        return true;
     }
 
     function tryShowTips(tips, type){

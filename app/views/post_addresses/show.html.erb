@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Planet:</strong>
+  <%= @post_address.planet %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @post_address.country %>
+</p>
+
+<p>
+  <strong>Province:</strong>
+  <%= @post_address.province %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @post_address.city %>
+</p>
+
+<p>
+  <strong>Area:</strong>
+  <%= @post_address.area %>
+</p>
+
+<%= link_to 'Edit', edit_post_address_path(@post_address) %> |
+<%= link_to 'Back', post_addresses_path %>

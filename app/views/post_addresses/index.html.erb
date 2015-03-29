@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Post Addresses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Planet</th>
+      <th>Country</th>
+      <th>Province</th>
+      <th>City</th>
+      <th>Area</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @post_addresses.each do |post_address| %>
+      <tr>
+        <td><%= post_address.planet %></td>
+        <td><%= post_address.country %></td>
+        <td><%= post_address.province %></td>
+        <td><%= post_address.city %></td>
+        <td><%= post_address.area %></td>
+        <td><%= link_to 'Show', post_address %></td>
+        <td><%= link_to 'Edit', edit_post_address_path(post_address) %></td>
+        <td><%= link_to 'Destroy', post_address, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post address', new_post_address_path %>

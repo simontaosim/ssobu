@@ -10,7 +10,8 @@
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
     <![endif]-->
-
+    
+    
     <link rel="stylesheet" href="http://cdn.bootcss.com/pure/0.6.0/base-min.css">
     <link rel="stylesheet" href="http://cdn.bootcss.com/pure/0.6.0/base-context-min.css">
     <link rel="stylesheet" href="http://cdn.bootcss.com/pure/0.6.0/pure-min.css">
@@ -37,19 +38,51 @@
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+    <style>
+    #footer .nav_cust div:last-child{
+      width: 24%;
+    text-align: center;
+    font-size: 60%;
+    font-weight: bolder;
+    border-right: none;
+    letter-spacing:1px;
+    color: white; 
+    }
+    </style>
 	</head>
 	<body>
-    
+  <div id="footer">
+    <div class="nav_cust pure-g">
+        <div class="pure-u-1-4"><a class="nav_item" style="color:#FFFFFB; text-decoration:none;" href="<%= root_url %>" >
+            <span id="icon1">&nbsp; &nbsp;&nbsp;</span><br>
+            <span>主页</span>
+            </a></div>
+        <div class="pure-u-1-4"><a class="nav_item" href="#">
+            <span id="icon2">&nbsp; &nbsp;&nbsp;</span><br>
+            <span>成为BOSS</span>
+        </div>
+        <div class="pure-u-1-4"><a class="nav_item" href="#">
+            <span id="icon3">&nbsp; &nbsp;&nbsp;</span><br>
+            <span>BOSS学堂</span>
+        </a>
+        </div>
+        <div class="pure-u-1-4"><a class="nav_item" href="#">
+            <span id="icon4">&nbsp; &nbsp;&nbsp;</span><br>
+            <span>关于</span>
+        </a>
+        </div>
+    </div>
+</div>    
+ 
           <%= yield %>
-<div>© 深圳市优易创网络发展有限公司 2015</div>
-<div class="footer">
-    <div class="nav_cust pure-g pure-menu pure-menu-open pure-menu-horizontal">
-        <div class="pure-u-1-4"><a href="#">主页</a></div>
-        <div class="pure-u-1-4"><a href="#">成为BOSS</a></div>
-        <div class="pure-u-1-4"><a href="#">UBOSS学堂</a></div>
-        <div class="pure-u-1-4 pure-menu-selected"><a href="#">关于</a></div>
-    </div>  
-</div>
+ <div class="copyright">
+    <hr style="width: 50%">
+ © 深圳市优易创网络发展有限公司 2015
+ <br><br><br>
+ <br><br><br>
+
+ </div>
+
    
 	</body>
 </html>

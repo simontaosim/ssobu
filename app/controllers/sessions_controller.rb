@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :set_session, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token, only: [:destroy, :create]
   layout 'application'
 
   # GET /sessions
@@ -21,6 +22,22 @@ class SessionsController < ApplicationController
 
   # GET /sessions/1/edit
   def edit
+  end
+
+  def auth_user_remote
+    @session = Session.new
+    @session.username = session_params[:username]
+    @user = User.where(:username => @session.username).first
+    if @user
+      password = @user.encrypt_password
+      if password == params[:password]
+        render json: 0
+      else
+        render json: 1
+      end
+    else
+      render json: 2
+    end
   end
 
   # POST /sessions

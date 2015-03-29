@@ -1,0 +1,58 @@
+#footer{
+	width: 100%;
+	position: fixed;
+	z-index: 500;
+	width: 100%;
+	height: auto;
+	bottom: 0%;
+	color: #FFFFFB;
+	border-top: outset 1px #FFFFFB;
+
+	
+}
+
+
+#footer .nav_cust div{
+	text-decoration: none;
+	width: 25%;
+	text-align: center;
+	font-size: 60%;
+	font-weight: bolder;
+	border-right: solid 1px #FFFFFF;
+	background-color: #1AB99B;
+	letter-spacing:1px;
+	color: #FFFFFB;
+
+	
+}
+#footer .nav_cust div a{
+	text-decoration: none;
+}
+#icon1{
+	background: url('index.png') no-repeat center; font-size: 59px;
+	background-size: 75% auto;
+}
+#icon2{
+	background: url('beBoss.png') no-repeat center; font-size: 59px;
+	background-size: 75% auto;
+}
+#icon3{
+	background: url('bossStudy.png') no-repeat center; font-size: 59px;
+	background-size: 75% auto;
+}
+#icon4{
+	background: url('aboutBoss.png') no-repeat center; font-size: 59px;
+	background-size: 75% auto;
+}
+
+.nav_item{
+	text-decoration: none;
+	text-indent: none;
+	text-align: center;
+	color: #FFFFFB;
+}
+
+.copyright{
+	text-align: center;
+}
+

@@ -7,6 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:order_id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:fnode) %></th>
       <th><%= model_class.human_attribute_name(:level) %></th>
@@ -19,10 +20,11 @@
       <tr>
         <td><%= link_to node.id, node_path(node) %></td>
         <td><%= node.user_id %></td>
+        <td><%= node.order_id %></td>
         <td><%= node.name %></td>
         <td><%= node.fnode %></td>
         <td><%= node.level %></td>
-        <td><%= node.created_at %></td>
+        <td><%=l node.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_node_path(node), :class => 'btn btn-default btn-xs' %>

@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+<style type="text/css">
+.fontColor{
+    color:#b5b5b5;
+    font-family:"Times New Roman";
+}
+</style>
+<%= image_tag 'first_banner.png', alt:"uboss" ,width: '100%' %>
+<div style="width:70%">
+    <ul style="list-style: none;" class="pure-menu-list fontColor">
+        <li class="">名 称: <%= @product.name %></li>
+        <li class="">
+            价 格:
+            <span style="text-decoration: line-through">
+                ￥<%= @product.origin_price %> </span> 
+                <span style="color:red">¥ <%= @product.price %></span></li>
+                <li class="">联 系:<%= @product.contract_person %></li>
+                <li class="">地 址:<%= @product.name %></li>
+                <li class="">运 费:¥ <%= @product.express_price %></li>
+                <li class="">数 量:
+                    <button class="pure-button pure-button-primary" onclick="subNum()" style="font-size: 70%;">-</button>
+                    <label id="num" style="color:black">  1  </label>
+                    <button class="pure-button pure-button-primary" onclick="addNum()" style="font-size: 70%;">+</button>
+                </li>
+                <li class=""><span style="color:red"><font style="color:#b5b5b5;">合 计:</font>¥ <label id="total"><%= @product.price %></label></span>
+                </li>
+            </ul>
+        </div>
+            <button class="pure-button pure-button-primary" onclick="settle()" style="font-size: 120%;">加入购物车</button>
+            <button class="pure-button pure-button-primary" onclick="settle()" style="font-size: 120%;">立即购买</button>
+        <script type="text/javascript">
+        var price = "<%= @product.price %>";
+        var totalDom = document.getElementById("total");
+        var numDom = document.getElementById("num");
+        var num = 1, total;
+
+    //增加数量
+    function addNum(){
+        num ++;
+        total = price*num*1.00;
+        totalDom.innerText = total.toFixed(2);
+        numDom.innerText = num;
+    }
+
+    //减少数量
+    function subNum(){
+        num --;
+        total = price*num*1.00;
+        if (0 == num){
+            num = 1;
+        }
+        totalDom.innerText = total.toFixed(2);;
+        numDom.innerText = num;
+    }
+
+    //结算
+    function settle(){
+
+    }
+
+    </script>

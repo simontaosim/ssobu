@@ -1,3 +1,340 @@
+<%= javascript_include_tag "md5.js" %>
 <link rel="stylesheet" href="http://cdn.bootcss.com/pure/0.5.0/forms-min.css">
-<h1>MobileView#regist</h1>
-<p>Find me in app/views/mobile_view/regist.html.erb</p>
+<style>
+	html,body{ margin:0px; height:100%;} 
+</style>
+<div style="position:relative; height:10%"></div>
+<div style="width:80%; padding:5% 10%; margin:0">
+	<div style="border:1px solid #9a9a9a; padding:5% 10%">
+		<div>
+			<form class="pure-form pure-g" id="registForm">
+
+
+				<div id="tips_username" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+				<div class="pure-u-1" style="padding:5% 0">
+					<div class="pure-u-1-7"></div>
+					<div class="pure-u-5-7">
+						<input id="username" type="text" 
+						placeholder="用户名(5～16个数字或字母)" class="pure-u-1" onblur="checkOnBlur(this)" onkeyup="checkOnKeyUp(this)">
+					</div>
+					<div class="pure-u-1-7"></div>    
+				</div>
+
+				<br/>
+				<br/>
+
+				<div id="tips_email" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+				<div class="pure-u-1" style="padding:5% 0">
+					<div class="pure-u-1-7"></div>
+					<div class="pure-u-5-7">
+						<input id="email" type="text" placeholder="邮箱" class="pure-u-1" onblur="checkOnBlur(this)" onkeyup="checkOnKeyUp(this)">
+					</div>
+					<div class="pure-u-1-7"></div>    
+				</div>
+
+				<br/>
+				<br/>
+
+				<div id="tips_pwd" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+				<div class="pure-u-1" style="padding:5% 0">
+					<div class="pure-u-1-7"></div>
+					<div class="pure-u-5-7">
+						<input id="pwd" type="password" placeholder="密码(8~20个数字和字母，必须包含数字和字母)" class="pure-u-1" onblur="checkOnBlur(this)" onkeyup="checkOnKeyUp(this)">
+					</div>
+					<div class="pure-u-1-7"></div>    
+				</div>
+
+				<br/>
+				<br/>
+
+				<div id="tips_pwd2" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+				<div class="pure-u-1" style="padding:5% 0">
+					<div class="pure-u-1-7"></div>
+					<div class="pure-u-5-7">
+						<input id="pwd2" type="password" placeholder="确认密码" class="pure-u-1" onblur="checkOnBlur(this)" onkeyup="checkOnKeyUp(this)">
+					</div>
+					<div class="pure-u-1-7"></div>    
+				</div>
+
+				<br/>
+				<div class="pure-u-1">
+					<input type="checkbox" id="checkbox_agree" onclick="onTouchAgree()">服务协议
+				</div>
+				<br/>
+
+				<div class="pure-u-1" style="padding:5% 0">
+					<div class="pure-u-1-7"></div>
+					<div class="pure-u-5-7">
+						<button id="btn_regist" type="submit" class="pure-button pure-u-1 pure-button-primary" onclick="registOnSubmit()">注 册</button>     
+					</div>
+					<div class="pure-u-1-7"></div>    
+				</div>
+
+				<br/>
+				<br/>
+
+				<div class="pure-u-1" >
+					<div class="pure-u-1-7"></div>
+					<div class="pure-u-5-7">
+						<label>已有账号？</label> <a href="">点我啊猪</a>  
+					</div>
+					<div class="pure-u-1-7"></div>    
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	var rules = {
+        username: /^[0-9A-Za-z]{5,16}$/, 
+        pwd: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, 
+        email: /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/
+    };
+
+    var inputErrorTips = {
+        username: '由5～16个数字或字母组成',
+        pwd: '由8～20个数字和字母组成，必须包含数字和字母',
+        pwd2: '两次密码输入不相符',
+        email: '请输入正确的邮箱'
+    };
+
+    var emptyTips = {
+        username: '用户名不能为空',
+        pwd: '密码不能为空',
+        email: '邮箱不能为空'
+    };
+
+    var blurErrorTips = {
+        username: '由5～26个数字或字母组成',
+        pwd: '由8～20个数字和字母组成，必须包含数字和字母',
+        pwd2: '两次密码输入不相符',
+        email: '邮箱格式不正确'
+    };
+
+    var existTips = {
+        username: '用户名已存在',
+        email: '邮箱已存在',
+        unknown: '未知错误'
+    };
+
+    var checkExistAddr = {
+        username: 'http://uboss.me/users/username_is_exist',
+        email: 'http://uboss.me/users/email_is_exist'
+    };
+
+    var form = {
+        username: '',
+        email: '',
+        pwd: '',
+        pwd2: ''
+    };
+
+    var num = 5;
+    var tipsDiv = {};
+    var validate = {};
+
+    var btnRegist;
+    var checkboxAgree;
+
+	window.onload = function(){
+		for (eachKey in form){
+			var tipsDivId = "tips_" + eachKey;
+			tipsDiv[eachKey] = document.getElementById(tipsDivId);
+		}
+		btnRegist = document.getElementById("btn_regist");
+		checkboxAgree = document.getElementById("checkbox_agree");
+		validate["agree"] = checkboxAgree.checked;
+		checkAllAndSetBtnRegist();
+	}
+
+	function checkOnBlur(e){
+        var value = e.value;
+        var type = e.id;
+
+        //输入为空时
+        if (isInputEmpty(value)){
+            tryShowTips(emptyTips, type);
+            validate[type] = false;
+            checkAllAndSetBtnRegist();
+            return;
+        }
+
+        //输入不合法时
+        if (!isInputLegal(value, type)){
+            tryShowTips(blurErrorTips, type);
+            validate[type] = false;
+            checkAllAndSetBtnRegist();
+            return;
+        }
+
+        hideTips(type);
+
+        switch (type)
+        {
+            case "username":
+            case "email":
+                form[type] = value;
+                if (checkExist(type)){
+                    checkAllAndSetBtnRegist();
+                    return;
+                }
+                break;
+            case "pwd":
+            case "pwd2":
+                form[type] = value;
+                if (!checkPwdEquals()){
+                    checkAllAndSetBtnRegist();
+                    return;
+                }
+                break;
+        }
+
+        hideTips(type);
+        validate[type] = true;
+        form[type] = value;
+        checkAllAndSetBtnRegist();
+        return;
+    }
+
+    function checkOnKeyUp(e){
+        var value = e.value;
+        var type = e.id;
+
+        //输入为空
+        if (isInputEmpty(value)){
+            tryShowTips(emptyTips, type);
+            validate[type] = false;
+            checkAllAndSetBtnRegist();
+            return;
+        }
+
+        //输入不合法时
+        if (!isInputLegal(value, type)){
+            tryShowTips(inputErrorTips, type);
+            validate[type] = false;
+            checkAllAndSetBtnRegist();
+            return;
+        }
+
+        //确认密码
+        if (type == "pwd" || type == "pwd2"){
+            form[type] = value;
+            if (!checkPwdEquals()){
+                checkAllAndSetBtnRegist();
+                return;
+            }    
+        }
+
+        hideTips(type);
+        validate[type] = true;
+        checkAllAndSetBtnRegist();
+        return;
+    }
+
+	function onTouchAgree(){
+		validate["agree"] = checkboxAgree.checked;
+		checkAllAndSetBtnRegist();
+	}
+
+	function checkExist(type){
+        btnRegist.innerHTML = '<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">';
+        btnRegist.style.padding = 7;
+        var validateResult = false;
+        var xmlhttp;		
+		var addr = checkExistAddr[type];
+		addr += "?" + type + "=" + form[type];
+		if (window.XMLHttpRequest){
+			// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		}
+		else {
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.open("GET",addr,false);
+		xmlhttp.send();
+		switch (eval(xmlhttp.responseText)){
+			case 0:
+				validate[type] = false;
+				tryShowTips(existTips, type);
+				validateResult = true;
+				break;
+			case 1:
+				validate[type] = true;
+				hideTips(type);
+				validateResult = false;
+				break;
+			default:
+				validate[type] = false;
+				tryShowTips(existTips, type, true);
+				validateResult = true;
+				break;
+		}
+		
+		btnRegist.innerHTML = "注 册";
+        btnRegist.style.padding = 7;
+        return validateResult;
+    }
+
+	function checkAllAndSetBtnRegist(){
+		if (isAllLegal()){
+			btnRegist.disabled = false;
+			return;
+		}
+		btnRegist.disabled = true;
+	}
+
+	function checkPwdEquals(){
+        if (form["pwd"] != form["pwd2"] && form["pwd2"] != ""){
+            tryShowTips(inputErrorTips, "pwd2");
+            validate["pwd2"] = false;
+            return false;
+        }
+        hideTips("pwd2");
+        validate["pwd2"] = true;
+        return true;
+    }
+
+    function isInputEmpty(value){
+
+        return value == null || value == "";
+    }
+
+    function isInputLegal(value, type){
+        if (rules[type] != null){
+            return rules[type].test(value);
+        }
+        return true;
+    }
+
+	function isAllLegal(){
+		var count = 0;
+        for (eachVal in validate){
+            if (validate[eachVal] != true){
+                return false;
+            }
+            count++;
+        }
+        if (count < num){
+            return false;
+        }
+        return true;
+	}
+
+	function tryShowTips(tips, type, isUnknown){
+		var tip = isUnknown ? "未知错误" : tips[type];
+        if (tips[type] != null){
+            tipsDiv[type].innerHTML = tip;
+            return;
+        }
+        hideTips(type);
+    }
+
+    function hideTips(type){
+        tipsDiv[type].innerHTML = "";
+    }
+
+    function registOnSubmit(){
+    	getElementById("registForm").submit();
+    }
+</script>

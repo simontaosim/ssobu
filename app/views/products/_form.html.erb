@@ -16,6 +16,20 @@
   <% end %>
 
   <div class="control-group">
+    <%= f.label :user_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :user_id, :class => 'form-control', value: session[:progress_id] %>
+    </div>
+    <%= error_span(@product[:user_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :post_address_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :post_address_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:post_address_id]) %>
+  </div>
+  <div class="control-group">
     <%= f.label :name, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :name, :class => 'form-control' %>
@@ -29,10 +43,45 @@
     </div>
     <%= error_span(@product[:price]) %>
   </div>
+  <div class="control-group">
+    <%= f.label :boss_price, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :boss_price, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:boss_price]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :origin_price, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :origin_price, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:origin_price]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :contract_person, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :contract_person, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:contract_person]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :express_price, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :express_price, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:express_price]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :address, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :address, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product[:address]) %>
+  </div>
 
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             products_path, :class => 'btn btn-default' %>
-
+<br><br><br><br><br>
 <% end %>

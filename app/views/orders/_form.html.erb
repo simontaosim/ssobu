@@ -1,21 +1,52 @@
-<%= form_for(@order) do |f| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+<%= form_for @order, :html => { :class => "form-horizontal order" } do |f| %>
 
-      <ul>
-      <% @order.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @order.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @order.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
+  <div class="control-group">
+    <%= f.label :user_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :user_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:user_id]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control-group">
+    <%= f.label :post_address_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :post_address_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:post_address_id]) %>
   </div>
+  <div class="control-group">
+    <%= f.label :massage, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :massage, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:massage]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :total_price, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :total_price, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:total_price]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            orders_path, :class => 'btn btn-default' %>
+
 <% end %>

@@ -1,10 +1,92 @@
+xq <%= javascript_include_tag "md5.js" %>
 <link rel="stylesheet" href="http://cdn.bootcss.com/pure/0.5.0/forms-min.css">
-<div style="width:100%; border:1px solid">
-	用户名<input type="text" name="" id=""></input>
-	<br/>
-	密 码<input type="text" name="" id=""></input>
-	<br/>
-	<a class="pure-button" href="#">A Pure Button</a>
-	<button class="pure-button">A Pure Button</button>
+<style>
+html,body{ margin:0px; height:100%;} 
+</style>
+<div style="position:relative; height:10%"></div>
+<div style="width:80%; padding:5% 10%; margin:0">
+<div style="border:1px solid #9a9a9a; padding:5% 10%">
+<div>
+<form class="pure-form pure-g">
+    <div class="pure-u-1" style="padding:5% 0">
+        <div class="pure-u-1-7"></div>
+        <div class="pure-u-5-7">
+            <input id="name" type="text" placeholder="用户名" class="pure-u-1">
+        </div>
+        <div class="pure-u-1-7"></div>    
+    </div>
 
+    <br/>
+    <br/>
+
+    <div class="pure-u-1" style="padding:5% 0">
+        <div class="pure-u-1-7"></div>
+        <div class="pure-u-5-7">
+            <input id="password" type="password" placeholder="密码" class="pure-u-1">
+        </div>
+        <div class="pure-u-1-7"></div>    
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="pure-u-1" style="padding:5% 0">
+        <div class="pure-u-1-7"></div>
+        <div class="pure-u-5-7">
+            <button type="button" class="pure-button pure-u-1 pure-button-primary" ontouchstart="loginOnSubmit()">登 录</button>     
+        </div>
+        <div class="pure-u-1-7"></div>    
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="pure-u-1" >
+        <div class="pure-u-1-7"></div>
+        <div class="pure-u-5-7">
+            <label>未注册？</label> <a href="">点我啊猪</a>  
+        </div>
+        <div class="pure-u-1-7"></div>    
+    </div>
+</form>
 </div>
+</div>
+</div>
+
+<script>
+function loginOnSubmit(){
+    //alert(123);
+	var xmlhttp;
+	var validateResult = false;
+    var username = document.getElementById('name').value;
+    var password = hex_md5(document.getElementById('password').value);
+	if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	} else {// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.open("GET","http://uboss.me/sessions/auth_user_remote?username="+username+"&password="+password,false);
+	xmlhttp.send();
+	switch (eval(xmlhttp.responseText)){
+        case 0:
+            validateResult = true;
+            break;
+        case 1:
+            alert("密码错误！");
+            validateResult = false;
+            break;
+        case 2:
+            alert("用户名不存在！");
+            validateResult = false;
+            break;
+        default:
+            validateResult = false;
+            break;
+    }
+    if (validateResult) {
+        location.assign("<%=mobile_view_show_product_path %>");
+        return false;
+    }
+    return false;
+}
+</script>

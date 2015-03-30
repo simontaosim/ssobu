@@ -3,5 +3,13 @@
 #
 # Examples:
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+  roles = Role.create([{ name: 'admin', ability: 0  }, { name: 'origin', ability: 3 }])
+  user = User.new
+  user.username = "simon"
+  user.encrypt_password = user.md5("simon123")
+  user.email = "xsqfeather@126.com"
+  user.mobile = "18820965455"
+  user.role = roles.first
+  user.save
+
+  

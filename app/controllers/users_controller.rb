@@ -1,7 +1,7 @@
 
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token, :only => :create
+  skip_before_filter :verify_authenticity_token, only: [:destroy, :create, :remote_register]
   #layout 'lightgreen'
   # GET /users
   # GET /users.json
@@ -82,6 +82,17 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def remote_register
+    @user = User.new(user_register_params)
+    @user.encrypt_password = @user.md5(user_register_params[:password]) 
+  
+      if @user.save
+        render json: 1
+      else
+        render json: 0
+      end
   end
 
   def personal_center

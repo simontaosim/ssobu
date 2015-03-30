@@ -1,5 +1,7 @@
 class Order
   include Mongoid::Document
-  belongs :user
-  belongs :post_address
+  belongs_to :user
+  belongs_to :post_address
+  field :massage, type: String
+  field :total_price, type: Float
 end

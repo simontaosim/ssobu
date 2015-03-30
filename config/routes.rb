@@ -1,5 +1,23 @@
 Rails.application.routes.draw do
 
+  get 'admin', to: 'admin#index'
+
+  get 'admin/product_admin'
+
+  get 'admin/users_admin'
+
+  get 'admin/order_admin'
+
+  get 'admin/address_admin'
+
+  get 'admin/role_admin'
+
+  get 'admin/node_admin'
+
+  resources :product_images
+
+  resources :product_lines
+
   resources :product_intros
 
   resources :post_addresses
@@ -17,6 +35,10 @@ Rails.application.routes.draw do
   resources :orders
 
   get 'sessions/auth_user_remote'
+
+  get 'mobile_view/show_product'
+
+  get 'mobile_view/dologin'
 
   get 'mobile_view', to: 'mobile_view#index'
 
@@ -45,6 +67,10 @@ Rails.application.routes.draw do
   resources :sessions
 
   resources :articles
+  
+  get 'users/remote_register'
+
+  post 'users/remote_register'
 
   get 'users/new_register'
 

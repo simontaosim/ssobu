@@ -6,8 +6,15 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:post_address_id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:price) %></th>
+      <th><%= model_class.human_attribute_name(:boss_price) %></th>
+      <th><%= model_class.human_attribute_name(:origin_price) %></th>
+      <th><%= model_class.human_attribute_name(:contract_person) %></th>
+      <th><%= model_class.human_attribute_name(:express_price) %></th>
+      <th><%= model_class.human_attribute_name(:address) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -16,8 +23,15 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= link_to product.id, product_path(product) %></td>
+        <td><%= product.user_id %></td>
+        <td><%= product.post_address_id %></td>
         <td><%= product.name %></td>
         <td><%= product.price %></td>
+        <td><%= product.boss_price %></td>
+        <td><%= product.origin_price %></td>
+        <td><%= product.contract_person %></td>
+        <td><%= product.express_price %></td>
+        <td><%= product.address %></td>
         <td><%=l product.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

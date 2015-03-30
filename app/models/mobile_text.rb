@@ -1,5 +1,6 @@
 class MobileText
   include Mongoid::Document
+  include Mongoid::Timestamps
   host = ''
   field :username, type: String
   field :scode, type: String

@@ -5,4 +5,6 @@ class PostAddress
   belongs_to :province
   belongs_to :city
   belongs_to :area
+  field :end_detail, type: String
+  field :whole_details, type: String
 end

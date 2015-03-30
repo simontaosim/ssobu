@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   def index
   	if session[:user_agent].include?('Android') || session[:user_agent].include?('iPhone') || session[:user_agent].include?('iPad')
   		respond_to do |format|
-        format.html { redirect_to mobile_view_path, notice: 'Session was successfully updated.' }
+        format.html { redirect_to mobile_view_path, notice: '' }
       end
   	end
   end

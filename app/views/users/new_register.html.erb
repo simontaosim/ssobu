@@ -2,7 +2,7 @@
 <div class="container-fluid" style="min-height: 100%;height: 100%">
     <div class="col-sm-14">
         <div class="register_div login_register_div bs-example">
-        <%= form_for @user, url: users_register_path, :html => {:class => "form-horizontal group_top", :onsubmit => "return validateAll()" } do |f| %>
+        <%= form_for @user, url: users_register_path, :html => {:class => "form-horizontal group_top", :onsubmit => "return registOnSubmit()" } do |f| %>
            
                 <div class="form-group">
                     <label for="input_username" class="col-sm-3 control-label">用户名</label>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-default sub_sty" id="btn_register">注 册</button>
+                        <button type="submit" class="btn btn-default sub_sty" id="btn_regist" style="height: 100%; padding: 7">注 册</button>
                     </div>
 
                 </div>
@@ -106,7 +106,25 @@
         username: '由5～26个数字或字母组成',
         pwd: '由8～20个数字和字母组成，必须包含数字和字母',
         pwd2: '两次密码输入不相符',
-        email: '请输入正确的邮箱'
+        email: '邮箱格式不正确'
+    };
+
+    var existTips = {
+        username: '用户名已存在',
+        email: '邮箱已存在',
+        unknown: '未知错误'
+    };
+
+    var checkExistAddr = {
+        username: 'http://uboss.me/users/username_is_exist',
+        email: 'http://uboss.me/users/email_is_exist'
+    };
+
+    var form = {
+        username: '',
+        email: '',
+        pwd: '',
+        pwd2: ''
     };
 
     var num = 5;
@@ -115,7 +133,7 @@
 
     var validate = {};
 
-    var btnRegister;
+    var btnRegist;
     var checkboxAgree;
 
     $(function(){
@@ -123,32 +141,28 @@
         tipsDiv['email'] = $(".tips_email");
         tipsDiv['pwd'] = $(".tips_pwd");
         tipsDiv['pwd2'] = $(".tips_pwd2");
-        btnRegister = $("#btn_register");
+        btnRegist = $("#btn_regist");
         checkboxAgree = $("#checkbox_agree");
         validate["agree"] = checkboxAgree.prop('checked');
-        checkAllAndSetButton();
+        checkAllAndSetBtnRegist();
         checkboxAgree.change(checkBoxOnChange);
     });
 
-    var pwd = "";
-    var pwd2 = "";
-
     function checkBoxOnChange(){
         validate["agree"] = checkboxAgree.prop('checked');
-        checkAllAndSetButton();
+        checkAllAndSetBtnRegist();
     }
 
     function checkOnBlur(e){
         var jqElement = $(e);
         var value = jqElement.val();
         var type = jqElement.attr("inputtype");
-        pwd = (type == "pwd") ? value : pwd;
-        pwd2 = (type == "pwd2") ? value : pwd2;
 
         //输入为空时
         if (isInputEmpty(value)){
             tryShowTips(emptyTips, type);
             validate[type] = false;
+            checkAllAndSetBtnRegist();
             return;
         }
 
@@ -156,18 +170,36 @@
         if (!isInputLegal(value, type)){
             tryShowTips(blurErrorTips, type);
             validate[type] = false;
+            checkAllAndSetBtnRegist();
             return;
         }
 
-        if (type == "pwd" || type == "pwd2"){
-            if (!checkPwdEquals()){
-                return;
-            }    
+        hideTips(type);
+
+        switch (type)
+        {
+            case "username":
+            case "email":
+                form[type] = value;
+                if (checkExist(type)){
+                    checkAllAndSetBtnRegist();
+                    return;
+                }
+                break;
+            case "pwd":
+            case "pwd2":
+                form[type] = value;
+                if (!checkPwdEquals()){
+                    checkAllAndSetBtnRegist();
+                    return;
+                }
+                break;
         }
 
         hideTips(type);
         validate[type] = true;
-        checkAllAndSetButton();
+        form[type] = value;
+        checkAllAndSetBtnRegist();
         return;
     }
 
@@ -175,12 +207,12 @@
         var jqElement = $(e);
         var value = jqElement.val();
         var type = jqElement.attr("inputtype");
-        pwd = (type == "pwd") ? value : pwd;
-        pwd2 = (type == "pwd2") ? value : pwd2;
 
+        //输入为空
         if (isInputEmpty(value)){
             tryShowTips(emptyTips, type);
             validate[type] = false;
+            checkAllAndSetBtnRegist();
             return;
         }
 
@@ -188,26 +220,64 @@
         if (!isInputLegal(value, type)){
             tryShowTips(inputErrorTips, type);
             validate[type] = false;
+            checkAllAndSetBtnRegist();
             return;
         }
 
         //确认密码
         if (type == "pwd" || type == "pwd2"){
+            form[type] = value;
             if (!checkPwdEquals()){
-                checkAllAndSetButton();
+                checkAllAndSetBtnRegist();
                 return;
             }    
         }
-        
 
         hideTips(type);
         validate[type] = true;
-        checkAllAndSetButton();
+        checkAllAndSetBtnRegist();
         return;
     }
 
-    function checkPwdEquals(){        
-        if (pwd != pwd2 && pwd2 != ""){
+    function checkExist(type){
+        btnRegist.html('<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">');
+        btnRegist.css("padding", 0);
+        var validateResult = false;
+        var checkData = {};
+        checkData[type] = form[type];
+        $.ajax({
+            type:'get', 
+            async:false, 
+            url:checkExistAddr[type],
+            data:checkData, 
+            success:function(data){
+                switch (eval(data)){
+                    case 0:
+                        validate[type] = false;
+                        tryShowTips(existTips, type);
+                        validateResult = true;
+                        break;
+                    case 1:
+                        validate[type] = true;
+                        hideTips(type);
+                        validateResult = false;
+                        break;
+                    default:
+                        validate[type] = false;
+                        tryShowTips(existTips, "unknown");
+                        validateResult = true;
+                        break;
+                }
+            }
+        });
+
+        btnRegist.html("注 册");
+        btnRegist.css("padding", 7);
+        return validateResult;
+    }
+
+    function checkPwdEquals(){
+        if (form["pwd"] != form["pwd2"] && form["pwd2"] != ""){
             tryShowTips(inputErrorTips, "pwd2");
             validate["pwd2"] = false;
             return false;
@@ -217,12 +287,12 @@
         return true;
     }
 
-    function checkAllAndSetButton(){
+    function checkAllAndSetBtnRegist(){
         if (isAllLegal()){
-            btnRegister.removeAttr("disabled");
+            btnRegist.disabled = false;
             return;
         }
-        btnRegister.attr({"disabled":"disabled"});
+        btnRegist.disabled = true;
     }
 
     function isAllLegal(){
@@ -263,7 +333,7 @@
         tipsDiv[type].hide();
     }
 
-    function validateAll(){
-        return true;
+    function registOnSubmit(){
+        return null;
     }
 </script>

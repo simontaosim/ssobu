@@ -1,8 +1,8 @@
 <%= javascript_include_tag "jquery.md5.js" %>
 <div class="container-fluid" style="min-height: 100%;height: 100%">
     <div class="col-sm-14">
-        <div class="login_div bs-example">
-            <%= form_for @session, :html => { :class => "form-horizontal group_top" } do |f|  %>
+        <div class="login_div login_register_div bs-example">
+            <%= form_for @session, :html => { :class => "form-horizontal group_top", :onsubmit => "return loginOnSubmit()" } do |f|  %>
                 <div class="form-group">
                     <label for="inputuser" class="col-sm-3 control-label">用户名</label>
                     <div class="col-sm-8" style="position: relative">
@@ -31,8 +31,9 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-default sub_sty" id="login">登 录</button>
-                    </div>
+                        <button type="submit" class="btn btn-default sub_sty" id="login_btn" style="height: 100%; padding: 7">
+                        登 录           
+                        </button>
                 </div>
 
            <% end %>
@@ -128,14 +129,42 @@
         }
     }
 
-    var content = document.querySelector("#login");
-    content.addEventListener("click", function(e){
-        $.ajax({type:'get',url:'http://uboss.me/sessions/auth_user_remote', data:{username:$('#inputuser').val(), password:$.md5($('#inputPassword').val())}, success:function(data){
-                if (data){
-
+    function loginOnSubmit(){
+        $("#login_btn").html('<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">');$("#login_btn").css("padding",0);
+        var validateResult = false;
+        $.ajax({
+            type:'get', 
+            async:false, 
+            url:'http://uboss.me/sessions/auth_user_remote', 
+            data:{
+                username:$('#inputuser').val(), 
+                password:$.md5($('#inputPassword').val())
+            }, 
+            success:function(data){
+                switch (eval(data)){
+                    case 0:
+                        validateResult = true;
+                        break;
+                    case 1:
+                        alert("密码错误！");
+                        validateResult = false;
+                        break;
+                    case 2:
+                        alert("用户名不存在！");
+                        validateResult = false;
+                        break;
+                    default:
+                        validateResult = false;
+                        break;
                 }
-        }})  
-    })
+
+            }
+        });
+        if (!validateResult){
+            $("#login_btn").html("登 录");$("#login_btn").css("padding",7);
+        }
+        return validateResult;
+    }
 
 </script>
 

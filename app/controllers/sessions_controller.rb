@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   before_action :set_session, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, only: [:destroy, :create]
-  layout 'application'
 
   # GET /sessions
   # GET /sessions.json
@@ -31,7 +30,13 @@ class SessionsController < ApplicationController
     if @user
       password = @user.encrypt_password
       if password == params[:password]
-        render json: 0
+          if @session.save
+            session[:username] = @session.username
+            session[:progress_id] = @session._id.to_s
+            render json: 0
+          else
+            render json: 5
+          end
       else
         render json: 1
       end
@@ -89,6 +94,7 @@ class SessionsController < ApplicationController
     @session.destroy
     session[:progress_id] = nil
     session[:username] = nil
+    reset_session
     respond_to do |format| 
       format.html { redirect_to root_url, notice: '客官慢走，下次再来啊！' }
       format.json { head :no_content }

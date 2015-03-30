@@ -1,0 +1,45 @@
+<%= form_for @product_line, :html => { :class => "form-horizontal product_line" } do |f| %>
+
+    <% if @product_line.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@product_line.errors.count, "error") %> prohibited this product_line from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @product_line.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :product_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :product_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product_line[:product_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :order_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :order_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product_line[:order_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :quantity, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :quantity, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product_line[:quantity]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            product_lines_path, :class => 'btn btn-default' %>
+
+<% end %>

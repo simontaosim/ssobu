@@ -1,17 +1,45 @@
-<%= form_for(@product_intro) do |f| %>
-  <% if @product_intro.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product_intro.errors.count, "error") %> prohibited this product_intro from being saved:</h2>
+<%= form_for @product_intro, :html => { :class => "form-horizontal product_intro" } do |f| %>
 
-      <ul>
-      <% @product_intro.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @product_intro.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@product_intro.errors.count, "error") %> prohibited this product_intro from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @product_intro.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control-group">
+    <%= f.label :product_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :product_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product_intro[:product_id]) %>
   </div>
+  <div class="control-group">
+    <%= f.label :promotion, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :promotion, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product_intro[:promotion]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :description, :class => 'form-control' %>
+    </div>
+    <%= error_span(@product_intro[:description]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            product_intros_path, :class => 'btn btn-default' %>
+
 <% end %>

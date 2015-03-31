@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :streets
+
+  resources :accounts
+
   get 'admin', to: 'admin#index'
 
   get 'admin/product_admin'
@@ -35,6 +39,10 @@ Rails.application.routes.draw do
   resources :orders
 
   get 'sessions/auth_user_remote'
+
+  get 'mobile_view/address_confirm'
+
+  post 'mobile_view/buy_where'
 
   get 'mobile_view/show_product'
 

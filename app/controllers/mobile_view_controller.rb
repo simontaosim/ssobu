@@ -1,8 +1,12 @@
 class MobileViewController < ApplicationController
   layout 'purestyle'
+  before_action :check_user_session, except: [:login, :regist, :index, :about_boss]
   #before_action :get_user_agent, only: [:index]
+  skip_before_filter :verify_authenticity_token, only: [:buy_where]
   def index
-
+      if params[:notice]
+        notice = params[:notice]
+      end
   end
 
   def login
@@ -34,12 +38,38 @@ class MobileViewController < ApplicationController
     end
   end
 
+  def buy_where
+    if params[:quantity] and params[:product_id]
+      @product_line = ProductLine.new
+      @product_line.quantity = params[:quantity]
+      @product_line.product_id = params[:product_id]
+        if @product_line.save
+          respond_to do |format|
+            format.html { redirect_to mobile_view_address_confirm_path, notice: '请确认订单'  }
+          end  
+        else
+          respond_to do |format|
+            format.html { render 'login', notice: '请先登录'  }
+          end  
+        end
+    end
+  end
+
+  def address_confirm
+    
+  end
+
   def regist
+    @user = User.new
   end
 
   def dologin
     
   end
+
+  def about_boss
+  end
+
   private
   
   def get_user_agent
@@ -50,6 +80,14 @@ class MobileViewController < ApplicationController
       end
     end#if
   end#get_user_agent
-
+  
+  def check_user_session
+    if session[:username]
+    else
+      respond_to do |format|
+        format.html { render 'login', notice: '请先登录'  }
+      end
+    end
+  end
 
 end

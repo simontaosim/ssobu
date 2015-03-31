@@ -1,4 +1,4 @@
-xq <%= javascript_include_tag "md5.js" %>
+<%= javascript_include_tag "md5.js" %>
 <link rel="stylesheet" href="http://cdn.bootcss.com/pure/0.5.0/forms-min.css">
 <style>
 html,body{ margin:0px; height:100%;} 
@@ -44,7 +44,7 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" >
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
-            <label>未注册？</label> <a href="">点我啊猪</a>  
+            <label>未注册？</label> <a href="<%= mobile_view_regist_path %>">点我啊猪</a>  
         </div>
         <div class="pure-u-1-7"></div>    
     </div>

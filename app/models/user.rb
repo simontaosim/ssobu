@@ -8,7 +8,7 @@ class User
   field :third_party, type: String
   field :username, type: String
   field :is_boss, type: Integer
-  attr_accessor :password, :password_confirm
+  attr_accessor :password, :password_confirm, :from_mobile
   field :encrypt_password, type: String
   validates :username, uniqueness: true
   validates :username, presence: true

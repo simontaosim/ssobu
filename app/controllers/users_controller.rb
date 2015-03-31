@@ -73,9 +73,15 @@ class UsersController < ApplicationController
 
   def register
     @user = User.new(user_register_params)
-    @user.encrypt_password = @user.md5(user_register_params[:password])
+    if user_register_params[:password]
+      @user.encrypt_password = @user.md5(user_register_params[:password])
+    end
+    @user.encrypt_password = user_register_params[:encrypt_password]
     respond_to do |format|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
       if @user.save
+        if user_register_params[:from_mobile]
+          format.html {redirect_to mobile_view_login_path, notice: '注册成功啦！请登录试试吧' }
+        end
         format.html { redirect_to new_session_path, notice: '注册成功啦！请登录试试吧' }
       else
         format.html { render :new }
@@ -135,6 +141,6 @@ class UsersController < ApplicationController
     end
 
      def user_register_params
-      params.require(:user).permit(:email, :third_party, :password, :password_confirm, :username)
+      params.require(:user).permit(:email, :third_party, :password, :password_confirm, :username,:from_mobile)
     end
 end

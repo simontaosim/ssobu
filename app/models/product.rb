@@ -8,6 +8,7 @@ class Product
   field :boss_price, type: Float
   field :origin_price, type: Float
   field :contract_person, type: String
+  field :contract_person_mobile, type: String
   field :express_price, type: String
   field :address, type: String
 end

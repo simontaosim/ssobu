@@ -1,39 +1,55 @@
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 <style type="text/css">
 .fontColor{
-    color:#b5b5b5;
+    color:#57403b;
     font-family:"Times New Roman";
 }
+.lipadding{
+    padding:2% 0;
+}
+.button-success {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: rgb(28, 184, 65); /* this is a green */
+}
 </style>
-<%= image_tag 'first_banner.png', alt:"uboss" ,width: '100%' %>
-<div style="width:70%">
+<%= image_tag 'laiber.jpg', alt:"uboss" ,width: '100%' %>
+<form method="POST" action="<%= mobile_view_buy_where_path %>">
+<div style="width:100%">
     <ul style="list-style: none;" class="pure-menu-list fontColor">
-        <li class="">名 称: <%= @product.name %></li>
-        <li class="">
+        <label hidden="true" name="product_id"><%= @product._id %></label>
+        <li class="lipadding" >名 称: <%= @product.name %></li>
+        <li class="lipadding" >
             价 格:
             <span style="text-decoration: line-through">
                 ￥<%= @product.origin_price %> </span> 
-                <span style="color:red">¥ <%= @product.price %></span></li>
-                <li class="">联 系:<%= @product.contract_person %></li>
-                <li class="">地 址:<%= @product.name %></li>
-                <li class="">运 费:¥ <%= @product.express_price %></li>
-                <li class="">数 量:
-                    <button class="pure-button pure-button-primary" onclick="subNum()" style="font-size: 70%;">-</button>
+                <span style="color:red;font-size: 120%;">¥ <%= @product.price %></span></li>
+                <li class="lipadding">联 系 人:<%= @product.contract_person %></li>
+                <li class="lipadding">地 址:<%= @product.name %></li>
+                <li class="lipadding">运 费:¥ <%= @product.express_price %></li>
+                <li class="lipadding">数 量:
+                    <button type="button" class="pure-button" onclick="subNum()" style="background: rgb(230, 230, 230);"><strong>-</strong></button>
                     <label id="num" style="color:black">  1  </label>
-                    <button class="pure-button pure-button-primary" onclick="addNum()" style="font-size: 70%;">+</button>
+                    <label id="num" style="color:black">  1  </label>
+                    <input type="hidden" name='quantity' value="" id="num_val" />
+                    <button type="button" class="pure-button" onclick="addNum()" style="font-size: 100%; background: rgb(230, 230, 230); font-weight:1000"><strong>+</strong></button>
                 </li>
-                <li class=""><span style="color:red"><font style="color:#b5b5b5;">合 计:</font>¥ <label id="total"><%= @product.price %></label></span>
+
+                <li class="lipadding"><span style="color:red"><font style="color:#57403b;">合 计:</font>¥ <label id="total" style="font-size: 150%;"><%= @product.price %></label></span>
                 </li>
             </ul>
         </div>
-            <button class="pure-button pure-button-primary" onclick="settle()" style="font-size: 120%;">加入购物车</button>
-            <button class="pure-button pure-button-primary" onclick="settle()" style="font-size: 120%;">立即购买</button>
-        <script type="text/javascript">
-        var price = "<%= @product.price %>";
-        var totalDom = document.getElementById("total");
-        var numDom = document.getElementById("num");
-        var num = 1, total;
-
+        <span style="padding:2% 2%"></span><span style="padding:2% 2%">
+        <button class="pure-button button-success" type="submit" style="font-size: 120%; padding:2% 2%" onsubmit="get_quantity_value()" >
+        立即结算
+        </button></span>
+        </form>
+<script type="text/javascript">
+var price = "<%= @product.price %>";
+var totalDom = document.getElementById("total");
+var numDom = document.getElementById("num");
+var num = 1, total;
     //增加数量
     function addNum(){
         num ++;
@@ -45,17 +61,17 @@
     //减少数量
     function subNum(){
         num --;
-        total = price*num*1.00;
         if (0 == num){
             num = 1;
         }
+        total = price*num*1.00;    
         totalDom.innerText = total.toFixed(2);;
         numDom.innerText = num;
     }
-
-    //结算
-    function settle(){
-
+    function get_quantity_value(){
+        quantity = document.getElementById("num");
+        quantity_to_submit = document.getElementById("num_val");        
+        quantity_to_submit.value = quantity.innerHtml
     }
 
     </script>

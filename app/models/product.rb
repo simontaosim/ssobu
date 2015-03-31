@@ -11,4 +11,5 @@ class Product
   field :contract_person_mobile, type: String
   field :express_price, type: String
   field :address, type: String
+  field :is_pass, type: String
 end

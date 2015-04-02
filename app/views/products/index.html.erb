@@ -26,7 +26,7 @@
         <td><%= product.user_id %></td>
         <td><%= product.post_address_id %></td>
         <td><%= product.name %></td>
-        <td><%= product.price %></td>
+        <td><%= format("%.2f",product.price.to_f) %></td>
         <td><%= product.boss_price %></td>
         <td><%= product.origin_price %></td>
         <td><%= product.contract_person %></td>

@@ -1,150 +1,195 @@
 <%= javascript_include_tag "md5.js" %>
 <link rel="stylesheet" href="http://cdn.bootcss.com/pure/0.5.0/forms-min.css">
 <style>
-	html,body{ margin:0px; height:100%;} 
+    html,body{ margin:0px; height:100%;} 
 </style>
-<div style="position:relative; height:10%"></div>
+
+<br/>
+
+<div style="text-align:center">
+    <%= image_tag 'uboss_logo_100x179.png', alt:"uboss", width: '20%' %>
+</div>
+
+<br/>
+
+<div style="margin:0 auto; text-align:center">
+    <div class="pure-menu pure-menu-horizontal">
+        <div class="pure-menu-item pure-menu-link" id="reg_1" onclick="change(1)" style="background-color:#1AB99B">邮箱注册</div>
+        <div class="pure-menu-item pure-menu-link" id="reg_2" onclick="change(2)">手机号快速注册</div>
+    </div>
+</div>
+
 <div style="width:80%; padding:5% 10%; margin:0">
-	<div style="border:1px solid #9a9a9a; padding:5% 10%">
-		<div>
-			<%= form_for @user, url: users_register_path, :html => {:class => "pure-form pure-g", :onsubmit => "return registOnSubmit()", :id => "registForm"} do |f| %>
+    <div style="border:1px solid #9a9a9a; padding:5% 10%">
+        <div>
+            <%= form_for @user, url: users_register_path, :html => {:class => "pure-form pure-g", :id => "registForm"} do |f| %>
+                    
+                    <div id="tips_username" class="pure-u-1" style="color: #ff0000; padding:0"></div>
+                    <div id="input_username" class="pure-u-1" style="padding:4% 0">
+                        <div class="pure-u-1-7"></div>
+                        <div class="pure-u-5-7">
+                            <%= f.text_field :username, 
+                                class: "pure-u-1", 
+                                id: "username",
+                                placeholder: "用户名(5～16个数字或字母)",
+                                onblur: 'checkOnBlur(this)', 
+                                onkeyup: 'checkOnKeyUp(this)'  %>
+                        </div>
+                        <div class="pure-u-1-7"></div>
+                    </div>
 
-				<div id="tips_username" class="pure-u-1" style="color: #ff0000; padding: 0; height: 0"></div>
-				<div class="pure-u-1" style="padding:5% 0">
-					<div class="pure-u-1-7"></div>
-					<div class="pure-u-5-7">
-						<%= f.text_field :username, 
-                        	class: "pure-u-1", 
-                         	id: "username",
-                        	placeholder: "用户名(5～16个数字或字母)", 
-                        	inputtype: "username",
-                        	onblur: 'checkOnBlur(this)', 
-                        	onkeyup: 'checkOnKeyUp(this)'  %>
-					</div>
-					<div class="pure-u-1-7"></div>    
-				</div>
+                    <div id="tips_email" class="for_email pure-u-1" style="color: #ff0000; padding:0"></div>
+                    <div id="input_email" class="for_email pure-u-1" style="padding:4% 0">
+                        <div class="pure-u-1-7"></div>
+                        <div class="pure-u-5-7">
+                            <%= f.email_field :email, 
+                                class: "pure-u-1", 
+                                id: "email",
+                                placeholder: "邮箱", 
+                                onblur: "checkOnBlur(this)", 
+                                onkeyup: "checkOnKeyUp(this)" %>
+                            </div>
+                        <div class="pure-u-1-7"></div>
+                    </div>
 
-				<div id="tips_email" class="pure-u-1" style="color: #ff0000; padding: 0; height: 0"></div>
-				<div class="pure-u-1" style="padding:5% 0">
-					<div class="pure-u-1-7"></div>
-					<div class="pure-u-5-7">
-						<%= f.email_field :email, 
-                        	class: "pure-u-1", 
-                        	id: "email",
-                        	placeholder: "邮箱", 
-                        	inputtype: "email",
-                        	onblur: "checkOnBlur(this)", 
-                        	onkeyup: "checkOnKeyUp(this)" %>
-					</div>
-					<div class="pure-u-1-7"></div>    
-				</div>
+                    <div id="tips_phone_num" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                    <div id="input_phone_num" class="pure-u-1" style="padding:4% 0">
+                        <div class="pure-u-1-7"></div>
+                        <div class="pure-u-5-7">
+                            <%= f.text_field :mobile, 
+                                class: "pure-u-1",
+                                id:"phone_num",
+                                placeholder:"手机号码" ,
+                                onblur: "checkOnBlur(this)", 
+                                onkeyup: "checkOnKeyUp(this)" %>
+                        </div>
+                        <div class="pure-u-1-7"></div>    
+                    </div>
 
-				<div id="tips_pwd" class="pure-u-1" style="color: #ff0000; padding: 0; height: 0"></div>
-				<div class="pure-u-1" style="padding:5% 0">
-					<div class="pure-u-1-7"></div>
-					<div class="pure-u-5-7">
-						<%= f.password_field :password, 
-                        	class: "pure-u-1", 
-                        	id: "pwd", 
-                        	placeholder: "密码(8~20个数字和字母，必须包含数字和字母)", 
-                        	inputtype: "pwd",
-                        	onblur: "checkOnBlur(this)", 
-                        	onkeyup: "checkOnKeyUp(this)" %>
-					</div>
-					<div class="pure-u-1-7"></div>    
-				</div>
+                    <div id="tips_verifycode" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                    <div id="input_verifycode" class="pure-u-1" style="padding:4% 0">
+                        <div class="pure-u-1-7"></div>
+                        <div class="pure-u-5-7">
+                            <div class="pure-u-1">
+                                <div class="pure-u-3-5">
+                                    <input class="pure-u-1" id="verifycode" placeholder="验证码" onblur="checkOnBlur(this)" onkeyup="checkOnKeyUp(this)" type="text">
+                                </div>
+                                <div class="pure-u-2-5" style="float:right">
+                                    <button id="btn_verifycode" type="button" class="pure-button pure-u-1 pure-button-primary" style="padding:10px">获取验证码</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pure-u-1-7"></div>    
+                    </div>
 
-				<div id="tips_pwd2" class="pure-u-1" style="color: #ff0000; padding: 0; height: 0"></div>
-				<div class="pure-u-1" style="padding:5% 0">
-					<div class="pure-u-1-7"></div>
-					<div class="pure-u-5-7">
-						<%= f.password_field :password_confirm, 
-                        	class: "pure-u-1", 
-                        	id: "pwd2", 
-                        	placeholder: "确认密码", 
-                        	inputtype: "pwd2",
-                        	onblur: "checkOnBlur(this)", 
-                        	onkeyup: "checkOnKeyUp(this)" %>
-					</div>
-					<div class="pure-u-1-7"></div>    
-				</div>
+                    <div id="tips_pwd" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                    <div id="input_pwd" class="pure-u-1" style="padding:4% 0">
+                        <div class="pure-u-1-7"></div>
+                        <div class="pure-u-5-7">
+                            <%= f.password_field :encrypt_password, 
+                                class: "pure-u-1", 
+                                id: "pwd", 
+                                placeholder: "密码(8~20个数字和字母，必须包含数字和字母)", 
+                                onblur: "checkOnBlur(this)", 
+                                onkeyup: "checkOnKeyUp(this)" %>
+                        </div>
+                        <div class="pure-u-1-7"></div>    
+                    </div>
 
-				<div class="pure-u-1">
-					<input type="checkbox" id="checkbox_agree" ontouchstart="onTouchAgree()">服务协议
-				</div>
+                    <div id="tips_pwd2" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                    <div id="input_pwd2" class="pure-u-1" style="padding:4%0">
+                        <div class="pure-u-1-7"></div>
+                        <div class="pure-u-5-7">
+                            <%= f.password_field :password_confirm, 
+                                class: "pure-u-1", 
+                                id: "pwd2", 
+                                placeholder: "确认密码",
+                                onblur: "checkOnBlur(this)", 
+                                onkeyup: "checkOnKeyUp(this)" %>
+                        </div>
+                        <div class="pure-u-1-7"></div>    
+                    </div>
 
-				<div class="pure-u-1" style="padding:5% 0">
-					<div class="pure-u-1-7"></div>
-					<div class="pure-u-5-7">
-						<button id="btn_regist" type="submit" class="pure-button pure-u-1 pure-button-primary" ontouchstart="registOnTouch()" style="padding:10px">注 册</button>     
-					</div>
-					<div class="pure-u-1-7"></div>    
-				</div>
+                <div class="pure-u-1" style="display:none">
+                <%= f.text_field :from_mobile, 
+                                class: "pure-u-1"%>
+                </div>
+                    
+                <div class="pure-u-1">
+                    <input type="checkbox" id="checkbox_agree" onchange="onChangeAgree()">服务协议
+                </div>
+
+                <div class="pure-u-1" style="padding:5% 0">
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <button id="btn_regist" type="button" class="pure-button pure-u-1 pure-button-primary" ontouchstart="registOnTouch()" style="padding:10px">注 册</button>     
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
 
 
-				<div class="pure-u-1" >
-					<div class="pure-u-1-7"></div>
-					<div class="pure-u-5-7">
-						<label>已有账号？</label> <a href="<%= mobile_view_login_path %>">点我啊猪</a>  
-					</div>
-					<div class="pure-u-1-7"></div>    
-				</div>
-				<%= f.text_field :from_mobile, 
-					class: "pure-u-1", 
-                    id: "pwd2", 
-                    placeholder: "确认密码", 
-                    inputtype: "pwd2",
-                    type: "hidden" %>
-				
-			<% end %>
-		</div>
-	</div>
+                <div class="pure-u-1" >
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <label>已有账号？</label> <a href="<%= mobile_view_login_path %>">点此登陆</a>  
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
+
+                
+            <% end %>
+        </div>
+    </div>
 </div>
 
 <script>
-	var rules = {
+    var rules = {
         username: /^[0-9A-Za-z]{5,16}$/, 
         pwd: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, 
-        email: /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/
+        email: /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/,
+        phone_num: /^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/
     };
 
-    var inputErrorTips = {
+    var errorTips = {
         username: '由5～16个数字或字母组成',
         pwd: '由8～20个数字和字母组成，必须包含数字和字母',
         pwd2: '两次密码输入不相符',
-        email: '请输入正确的邮箱'
+        email: '邮箱格式不正确',
+        phone_num: '请输入正确手机号',
     };
 
     var emptyTips = {
         username: '用户名不能为空',
         pwd: '密码不能为空',
-        email: '邮箱不能为空'
-    };
-
-    var blurErrorTips = {
-        username: '由5～26个数字或字母组成',
-        pwd: '由8～20个数字和字母组成，必须包含数字和字母',
-        pwd2: '两次密码输入不相符',
-        email: '邮箱格式不正确'
+        email: '邮箱不能为空',
+        phone_num: '手机号不能为空',
     };
 
     var existTips = {
         username: '用户名已存在',
         email: '邮箱已存在',
-        unknown: '未知错误'
+        unknown: '未知错误',
     };
 
     var checkExistAddr = {
         username: 'http://uboss.me/users/username_is_exist',
-        email: 'http://uboss.me/users/email_is_exist'
+        email: 'http://uboss.me/users/email_is_exist',
     };
 
     var form = {
         username: '',
         email: '',
         pwd: '',
-        pwd2: ''
+        pwd2: '',
+        phone_num: ''
     };
+
+    var tab0 = ["username", "email", "pwd", "pwd2", "agree"];
+    var tab1 = ["phone_num", "agree", "pwd", "pwd2"];
+
+    var forEmailDiv = ["input_username", "input_email", "tips_username", "tips_email"];
+    var forPhoneDiv = ["input_phone_num", "tips_phone_num", "tips_verifycode", "input_verifycode"];
+    var formDiv = {};
 
     var num = 5;
     var tipsDiv = {};
@@ -153,39 +198,43 @@
     var btnRegist;
     var checkboxAgree;
 
-	window.onload = function(){
-		for (eachKey in form){
-			var tipsDivId = "tips_" + eachKey;
-			tipsDiv[eachKey] = document.getElementById(tipsDivId);
-		}
-		btnRegist = document.getElementById("btn_regist");
-		checkboxAgree = document.getElementById("checkbox_agree");
-		validate["agree"] = checkboxAgree.checked;
-		checkAllAndSetBtnRegist();
-	}
+    window.onload = function(){
+        for (eachKey in form){
+            var tipsDivId = "tips_" + eachKey;
+            tipsDiv[eachKey] = document.getElementById(tipsDivId);
+            formDiv[eachKey] = document.getElementById(eachKey);
+        }
+        formDiv["agree"] = document.getElementById("checkbox_agree");
+        btnRegist = document.getElementById("btn_regist");
+        checkboxAgree = document.getElementById("checkbox_agree");
+        validate["agree"] = checkboxAgree.checked;
+        change(1);
 
-	function checkOnBlur(e){
+    }
+
+    function checkOnBlur(e){
         var value = e.value;
         var type = e.id;
 
         //输入为空时
         if (isInputEmpty(value)){
-            tryShowTips(emptyTips, type);
             validate[type] = false;
+            tryShowTips(emptyTips, type);
             checkAllAndSetBtnRegist();
             return;
         }
 
         //输入不合法时
         if (!isInputLegal(value, type)){
-            tryShowTips(blurErrorTips, type);
             validate[type] = false;
+            tryShowTips(errorTips, type);
             checkAllAndSetBtnRegist();
             return;
         }
 
-        hideTips(type);
         validate[type] = true;
+        hideTips(type);
+        
 
         switch (type)
         {
@@ -214,16 +263,16 @@
 
         //输入为空
         if (isInputEmpty(value)){
-            tryShowTips(emptyTips, type);
             validate[type] = false;
+            tryShowTips(emptyTips, type);
             checkAllAndSetBtnRegist();
             return;
         }
 
         //输入不合法时
         if (!isInputLegal(value, type)){
-            tryShowTips(inputErrorTips, type);
             validate[type] = false;
+            tryShowTips(errorTips, type);
             checkAllAndSetBtnRegist();
             return;
         }
@@ -237,75 +286,75 @@
             }    
         }
 
-        hideTips(type);
         validate[type] = true;
+        hideTips(type);
         checkAllAndSetBtnRegist();
         return;
     }
 
-	function onTouchAgree(){
-		validate["agree"] = checkboxAgree.checked;
-		checkAllAndSetBtnRegist();
-	}
+    function onChangeAgree(){
+        validate["agree"] = checkboxAgree.checked;
+        checkAllAndSetBtnRegist();
+    }
 
-	function checkExist(type){
+    function checkExist(type){
         btnRegist.innerHTML = '<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">';
         btnRegist.style.padding = 0;
         var validateResult = false;
-        var xmlhttp;		
-		var addr = checkExistAddr[type];
-		addr += "?" + type + "=" + form[type];
-		if (window.XMLHttpRequest){
-			// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp=new XMLHttpRequest();
-		}
-		else {
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlhttp.open("GET",addr);
-		xmlhttp.send();
-		xmlhttp.onreadystatechange = function() { 
-			if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) { 
-				switch (eval(xmlhttp.responseText)){
-					case 0:
-						validate[type] = false;
-						tryShowTips(existTips, type);
-						validateResult = true;
-						break;
-					case 1:
-						validate[type] = true;
-						hideTips(type);
-						validateResult = false;
-						break;
-					default:
-						validate[type] = false;
-						tryShowTips(existTips, type, true);
-						validateResult = true;
-						break;
-				}
-			}
-			else { 
-				validate[type] = false;
-				tryShowTips(existTips, type, true);
-				validateResult = true;
-			}
-			btnRegist.innerHTML = "注 册";
-        	btnRegist.style.padding = "10px";
-			checkAllAndSetBtnRegist();
-		}
+        var xmlhttp;        
+        var addr = checkExistAddr[type];
+        addr += "?" + type + "=" + form[type];
+        if (window.XMLHttpRequest){
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET",addr);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function() { 
+            if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) { 
+                switch (eval(xmlhttp.responseText)){
+                    case 0:
+                        validate[type] = false;
+                        tryShowTips(existTips, type);
+                        validateResult = true;
+                        break;
+                    case 1:
+                        validate[type] = true;
+                        hideTips(type);
+                        validateResult = false;
+                        break;
+                    default:
+                        validate[type] = false;
+                        tryShowTips(existTips, type, true);
+                        validateResult = true;
+                        break;
+                }
+            }
+            else { 
+                validate[type] = false;
+                tryShowTips(existTips, type, true);
+                validateResult = true;
+            }
+            btnRegist.innerHTML = "注 册";
+            btnRegist.style.padding = "10px";
+            checkAllAndSetBtnRegist();
+        }
     }
 
-	function checkAllAndSetBtnRegist(){
-		if (isAllLegal()){
-			btnRegist.disabled = false;
-			return;
-		}
-		btnRegist.disabled = true;
-	}
+    function checkAllAndSetBtnRegist(){
+        if (isAllLegal()){
+            btnRegist.disabled = false;
+            return;
+        }
+        btnRegist.disabled = true;
+    }
 
-	function checkPwdEquals(){
+    function checkPwdEquals(){
         if (form["pwd"] != form["pwd2"] && form["pwd2"] != ""){
-            tryShowTips(inputErrorTips, "pwd2");
+            tryShowTips(errorTips, "pwd2");
             validate["pwd2"] = false;
             return false;
         }
@@ -326,8 +375,8 @@
         return true;
     }
 
-	function isAllLegal(){
-		var count = 0;
+    function isAllLegal(){
+        var count = 0;
         for (eachVal in validate){
             if (validate[eachVal] != true){
                 return false;
@@ -338,10 +387,14 @@
             return false;
         }
         return true;
-	}
+    }
 
-	function tryShowTips(tips, type, isUnknown){
-		var tip = isUnknown ? "未知错误" : tips[type];
+    function tryShowTips(tips, type, isUnknown){
+        if (validate[type] == null){
+            hideTips(type);
+            return;
+        }
+        var tip = isUnknown ? "未知错误" : tips[type];
         if (tips[type] != null){
             tipsDiv[type].innerHTML = tip;
             return;
@@ -353,11 +406,64 @@
         tipsDiv[type].innerHTML = "";
     }
 
-    function registOnSubmit(){
-    	return true;
-    }
-
     function registOnTouch(){
-    	getElementById("registForm").submit();
+        if (btnRegist.disabled){
+            return;
+        }
+        var input_pwd = document.getElementById("pwd");
+        input_pwd.value = hex_md5(input_pwd.value);
+        var input_pwd2 = document.getElementById("pwd2");
+        input_pwd2.value = hex_md5(input_pwd2.value);
+        document.getElementById("registForm").submit();
+    }
+    function change(a){
+        var ph_reg = document.getElementById('ph_res');
+        var em_reg = document.getElementById('em_reg');
+        var reg_1 = document.getElementById('reg_1');
+        var reg_2 = document.getElementById('reg_2');
+        if (a == 1) {
+            for (eachKey in forEmailDiv){
+                document.getElementById(forEmailDiv[eachKey]).style.display = "block";
+            }
+            for (eachKey in forPhoneDiv){
+                document.getElementById(forPhoneDiv[eachKey]).style.display = "none";
+            }
+            reg_2.style.backgroundColor = "white";
+            reg_1.style.backgroundColor = "#1AB99B";
+
+            for (eachKey in form){
+                formDiv[eachKey].value = "";
+                form[eachKey] = "";
+                validate[eachKey] = true;
+            }
+            for (eachKey in tab0){
+                validate[tab0[eachKey]] = false;
+            }
+            formDiv["agree"].checked = false;
+            num = 5;
+            checkAllAndSetBtnRegist();
+
+        }else if(a == 2){
+            for (eachKey in forEmailDiv){
+                document.getElementById(forEmailDiv[eachKey]).style.display = "none";
+            }
+            for (eachKey in forPhoneDiv){
+                document.getElementById(forPhoneDiv[eachKey]).style.display = "block";
+            }
+            reg_1.style.backgroundColor = "white";
+            reg_2.style.backgroundColor = "#1AB99B";
+
+            for (eachKey in form){
+                formDiv[eachKey].value = "";
+                form[eachKey] = "";
+                validate[eachKey] = true;
+            }
+            for (eachKey in tab1){
+                validate[tab1[eachKey]] = false;
+            }
+            formDiv["agree"].checked = false;
+            num = 2;
+            checkAllAndSetBtnRegist();
+        };
     }
 </script>

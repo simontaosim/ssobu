@@ -21,9 +21,10 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'weixin_rails_middleware'
+gem 'weixin_rails_middleware', git: "https://github.com/lanrion/weixin_rails_middleware.git"
 
 gem 'rails_kindeditor'
+
 
 #gem 'community_engine', '~> 3.0.0'
 

@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="http://cdn.bootcss.com/pure/0.5.0/forms-min.css">
+<style>
+    html,body{ margin:0px; height:100%;} 
+</style>
+<div>
+    <div id="param_notice_type"><%= notice %></div>
+    
+</div>
+<div style="position:relative; height:10%"></div>
+<div style="width:80%; padding:5% 10%; margin:0">
+    <div style="border:1px solid #9a9a9a; padding:5% 10%">
+        <div>
+            <div class="pure-u-1" >
+                <div class="pure-u-1-7"></div>
+                <div class="pure-u-5-7">
+                    <label id="notice_content" style="font-size:15px; text-align:center"></label>
+                </div>
+                <div class="pure-u-1-7"></div>
+            </div>
+
+            <br/>
+
+            <div class="pure-u-1" id="notice_timeout">
+                <div class="pure-u-1-7"></div>
+                <div class="pure-u-5-7" style="font-size:15px; text-align:center">
+                    将在<font id="notice_timeout_value" color="#ff0000">5</font>秒后跳转<label id="notice_timeout_url_name"></label>
+                </div>
+                <div class="pure-u-1-7"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var notices = {
+        "on_product_apply": "恭喜您，您的申请已经提交成功。我们的工作人员将尽快与您联系，请耐心等待！",
+        "unknown_problem": "未知错误"
+    };
+
+    var noticeContent = document.getElementById('notice_content');
+    noticeContent.innerHtml = "HelloWorld";
+</script>

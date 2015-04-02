@@ -7,8 +7,8 @@ class Node
   field :name, type: String
   field :origin_node, type: String
   field :a_node, type: String #表示这个node是谁的A
-  field :b_node, type: String #表示这个node是谁的A
-  field :c_node, type: String #表示这个node是谁的A
+  field :b_node, type: String #表示这个node是谁的B
+  field :c_node, type: String #表示这个node是谁的C
   field :level, type: Integer
 
   def add_node(user,node,order)

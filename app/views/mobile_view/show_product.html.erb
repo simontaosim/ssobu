@@ -5,7 +5,7 @@
     font-family:"Times New Roman";
 }
 .lipadding{
-    padding:2% 0;
+    padding:2% 0 2% 2%;
 }
 .button-success {
     color: white;
@@ -14,36 +14,31 @@
     background: rgb(28, 184, 65); /* this is a green */
 }
 </style>
-<%= image_tag 'laiber.jpg', alt:"uboss" ,width: '100%' %>
+<%= image_tag 'rabbit_logo.png', alt:"uboss" ,width: '100%' %>
 <form method="POST" action="<%= mobile_view_buy_where_path %>">
 <div style="width:100%">
     <ul style="list-style: none;" class="pure-menu-list fontColor">
-        <label hidden="true" name="product_id"><%= @product._id %></label>
+        <input type="hidden" name="product_id" value="<%= @product._id %>"/>
         <li class="lipadding" >名 称: <%= @product.name %></li>
         <li class="lipadding" >
-            价 格:
-            <span style="text-decoration: line-through">
-                ￥<%= @product.origin_price %> </span> 
-                <span style="color:red;font-size: 120%;">¥ <%= @product.price %></span></li>
-                <li class="lipadding">联 系 人:<%= @product.contract_person %></li>
-                <li class="lipadding">地 址:<%= @product.name %></li>
-                <li class="lipadding">运 费:¥ <%= @product.express_price %></li>
-                <li class="lipadding">数 量:
-                    <button type="button" class="pure-button" onclick="subNum()" style="background: rgb(230, 230, 230);"><strong>-</strong></button>
-                    <label id="num" style="color:black">  1  </label>
-                    <label id="num" style="color:black">  1  </label>
-                    <input type="hidden" name='quantity' value="" id="num_val" />
-                    <button type="button" class="pure-button" onclick="addNum()" style="font-size: 100%; background: rgb(230, 230, 230); font-weight:1000"><strong>+</strong></button>
+            价 格: <span style="text-decoration: line-through">
+                ￥<%= format("%.2f",@product.origin_price.to_f) %> </span> 
+                <span style="color:red;font-size: 120%;">¥ <%= format("%.2f",@product.price.to_f) %></span></li>
+                <!-- <li class="lipadding">联 系 人:<%= @product.contract_person %></li> -->
+                <!-- <li class="lipadding">地 址:<%= @product.name %></li> -->
+                <li class="lipadding">运 费: ¥ <%= format("%.2f",@product.express_price.to_f) %></li>
+                <li class="lipadding">数 量: 
+                    <button type="button" class="pure-button" ontouchstart="subNum()" style="background: rgb(230, 230, 230);"><strong>-</strong></button>
+                    <input type="text" id="num" name="quantity" size="3" style="color:black;border:0px;text-align:center;font-size:20px;" value="1" readOnly="true"/>
+                    <!--<label id="num" name="quantity" style="color:black">  1  </label>-->
+                    <button type="button" class="pure-button" ontouchstart="addNum()" style="font-size: 100%; background: rgb(230, 230, 230); font-weight:1000"><strong>+</strong></button>
                 </li>
 
-                <li class="lipadding"><span style="color:red"><font style="color:#57403b;">合 计:</font>¥ <label id="total" style="font-size: 150%;"><%= @product.price %></label></span>
+                <li class="lipadding"><span style="color:red"><font style="color:#57403b;">合 计: </font><label style="font-size: 150%;">¥ </label><label id="total" style="font-size: 150%;"><%= format("%.2f",@product.price.to_f) %></label></span>
                 </li>
             </ul>
         </div>
-        <span style="padding:2% 2%"></span><span style="padding:2% 2%">
-        <button class="pure-button button-success" type="submit" style="font-size: 120%; padding:2% 2%" onsubmit="get_quantity_value()" >
-        立即结算
-        </button></span>
+        <span style="padding:2% 2%"><button class="pure-button button-success" type="submit" style="font-size: 140%; padding:2% 2%">立即结算</button></span>
         </form>
 <script type="text/javascript">
 var price = "<%= @product.price %>";
@@ -55,7 +50,7 @@ var num = 1, total;
         num ++;
         total = price*num*1.00;
         totalDom.innerText = total.toFixed(2);
-        numDom.innerText = num;
+        numDom.value = num;
     }
 
     //减少数量
@@ -66,12 +61,7 @@ var num = 1, total;
         }
         total = price*num*1.00;    
         totalDom.innerText = total.toFixed(2);;
-        numDom.innerText = num;
-    }
-    function get_quantity_value(){
-        quantity = document.getElementById("num");
-        quantity_to_submit = document.getElementById("num_val");        
-        quantity_to_submit.value = quantity.innerHtml
+        numDom.value = num;
     }
 
     </script>

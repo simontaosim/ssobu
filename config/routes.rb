@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :catalogs
+
+  resources :public_accounts
+
   resources :streets
 
   resources :accounts
@@ -40,9 +44,26 @@ Rails.application.routes.draw do
 
   get 'sessions/auth_user_remote'
 
+  get 'mobile_view/about_boss'
+
+  get 'mobile_view/global_notice'
+  post 'mobile_view/global_notice'
+
+  get 'mobile_view/product_apply'
+
+  post 'mobile_view/on_product_apply'
+
+  get 'mobile_view/order_confirm'
+
+  post 'mobile_view/order_confirm'
+
   get 'mobile_view/address_confirm'
 
   post 'mobile_view/buy_where'
+
+  get 'mobile_view/go_order'
+
+  post 'mobile_view/go_order'
 
   get 'mobile_view/show_product'
 

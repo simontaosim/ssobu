@@ -1,0 +1,254 @@
+<link rel="stylesheet" href="http://cdn.bootcss.com/pure/0.5.0/forms-min.css">
+<style>
+    html,body{ margin:0px; height:100%;} 
+</style>
+<div style="position:relative; height:10%"></div>
+<div style="width:80%; padding:5% 10%; margin:0">
+    <div style="border:1px solid #9a9a9a; padding:5% 10%">
+        <div>
+            <%= form_for @product, url: mobile_view_on_product_apply_path, :html => {:class => "pure-form pure-g", :id => "applyForm"} do |f| %>
+
+                <div class="pure-u-1" >
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <label style="font-size:22px; text-align:center; height:8%">产品申请</label>
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
+
+                <div id="tips_name" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                <div class="pure-u-1" style="padding:5% 0">
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <%= f.text_field :name, 
+                            class: "pure-u-1", 
+                            id: "name",
+                            placeholder: "产品名称",
+                            onblur: 'onBlur(this)', 
+                            onkeyup: 'onKeyUp(this)'  %>
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
+
+                <br/>
+
+                <div id="tips_price" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                <div class="pure-u-1" style="padding:5% 0">
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <%= f.text_field :price, 
+                            class: "pure-u-1", 
+                            id: "price",
+                            placeholder: "定价",
+                            onblur: 'onBlur(this)', 
+                            onkeyup: 'onKeyUp(this)'  %>
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
+
+                <br/>
+
+                <div id="tips_contract_person" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                <div class="pure-u-1" style="padding:5% 0">
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <%= f.text_field :contract_person, 
+                            class: "pure-u-1", 
+                            id: "contract_person",
+                            placeholder: "联系人",
+                            onblur: 'onBlur(this)', 
+                            onkeyup: 'onKeyUp(this)'  %>
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
+
+                <br/>
+
+                <div id="tips_contract_person_mobile" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                <div class="pure-u-1" style="padding:5% 0">
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <%= f.text_field :contract_person_mobile, 
+                            class: "pure-u-1", 
+                            id: "contract_person_mobile", 
+                            placeholder: "联系人手机", 
+                            onblur: "onBlur(this)", 
+                            onkeyup: "onKeyUp(this)" %>
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
+
+                <br/>
+
+                <div id="tips_express_price" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                <div class="pure-u-1" style="padding:5% 0">
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <%= f.text_field :express_price, 
+                            class: "pure-u-1", 
+                            id: "express_price", 
+                            placeholder: "运费（每公斤）", 
+                            onblur: "onBlur(this)", 
+                            onkeyup: "onKeyUp(this)" %>
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
+
+                <br/>
+
+                <div id="tips_address" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                <div class="pure-u-1" style="padding:5% 0">
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <%= f.text_field :address, 
+                            class: "pure-u-1", 
+                            id: "address", 
+                            placeholder: "地址",
+                            onblur: "onBlur(this)", 
+                            onkeyup: "onKeyUp(this)" %>
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
+
+                <br/>
+
+                <div class="pure-u-1" style="padding:5% 0">
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <button id="btn_apply" type="button" class="pure-button pure-u-1 pure-button-primary" onclick="onTouchBtnApply()" style="padding:10px">申 请</button>     
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
+                
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<script>
+    var rules = {
+        price: /^\d{0,8}(\.{0,1}\d{1,2})?$/,
+        contract_person_mobile: /^1[3-8]+\d{8,8}$/,
+        express_price: /^\d{0,8}(\.{0,1}\d{1,2})?$/
+    };
+
+    var errorTips = {
+        price: "请输入正确的定价",
+        contract_person_mobile: "请输入正确的联系人手机号",
+        express_price: "请输入正确的运价（每公斤）"
+    };
+
+    var emptyTips = {
+        name: "产品名称不能为空",
+        price: "定价不能为空",
+        contract_person: "联系人不能为空",
+        contract_person_mobile: "联系人手机不能为空",
+        express_price: "运费不能为空",
+        address: "地址不能为空"
+    };
+
+    var form = {
+        name: '',
+        price: '',
+        contract_person: '',
+        contract_person_mobile: '',
+        express_price: '',
+        address: ''
+    };
+
+    var num = 6;
+    var tipsDiv = {};
+    var validate = {};
+
+    var btnApply;
+
+    window.onload = function(){
+        for (eachKey in form){
+            var tipsDivId = "tips_" + eachKey;
+            tipsDiv[eachKey] = document.getElementById(tipsDivId);
+        }
+        btnApply = document.getElementById("btn_apply");
+        checkAllAndSetBtnApply();
+    }
+
+    function onBlur(e){
+        checkOne(e.value, e.id);
+    }
+
+    function onKeyUp(e){
+        checkOne(e.value, e.id);
+    }
+
+    function checkOne(value, type){
+        if (isInputEmpty(value)){
+            tryShowTips(emptyTips, type);
+            validate[type] = false;
+            checkAllAndSetBtnApply();
+            return;
+        }
+
+        if (!isInputLegal(value, type)){
+            tryShowTips(errorTips, type);
+            validate[type] = false;
+            checkAllAndSetBtnApply();
+            return;
+        }
+
+        hideTips(type);
+        validate[type] = true;
+        checkAllAndSetBtnApply();
+    }
+
+    function checkAllAndSetBtnApply(){
+        if (isAllLegal()){
+            btnApply.disabled = false;
+            return;
+        }
+        btnApply.disabled = true;
+    }
+
+    function isInputEmpty(value){
+        return value == null || value == "";
+    }
+
+    function isInputLegal(value, type){
+        if (rules[type] != null){
+            return rules[type].test(value);
+        }
+        return true;
+    }
+
+    function isAllLegal(){
+        var count = 0;
+        for (eachVal in validate){
+            if (validate[eachVal] != true){
+                return false;
+            }
+            count++;
+        }
+        if (count < num){
+            return false;
+        }
+        return true;
+    }
+
+    function tryShowTips(tips, type, isUnknown){
+        var tip = isUnknown ? "未知错误" : tips[type];
+        if (tips[type] != null){
+            tipsDiv[type].innerHTML = tip;
+            return;
+        }
+        hideTips(type);
+    }
+
+    function hideTips(type){
+        tipsDiv[type].innerHTML = "";
+    }
+
+    function onTouchBtnApply(){
+        if (btnApply.disabled){
+            return;
+        }
+        document.getElementById("applyForm").submit();
+    }
+</script>

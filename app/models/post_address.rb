@@ -1,6 +1,5 @@
 class PostAddress
   include Mongoid::Document
-  include Mongoid::Timestamps
   belongs_to :planet
   belongs_to :country
   belongs_to :province

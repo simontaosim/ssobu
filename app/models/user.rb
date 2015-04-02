@@ -10,11 +10,7 @@ class User
   field :is_boss, type: Integer
   attr_accessor :password, :password_confirm, :from_mobile
   field :encrypt_password, type: String
-  validates :username, uniqueness: true
-  validates :username, presence: true
-  validates :email, presence: true
-  validates :email, uniqueness: true
-
+ 
   def md5(pass)
    Digest::MD5.hexdigest(pass)
   end

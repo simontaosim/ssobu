@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+<style type="text/css">
+.fontColor{
+    color:#57403b;
+    font-family:"Times New Roman";
+}
+.fontColor1{
+    color:#1ab99b;
+}
+.lipadding{
+    padding:2% 0 2% 2%;
+}
+.button-success {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: rgb(28, 184, 65); /* this is a green */
+}
+</style>
+<%= image_tag 'rabbit_logo.png', alt:"uboss" ,width: '100%' %>
+<br/><hr/>
+<form method="POST" action="">
+<div style="width:100%">
+	<div style="text-align:center; font-size:18px; font-weight:bold" class="fontColor1">购买清单</div>
+    <ul style="list-style: none;" class="pure-menu-list fontColor">
+        <li class="lipadding" >名 称: 奔跑吧！兔子</li>
+        <li class="lipadding" >
+            单 价:<span style="color:red;font-size: 120%;">¥ 68.00</span></li>
+                <li class="lipadding">运 费: ¥ 0.00</li>
+                <li class="lipadding">数 量: 100</li>
+                <li class="lipadding"><span style="color:red"><font style="color:#57403b;">合 计: </font><label style="font-size: 150%;">¥ </label><label id="total" style="font-size: 150%;">6800.00</label></span>
+                </li>
+            </ul>
+        </div>
+<hr/>
+	<div style="text-align:center; font-size:18px; font-weight:bold" class="fontColor1">收货信息</div>
+    <div style="width:100%">
+    <ul style="list-style: none;" class="pure-menu-list fontColor">
+        <li class="lipadding" >收货人: 傻逼</li>
+        <li class="lipadding" >手机号码: 13838383388</li>
+        <li class="lipadding">收货地址: 地球</li>
+        <li class="lipadding">邮政编码: 000000</li>
+        <li class="lipadding"><textarea rows="1" cols="20" class="pure-input-1" placeholder="备注："></textarea></li>
+    </ul>
+    </div>
+<hr/>
+        <div style="padding:2% 2%"><button class="pure-button button-success" type="submit" style="font-size: 140%; padding:2% 2%">微信支付</button></div>
+        </form>
+<script type="text/javascript">
+
+</script>

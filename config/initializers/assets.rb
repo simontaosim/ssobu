@@ -18,4 +18,5 @@ Rails.application.config.assets.version = '1.0'
  Rails.application.config.assets.precompile += %w( jquery.md5.js )
  Rails.application.config.assets.precompile += %w( zepto.min.js )
  Rails.application.config.assets.precompile += %w( md5.js )
+ Rails.application.config.assets.precompile += %w( geo.js )
  

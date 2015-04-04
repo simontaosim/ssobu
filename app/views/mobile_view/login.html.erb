@@ -3,7 +3,15 @@
 <style>
 html,body{ margin:0px; height:100%;} 
 </style>
-<div style="position:relative; height:10%"></div>
+
+<br/>
+
+<div style="text-align:center">
+    <%= image_tag 'uboss_logo_100x179.png', alt:"uboss", width: '20%' %>
+</div>
+
+<br/>
+
 <div style="width:80%; padding:5% 10%; margin:0">
 <div style="border:1px solid #9a9a9a; padding:5% 10%">
 <div>
@@ -11,7 +19,7 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" style="padding:5% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
-            <input id="name" type="text" placeholder="用户名" class="pure-u-1">
+            <input id="name" type="text" placeholder="用户名或手机号" class="pure-u-1">
         </div>
         <div class="pure-u-1-7"></div>    
     </div>
@@ -44,7 +52,7 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" >
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
-            <label>未注册？</label> <a href="<%= mobile_view_regist_path %>">点我啊猪</a>  
+            <label>未注册？</label> <a href="<%= mobile_view_regist_path %>">点此注册</a>  
         </div>
         <div class="pure-u-1-7"></div>    
     </div>

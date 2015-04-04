@@ -1,6 +1,7 @@
 class Product
   include Mongoid::Document
   include Mongoid::Timestamps
+  belongs_to :catalog
   belongs_to :user
   belongs_to :post_address
   field :name, type: String

@@ -2,6 +2,8 @@ class SessionsController < ApplicationController
   before_action :set_session, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, only: [:destroy, :create]
 
+  layout 'admin'
+
   # GET /sessions
   # GET /sessions.json
   def index
@@ -29,10 +31,11 @@ class SessionsController < ApplicationController
     @user = User.where(:username => @session.username).first
     if @user
       password = @user.encrypt_password
+      @session.user_id = @user.id
       if password == params[:password]
           if @session.save
             session[:username] = @session.username
-            session[:progress_id] = @session._id.to_s
+            session[:progress_id] = @session.id.to_s
             render json: 0
           else
             render json: 5
@@ -53,11 +56,12 @@ class SessionsController < ApplicationController
     @user = User.where(:username => @session.username).first
     if @user
       @user = @user.auth(params[:password])
+      @session.user_id = @user.id
       if @user
         respond_to do |format|
           if @session.save
             session[:username] = @session.username
-            session[:progress_id] = @session._id.to_s
+            session[:progress_id] = @session.id.to_s
             format.html { redirect_to @session, notice: 'Session was successfully created.' }
             format.json { render :show, status: :created, location: @session }
           else

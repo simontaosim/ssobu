@@ -30,18 +30,46 @@
     <%= error_span(@order[:post_address_id]) %>
   </div>
   <div class="control-group">
-    <%= f.label :massage, :class => 'control-label' %>
+    <%= f.label :receiver_name, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :massage, :class => 'form-control' %>
+      <%= f.text_field :receiver_name, :class => 'form-control' %>
     </div>
-    <%= error_span(@order[:massage]) %>
+    <%= error_span(@order[:receiver_name]) %>
   </div>
   <div class="control-group">
-    <%= f.label :total_price, :class => 'control-label' %>
+    <%= f.label :receiver_mobile, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :total_price, :class => 'form-control' %>
+      <%= f.text_field :receiver_mobile, :class => 'form-control' %>
     </div>
-    <%= error_span(@order[:total_price]) %>
+    <%= error_span(@order[:receiver_mobile]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :receiver_address, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :receiver_address, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:receiver_address]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :receiver_postcode, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :receiver_postcode, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:receiver_postcode]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :amount, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :amount, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:amount]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :is_paid, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :is_paid, :class => 'form-control' %>
+    </div>
+    <%= error_span(@order[:is_paid]) %>
   </div>
 
 

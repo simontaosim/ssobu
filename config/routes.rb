@@ -1,5 +1,31 @@
 Rails.application.routes.draw do
 
+  resources :bank_cards
+
+  get 'personal_center/index'
+
+  get 'personal_center/my_commission'
+
+  get 'personal_center/apply_cash'
+
+  post 'payment/to_pay'
+
+  get 'payment/index'
+
+  get 'payment/to_pay'
+
+  get 'payment/pay_success'
+
+  get 'payment/pay_fail'
+
+  get 'payment/require_pay_back'
+
+  resources :carts
+
+  resources :catalogs
+
+  resources :public_accounts
+
   resources :streets
 
   resources :accounts
@@ -40,9 +66,38 @@ Rails.application.routes.draw do
 
   get 'sessions/auth_user_remote'
 
+  get 'mobile_view/about'
+
+  get 'mobile_view/boss_school'
+
+  get 'mobile_view/require_pay_back'
+
+  get 'mobile_view/yeepay_school'
+
+  post 'mobile_view/send_verifycode'
+
+  post 'mobile_view/to_pay'
+
+  get 'mobile_view/pay_success'
+
+  get 'mobile_view/global_notice'
+  post 'mobile_view/global_notice'
+
+  get 'mobile_view/product_apply'
+
+  post 'mobile_view/on_product_apply'
+
+  get 'mobile_view/order_confirm'
+
+  post 'mobile_view/order_confirm'
+
   get 'mobile_view/address_confirm'
 
   post 'mobile_view/buy_where'
+
+  get 'mobile_view/go_order'
+
+  post 'mobile_view/go_order'
 
   get 'mobile_view/show_product'
 

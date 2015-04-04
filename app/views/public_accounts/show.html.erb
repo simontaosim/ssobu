@@ -1,0 +1,30 @@
+<%- model_class = PublicAccount -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:weixin_secret_key) %>:</strong></dt>
+  <dd><%= @public_account.weixin_secret_key %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:weixin_token) %>:</strong></dt>
+  <dd><%= @public_account.weixin_token %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:encoding_aes_key) %>:</strong></dt>
+  <dd><%= @public_account.encoding_aes_key %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:app_id) %>:</strong></dt>
+  <dd><%= @public_account.app_id %></dd>
+</dl>
+<br>
+URL：<%= weixin_engine.weixin_server_url(@public_account.weixin_secret_key) %>
+<br>
+Token：<%= @public_account.weixin_token %>
+
+<br>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              public_accounts_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_public_account_path(@public_account), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              public_account_path(@public_account),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

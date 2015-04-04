@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
+skip_before_filter :verify_authenticity_token, only: [:destroy]
   # GET /orders
   # GET /orders.json
   def index
@@ -69,6 +69,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:user_id)
+      params.require(:order).permit(:user_id, :post_address, :receiver_name,:receiver_mobile, :receiver_address, :receiver_postcode,  :amount, :is_paid)
     end
 end

@@ -1,0 +1,42 @@
+<%- model_class = BankCard -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:account_id) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:code) %></th>
+      <th><%= model_class.human_attribute_name(:ower_name) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bank_cards.each do |bank_card| %>
+      <tr>
+        <td><%= link_to bank_card.id, bank_card_path(bank_card) %></td>
+        <td><%= bank_card.account_id %></td>
+        <td><%= bank_card.name %></td>
+        <td><%= bank_card.code %></td>
+        <td><%= bank_card.ower_name %></td>
+        <td><%=l bank_card.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_bank_card_path(bank_card), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      bank_card_path(bank_card),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_bank_card_path,
+            :class => 'btn btn-primary' %>

@@ -1,0 +1,52 @@
+<%= form_for @bank_card, :html => { :class => "form-horizontal bank_card" } do |f| %>
+
+    <% if @bank_card.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@bank_card.errors.count, "error") %> prohibited this bank_card from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @bank_card.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :account_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :account_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@bank_card[:account_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@bank_card[:name]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :code, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :code, :class => 'form-control' %>
+    </div>
+    <%= error_span(@bank_card[:code]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :ower_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :ower_name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@bank_card[:ower_name]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            bank_cards_path, :class => 'btn btn-default' %>
+
+<% end %>

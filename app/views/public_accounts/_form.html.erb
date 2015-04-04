@@ -1,0 +1,52 @@
+<%= form_for @public_account, :html => { :class => "form-horizontal public_account" } do |f| %>
+
+    <% if @public_account.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@public_account.errors.count, "error") %> prohibited this public_account from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @public_account.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :weixin_secret_key, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :weixin_secret_key, :class => 'form-control' %>
+    </div>
+    <%= error_span(@public_account[:weixin_secret_key]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :weixin_token, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :weixin_token, :class => 'form-control' %>
+    </div>
+    <%= error_span(@public_account[:weixin_token]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :encoding_aes_key, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :encoding_aes_key, :class => 'form-control' %>
+    </div>
+    <%= error_span(@public_account[:encoding_aes_key]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :app_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :app_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@public_account[:app_id]) %>
+  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            public_accounts_path, :class => 'btn btn-default' %>
+
+<% end %>

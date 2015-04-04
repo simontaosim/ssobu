@@ -2,11 +2,16 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, only: [:destroy, :create, :remote_register]
+  layout 'admin'
   #layout 'lightgreen'
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+  end
+
+  def all_origin_users
+    @users = User.where(is_origin: 1)
   end
 
   # GET /users/1
@@ -74,7 +79,7 @@ class UsersController < ApplicationController
   def register
     @user = User.new(user_register_params)
     if user_register_params[:password]
-      @user.encrypt_password = @user.md5(user_register_params[:password])
+      @user.encrypt_password = user_register_params[:password]
     end
     @user.encrypt_password = user_register_params[:encrypt_password]
     respond_to do |format|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
@@ -141,6 +146,6 @@ class UsersController < ApplicationController
     end
 
      def user_register_params
-      params.require(:user).permit(:email, :third_party, :password, :password_confirm, :username,:from_mobile)
+      params.require(:user).permit(:email, :third_party, :password, :password_confirm, :username, :from_mobile, :encrypt_password)
     end
 end

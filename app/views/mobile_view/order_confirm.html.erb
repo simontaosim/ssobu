@@ -25,10 +25,10 @@
     <ul style="list-style: none;" class="pure-menu-list fontColor">
         <li class="lipadding" >名 称: <%=  @product.name %></li>
         <li class="lipadding" >
-            单 价:<span style="color:red;font-size: 120%;">¥ <%= @product_line.current_price  %></span></li>
-                <li class="lipadding">运 费: ¥ <%= @product.express_price %></li>
+            单 价:<span style="color:red;font-size: 120%;">¥ <%= format("%.2f",@product_line.current_price.to_f) %></span></li>
+                <li class="lipadding">运 费: ¥ <%= format("%.2f",@product.express_price.to_f) %></li>
                 <li class="lipadding">数 量: <%= @product_line.quantity %></li>
-                <li class="lipadding"><span style="color:red"><font style="color:#57403b;">合 计: </font><label style="font-size: 150%;">¥ </label><label id="total" style="font-size: 150%;"><%= @order.amount  %></label></span>
+                <li class="lipadding"><span style="color:red"><font style="color:#57403b;">合 计: </font><label style="font-size: 150%;">¥ </label><label id="total" style="font-size: 150%;"><%= format("%.2f",@order.amount.to_f) %></label></span>
                 </li>
             </ul>
         </div>
@@ -40,6 +40,7 @@
         <li class="lipadding" >手机号码: <%= @order.receiver_mobile %></li>
         <% 
                 address = @order.receiver_address
+                address[address.length-6, address.length] = ''
          %>
         <li class="lipadding">收货地址: <%= address %></li>
         <li class="lipadding">邮政编码: <%= @order.receiver_postcode %></li>

@@ -1,25 +1,38 @@
-<%= form_for(@catalog) do |f| %>
-  <% if @catalog.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@catalog.errors.count, "error") %> prohibited this catalog from being saved:</h2>
+<%= form_for @catalog, :html => { :class => "form-horizontal catalog" } do |f| %>
 
-      <ul>
-      <% @catalog.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <% if @catalog.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@catalog.errors.count, "error") %> prohibited this catalog from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @catalog.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%= error_span(@catalog[:name]) %>
   </div>
-  <div class="field">
-    <%= f.label :fid %><br>
-    <%= f.text_field :fid %>
+  <div class="control-group">
+    <%= f.label :fid, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :fid, Catalog.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+    </div>
+    <%= error_span(@catalog[:fid]) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            catalogs_path, :class => 'btn btn-default' %>
+
 <% end %>

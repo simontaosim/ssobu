@@ -49,36 +49,31 @@
     </style>
 	</head>
 	<body>
+
+          <%= yield %>
+          <br><br>
   <div id="footer">
     <div class="nav_cust pure-g">
         <div class="pure-u-1-4"><a class="nav_item" style="color:#FFFFFB; text-decoration:none;" href="<%= root_url %>" >
             <span id="icon1">&nbsp; &nbsp;&nbsp;</span><br>
             <span>主页</span>
             </a></div>
-        <div class="pure-u-1-4"><a class="nav_item" href="#">
+        <div class="pure-u-1-4"><a class="nav_item" href="<%= personal_center_index_path %>">
             <span id="icon2">&nbsp; &nbsp;&nbsp;</span><br>
             <span>我的UBOSS</span>
         </div>
-        <div class="pure-u-1-4"><a class="nav_item" href="#">
+        <div class="pure-u-1-4"><a class="nav_item" href="<%= mobile_view_yeepay_school_path %>">
             <span id="icon3">&nbsp; &nbsp;&nbsp;</span><br>
             <span>UBOSS学堂</span>
         </a>
         </div>
-        <div class="pure-u-1-4"><a class="nav_item" href="#">
+        <div class="pure-u-1-4"><a class="nav_item" href="<%= mobile_view_about_path %>">
             <span id="icon4">&nbsp; &nbsp;&nbsp;</span><br>
             <span>关于Uboss</span>
         </a>
         </div>
     </div>
 </div>    
-          <%= yield %>
- <div class="copyright">
-    <hr style="width: 100%">
- © 深圳市优易创网络发展有限公司 2015
- <br><br><br>
- <br><br><br>
-
- </div>
 
    
 	</body>

@@ -1,6 +1,7 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
-
+  skip_before_filter :verify_authenticity_token, only: [:destroy, :create, :remote_register]
+  layout 'admin'
   # GET /roles
   # GET /roles.json
   def index

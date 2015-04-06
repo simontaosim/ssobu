@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def all_origin_users
-    @users = User.where(is_origin: 1)
+    @users = User.all
   end
 
   # GET /users/1
@@ -63,8 +63,14 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
-
+        @user = User.new
+    @user.email = user_register_params[:email]
+    @user.username = user_register_params[:username]
+    if user_register_params[:password]
+      @user.encrypt_password = @user.md5(user_register_params[:password])
+    else
+      @user.encrypt_password = user_register_params[:encrypt_password]
+    end
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -77,11 +83,20 @@ class UsersController < ApplicationController
   end
 
   def register
-    @user = User.new(user_register_params)
+    @user = User.new
+    @user.email = user_register_params[:email]
+    @user.username = user_register_params[:username]
     if user_register_params[:password]
-      @user.encrypt_password = user_register_params[:password]
+      @user.encrypt_password = @user.md5(user_register_params[:password])
+    else
+      @user.encrypt_password = user_register_params[:encrypt_password]
     end
-    @user.encrypt_password = user_register_params[:encrypt_password]
+    if user_register_params[:reg_for] == 'mobile'
+      @user.username = user_register_params[:mobile]
+      @user.email = ''
+    else
+      @user.mobile = ''
+    end
     respond_to do |format|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
       if @user.save
         if user_register_params[:from_mobile]
@@ -142,10 +157,10 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :third_party, :password, :password_confirm, :username)
+      params.require(:user).permit(:role_id, :email, :third_party, :password, :password_confirm, :username, :from_mobile, :encrypt_password, :reg_for, :mobile, :is_boss)
     end
 
      def user_register_params
-      params.require(:user).permit(:email, :third_party, :password, :password_confirm, :username, :from_mobile, :encrypt_password)
+      params.require(:user).permit(:role_id, :email, :third_party, :password, :password_confirm, :username, :from_mobile, :encrypt_password, :reg_for, :mobile)
     end
 end

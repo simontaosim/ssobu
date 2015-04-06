@@ -75,7 +75,7 @@
                                     <input class="pure-u-1" id="verifycode" placeholder="验证码" onblur="onBlur(this)" onkeyup="onKeyUp(this)" type="text">
                                 </div>
                                 <div class="pure-u-3-5" style="float:right">
-                                    <button id="btn_verifycode" type="button" class="pure-button pure-u-1 pure-button-primary" style="padding:10px" onclick="onTouchVerifyCode()">获取验证码</button>
+                                    <button id="btn_verifycode" type="button" class="pure-button pure-u-1 pure-button-primary" style="padding:10px" onclick='checkExist("mobile")'>获取验证码</button>
                                 </div>
                             </div>
                         </div>
@@ -112,8 +112,12 @@
 
                 <div class="pure-u-1" style="display:none">
                 <%= f.text_field :from_mobile, 
-                                class: "pure-u-1"%>
+                    class: "pure-u-1"%>
+                <%= f.text_field :reg_for, 
+                    class: "pure-u-1",
+                    id: "reg_for"%>
                 </div>
+                
                     
                 <div class="pure-u-1">
                     <input type="checkbox" id="input_agree" onchange="onChangeAgree()">服务协议</div>
@@ -121,7 +125,7 @@
                 <div class="pure-u-1" style="padding:5% 0">
                     <div class="pure-u-1-7"></div>
                     <div class="pure-u-5-7">
-                        <button id="btn_regist" type="button" class="pure-button pure-u-1 pure-button-primary" ontouchstart="registOnTouch()" style="padding:10px">注 册</button>     
+                        <button id="btn_regist" type="button" class="pure-button pure-u-1 pure-button-primary" onclick="registOnTouch()" style="padding:10px">注 册</button>     
                     </div>
                     <div class="pure-u-1-7"></div>    
                 </div>
@@ -146,7 +150,7 @@
         username: /^[0-9A-Za-z]{5,16}$/, 
         pwd: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, 
         email: /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/,
-        mobile: /^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/
+        mobile: /^0?(13[0-9]|15[0-9]|18[0-9]|14[0-9])[0-9]{8}$/
     };
 
     var errorTips = {
@@ -155,6 +159,7 @@
         pwd2: '两次密码输入不相符',
         email: '邮箱格式不正确',
         mobile: '请输入正确手机号',
+        verifycode: '验证码错误'
     };
 
     var emptyTips = {
@@ -162,11 +167,13 @@
         pwd: '密码不能为空',
         email: '邮箱不能为空',
         mobile: '手机号不能为空',
+        verifycode: '验证码不能为空'
     };
 
     var existTips = {
         username: '用户名已存在',
         email: '邮箱已存在',
+        mobile: '手机号已存在',
         unknown: '未知错误',
     };
 
@@ -174,7 +181,8 @@
         username: 'http://uboss.me/users/username_is_exist',
         email: 'http://uboss.me/users/email_is_exist',
         mobile: 'http://uboss.me/users/mobile_is_exist',
-        send_verifycode: 'http://uboss.me/mobile_view/send_verifycode'
+        send_verifycode: 'http://uboss.me/mobile_view/send_verifycode',
+        check_verifycode: 'http://uboss.me/mobile_view/check_verifycode'
     };
 
     var allKey = ["username", "email", "mobile", "verifycode", "pwd", "pwd2", "agree"];
@@ -210,8 +218,7 @@
     var btnRegist;
     var btnVerifyCode;
     var currentTarget;
-    var verifyCode;
-    var verifyMobile;
+    // var verifyMobile;
     var verifyCd;
 
     window.onload = function(){
@@ -260,6 +267,10 @@
         lightTargetBtn(targetBtn[currentTarget]);
         copyValidateInfo();
         checkAllAndSetBtn();
+
+        if (verifyCd > 0){
+            btnVerifyCode.disabled = true;
+        }
     }
 
     function copyValidateInfo(){
@@ -343,6 +354,10 @@
             case "mobile":
                 formValue[type] = value;
                 break;
+            case "verifycode":
+                formValue[type] = value;
+                checkVerifyCode();
+                break;
         }
 
         checkAllAndSetBtn();
@@ -389,7 +404,7 @@
         checkAllAndSetBtn();
     }
 
-    function onTouchVerifyCode(){
+    function sendVerifyCode(){
         if (btnVerifyCode.disabled){
             return;
         }
@@ -398,7 +413,6 @@
         btnVerifyCode.disabled = true;
         var xmlhttp;
         var addr = ajaxAddr["send_verifycode"];
-        randomVerifyCode();
         if (window.XMLHttpRequest){
             // code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp=new XMLHttpRequest();
@@ -407,30 +421,112 @@
             xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.open("POST",addr);
-        xmlhttp.send("mobile=" + formValue["mobile"] + "&verifycode=" + verifyCode);
+        xmlhttp.setRequestHeader("cache-control","no-cache");  
+        xmlhttp.setRequestHeader("contentType","text/html;charset=uft-8") //指定发送的编码  
+        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");   //设置请求头信息  
         xmlhttp.onreadystatechange = function() { 
             if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
-                btnVerifyCode.disabled = true;
-                startVerifyCd();
-                console.log(eval(xmlhttp.responseText));
+                btnVerifyCode.innerHTML = "获取验证码";
+                btnVerifyCode.style.padding = "10px";
+                if (eval(xmlhttp.responseText) == 1){
+                    startVerifyCd();
+                    hideTips("verifycode");
+                }
+                else
+                {
+                    tryShowTips(errorTips, "verifycode");
+                }
             }
+            tryShowTips(errorTips, "verifycode");
         }
+        xmlhttp.send("mobile=" + formValue["mobile"]);
+        
     }
 
     function startVerifyCd(){
-
+        verifyCd = 60;
+        btnVerifyCode.style.padding = "10px";
+        setVerifyCd();
     }
 
-    function randomVerifyCode(){
-        verifyCode = "";
-        for (var i = 0; i < numVerifyCodeDigit; i++){
-            verifyCode += Math.floor(Math.random() * 10);
+    function setVerifyCd(){
+        if (verifyCd <= 0){
+            btnVerifyCode.innerHTML = "获取验证码";
+            btnVerifyCode.disabled = false;
         }
+        else{
+            btnVerifyCode.innerHTML = "获取验证码(" + verifyCd + ")";
+            verifyCd--;
+            setTimeout(setVerifyCd, 1000);
+        }
+    }
+
+    function checkVerifyCode(){
+        btnRegist.innerHTML = '<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">';
+        btnRegist.style.padding = 0;
+
+        var validateResult = true;
+        var xmlhttp;        
+        var addr = ajaxAddr["check_verifycode"];
+        addr += "?verifycode=" + formValue["verifycode"] + "&mobile=" + formValue["mobile"];
+        if (window.XMLHttpRequest){
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET",addr);
+        
+        xmlhttp.onreadystatechange = function() { 
+            if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) { 
+                switch (eval(xmlhttp.responseText)){
+                    case 0:
+                        setValidate(currentTarget, "verifycode", false);
+                        tryShowTips(errorTips, "verifycode");
+                        validateResult = false;
+                        break;
+                    case 1:
+                        setValidate(currentTarget, "verifycode", true);
+                        hideTips("verifycode");
+                        validateResult = true;
+                        break;
+                    case 2:
+                        setValidate(currentTarget, "verifycode", false);
+                        tryShowTips(errorTips, "verifycode", "请重新获取验证码");
+                        validateResult = false;
+                        break;
+                    default:
+                        setValidate(currentTarget, "verifycode", false);
+                        tryShowTips(errorTips, "verifycode", "未知错误");
+                        validateResult = false;
+                        break;
+                }
+            }
+            else { 
+                setValidate("verifycode", "verifycode", false);
+                tryShowTips(errorTips, "verifycode", "未知错误");
+                validateResult = false;
+            }
+            btnRegist.innerHTML = "注 册";
+            btnRegist.style.padding = "10px";
+            checkAllAndSetBtn();
+
+            console.log("onCheckVerifyCode");
+        }
+        xmlhttp.send();
     }
 
     function checkExist(type){
         btnRegist.innerHTML = '<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">';
         btnRegist.style.padding = 0;
+
+        if (type == "mobile"){
+            btnVerifyCode.innerHTML = '<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">';
+            btnVerifyCode.style.padding = 0;
+            btnVerifyCode.disabled = true;
+        }
+
         var validateResult = false;
         var xmlhttp;        
         var addr = ajaxAddr[type];
@@ -443,7 +539,7 @@
             xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.open("GET",addr);
-        xmlhttp.send();
+        
         xmlhttp.onreadystatechange = function() { 
             if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) { 
                 switch (eval(xmlhttp.responseText)){
@@ -471,13 +567,26 @@
             }
             btnRegist.innerHTML = "注 册";
             btnRegist.style.padding = "10px";
+
             checkAllAndSetBtn();
+
+            if (type == "mobile"){
+                btnVerifyCode.innerHTML = "获取验证码";
+                btnVerifyCode.style.padding = "10px";
+                if (!validateResult){
+                    sendVerifyCode();
+                }
+            }
+
+
+            console.log("onCheckExist");
         }
+        xmlhttp.send();
     }
 
     function checkAllAndSetBtn(){
         if (currentTarget == "mobile"){
-            btnVerifyCode.disabled = !(validate["all"]["mobile"] == true);
+            btnVerifyCode.disabled = (!(validate["all"]["mobile"] == true)) || (verifyCd > 0);
         }
         if (isAllLegal()){
             btnRegist.disabled = false;
@@ -520,21 +629,21 @@
         if (count < numValidate){
             return false;
         }
-        if (currentTarget == "mobile")
-        {
-            if (verifyMobile != formValue["mobile"]){
-                return false;    
-            }
-        }
+        // if (currentTarget == "mobile")
+        // {
+        //     if (verifyMobile != formValue["mobile"]){
+        //         return false;    
+        //     }
+        // }
         return true;
     }
 
-    function tryShowTips(tips, type, isUnknown){
+    function tryShowTips(tips, type, special){
         if (validate[currentTarget][type] == null){
             hideTips(type);
             return;
         }
-        var tip = isUnknown ? "未知错误" : tips[type];
+        var tip = special ? special : tips[type];
         if (tips[type] != null){
             tipsDiv["all"][type].innerHTML = tip;
             return;
@@ -543,6 +652,9 @@
     }
 
     function hideTips(type){
+        if (tipsDiv[currentTarget][type] == null){
+            return;
+        }
         tipsDiv[currentTarget][type].innerHTML = "";
     }
 
@@ -554,6 +666,8 @@
         input_pwd.value = hex_md5(input_pwd.value);
         var input_pwd2 = document.getElementById("pwd2");
         input_pwd2.value = hex_md5(input_pwd2.value);
+        var input_reg_for = document.getElementById("reg_for");
+        input_reg_for.value = currentTarget;
         document.getElementById("registForm").submit();
     }
     

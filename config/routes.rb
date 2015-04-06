@@ -76,6 +76,8 @@ Rails.application.routes.draw do
 
   post 'mobile_view/send_verifycode'
 
+  get 'mobile_view/check_verifycode'
+
   post 'mobile_view/to_pay'
 
   get 'mobile_view/pay_success'

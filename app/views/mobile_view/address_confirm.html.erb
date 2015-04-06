@@ -184,7 +184,7 @@ function isAreaSetted(){
     	warning_text = "请输入详细地址";
     	return false;
     }
-    if(postal.value.length != 6){
+    if(postal.value != "" && postal.value.length != 6 ){
     	warning_text = "请输入正确6位邮编";
     	return false;
     }

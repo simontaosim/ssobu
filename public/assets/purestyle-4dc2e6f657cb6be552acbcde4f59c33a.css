@@ -1,0 +1,70 @@
+/* line 1, /home/simon/uboss/app/assets/stylesheets/purestyle.scss */
+#footer {
+  width: 100%;
+  position: fixed;
+  z-index: 500;
+  width: 100%;
+  height: auto;
+  bottom: 0%;
+  color: #FFFFFB;
+  border-top: outset 1px #FFFFFB;
+}
+
+/* line 15, /home/simon/uboss/app/assets/stylesheets/purestyle.scss */
+#footer .nav_cust div {
+  text-decoration: none;
+  width: 25%;
+  text-align: center;
+  font-size: 50%;
+  font-weight: bolder;
+  border-right: solid 1px #FFFFFF;
+  background-color: #1AB99B;
+  letter-spacing: 1px;
+  color: #FFFFFB;
+}
+
+/* line 28, /home/simon/uboss/app/assets/stylesheets/purestyle.scss */
+#footer .nav_cust div a {
+  text-decoration: none;
+}
+
+/* line 31, /home/simon/uboss/app/assets/stylesheets/purestyle.scss */
+#icon1 {
+  background: url("/images/index.png") no-repeat center;
+  font-size: 25px;
+  background-size: 60% auto;
+}
+
+/* line 35, /home/simon/uboss/app/assets/stylesheets/purestyle.scss */
+#icon2 {
+  background: url("/images/beBoss.png") no-repeat center;
+  font-size: 25px;
+  background-size: 60% auto;
+}
+
+/* line 39, /home/simon/uboss/app/assets/stylesheets/purestyle.scss */
+#icon3 {
+  background: url("/images/bossStudy.png") no-repeat center;
+  font-size: 25px;
+  background-size: 60% auto;
+}
+
+/* line 43, /home/simon/uboss/app/assets/stylesheets/purestyle.scss */
+#icon4 {
+  background: url("/images/aboutBoss.png") no-repeat center;
+  font-size: 25px;
+  background-size: 60% auto;
+}
+
+/* line 48, /home/simon/uboss/app/assets/stylesheets/purestyle.scss */
+.nav_item {
+  text-decoration: none;
+  text-indent: none;
+  text-align: center;
+  color: #FFFFFB;
+}
+
+/* line 55, /home/simon/uboss/app/assets/stylesheets/purestyle.scss */
+.copyright {
+  text-align: center;
+}

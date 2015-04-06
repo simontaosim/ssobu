@@ -3,7 +3,9 @@
 <style>
 html,body{ margin:0px; height:100%;} 
 </style>
-
+<div style="text-align:center">
+    <p><%= notice %></p>
+</div>
 <br/>
 
 <div style="text-align:center">
@@ -19,7 +21,7 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" style="padding:5% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
-            <input id="name" type="text" placeholder="用户名或手机号" class="pure-u-1">
+            <input id="name" type="text" placeholder="用户名" class="pure-u-1">
         </div>
         <div class="pure-u-1-7"></div>    
     </div>
@@ -52,7 +54,7 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" >
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
-            <label>未注册？</label> <a href="<%= mobile_view_regist_path %>">点此注册</a>  
+            <label>未注册？</label> <a href="<%= mobile_view_regist_path %>">马上注册</a>  
         </div>
         <div class="pure-u-1-7"></div>    
     </div>

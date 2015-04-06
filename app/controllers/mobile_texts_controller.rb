@@ -9,7 +9,7 @@ class MobileTextsController < ApplicationController
 
   def send_sms
     @mobile_text = MobileText.new
-    render plain: @mobile_text.post('http://222.185.228.25:8000/msm/sdk/http/sendsms.jsp?username=JSMB260719&scode=515369&content=@1@=hello,18126821118,您收到了吗？&tempid=MB-2013102300&mobile=18126821118',nil)
+    render plain: @mobile_text.post('http://222.185.228.25:8000/msm/sdk/http/sendsms.jsp?username=JSMB260719&scode=515369&content=@1@=hello&tempid=MB-2013102300&mobile=18565800526',nil)
   end
 
   # GET /mobile_texts/1

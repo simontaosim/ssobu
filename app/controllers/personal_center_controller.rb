@@ -1,4 +1,5 @@
 class PersonalCenterController < ApplicationController
+	 layout 'purestyle'
   def index
   end
 

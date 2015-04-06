@@ -1,0 +1,38 @@
+/* line 4, /home/simon/uboss/app/assets/stylesheets/personal.scss */
+.bottom_div {
+  width: 100%;
+  height: 56px;
+  background-color: #1ab99b;
+  position: absolute;
+  bottom: 0;
+  line-height: 56px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+/* line 8, /home/simon/uboss/app/assets/stylesheets/personal.scss */
+.left_top_div {
+  margin-top: 22px;
+}
+
+/* line 11, /home/simon/uboss/app/assets/stylesheets/personal.scss */
+.left_top1 {
+  height: 112px;
+  padding-top: 10px;
+  border: solid 1px #ddd;
+}
+
+/* line 16, /home/simon/uboss/app/assets/stylesheets/personal.scss */
+.border_sty {
+  height: 71px;
+  padding-top: 10px;
+  border: solid 1px #ddd;
+  border-top: none;
+}
+
+/* line 22, /home/simon/uboss/app/assets/stylesheets/personal.scss */
+.right_top1 {
+  margin-top: 20px;
+  height: 150px;
+}

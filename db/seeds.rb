@@ -12,4 +12,15 @@
   user.role = roles.first
   user.save
 
+  catalog = Catalog.new
+  catalog .name = 'root'
+  catalog.save
+
+  catalog1 = Catalog.new
+  catalog1.name = '软件'
+  catalog1.fid = catalog._id
+
+  catalog2 = Catalog.new
+  catalog2.name = '食品'
+  catalog2.fid = catalog._id
   

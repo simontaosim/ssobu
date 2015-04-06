@@ -38,13 +38,15 @@
                 </li>
             </ul>
         </div>
-        <span style="padding:2% 2%"><button class="pure-button button-success" type="submit" style="font-size: 140%; padding:2% 2%">立即结算</button></span>
+        <span style="padding:2% 2%"><button class="pure-button button-success" type="submit" style="font-size: 140%; padding:2% 2%">官人我要</button></span>
         </form>
 <script type="text/javascript">
 var price = "<%= @product.price %>";
 var totalDom = document.getElementById("total");
 var numDom = document.getElementById("num");
-var num = 1, total;
+var num = numDom.value;
+var total = price*num*1.00;
+totalDom.innerText = total.toFixed(2);
     //增加数量
     function addNum(){
         num ++;

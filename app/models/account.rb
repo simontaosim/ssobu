@@ -1,5 +1,6 @@
 class Account
   include Mongoid::Document
+  include Mongoid::Timestamps
   belongs_to :user
   field :amount, type: Float
   field :currency, type: String

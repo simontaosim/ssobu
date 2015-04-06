@@ -5,6 +5,7 @@ class Product
   belongs_to :user
   belongs_to :post_address
   field :name, type: String
+  field :description, type:String
   field :price, type: Float
   field :boss_price, type: Float
   field :origin_price, type: Float

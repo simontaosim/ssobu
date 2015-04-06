@@ -1,2 +1,32 @@
-<h1>PersonalCenter#index</h1>
-<p>Find me in app/views/personal_center/index.html.erb</p>
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <%= stylesheet_link_tag "bootstrap_and_overrides", :media => "all" %>
+ <div class="container-fluid">
+ <div class="row">
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="#">我的UBOSS</a></li>
+  <li role="presentation"><a href="#">未付</a></li>
+  <li role="presentation"><a href="#">收入</a></li>
+  <li role="presentation"><a href="#">提现</a></li>
+</ul>
+</div>
+<div class="row">
+	<div class="row">
+	  <div class="col-xs-5 col-xs-offset-1">头像</div>
+	  <div class="col-xs-6">line</div>
+	</div>
+	<div class="row">
+	  <div class="col-md-8">.col-md-8</div>
+	  <div class="col-md-4">.col-md-4</div>
+	</div>
+	<div class="row">
+	  <div class="col-md-4">.col-md-4</div>
+	  <div class="col-md-4">.col-md-4</div>
+	  <div class="col-md-4">.col-md-4</div>
+	</div>
+	<div class="row">
+	  <div class="col-md-6">.col-md-6</div>
+	  <div class="col-md-6">.col-md-6</div>
+	</div>
+</div>
+</div>
+ <%= javascript_include_tag "bootstrap.js" %>

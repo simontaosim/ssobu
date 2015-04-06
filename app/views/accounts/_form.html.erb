@@ -16,11 +16,18 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :total, :class => 'control-label' %>
+    <%= f.label :user_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :total, :class => 'form-control' %>
+      <%= f.text_field :user_id, :class => 'form-control' %>
     </div>
-    <%= error_span(@account[:total]) %>
+    <%= error_span(@account[:user_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :amount, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :amount, :class => 'form-control' %>
+    </div>
+    <%= error_span(@account[:amount]) %>
   </div>
   <div class="control-group">
     <%= f.label :currency, :class => 'control-label' %>
@@ -44,11 +51,11 @@
     <%= error_span(@account[:plus]) %>
   </div>
   <div class="control-group">
-    <%= f.label :massage, :class => 'control-label' %>
+    <%= f.label :message, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :massage, :class => 'form-control' %>
+      <%= f.text_field :message, :class => 'form-control' %>
     </div>
-    <%= error_span(@account[:massage]) %>
+    <%= error_span(@account[:message]) %>
   </div>
 
 

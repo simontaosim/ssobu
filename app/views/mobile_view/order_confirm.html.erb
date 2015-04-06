@@ -40,7 +40,6 @@
         <li class="lipadding" >手机号码: <%= @order.receiver_mobile %></li>
         <% 
                 address = @order.receiver_address
-                address[address.length-6, address.length] = ''
          %>
         <li class="lipadding">收货地址: <%= address %></li>
         <li class="lipadding">邮政编码: <%= @order.receiver_postcode %></li>
@@ -49,7 +48,7 @@
     </div>
 <hr/>
 <input type="hidden" value="<%= @order._id %>" name="order_id" />
-        <div style="padding:2% 2%"><button class="pure-button button-success" type="submit" style="font-size: 140%; padding:2% 2%">微信支付</button></div>
+        <div style="padding:2% 2%"><button class="pure-button button-success" type="submit" style="font-size: 140%; padding:2% 2%">易宝支付</button></div>
         </form>
 <script type="text/javascript">
 

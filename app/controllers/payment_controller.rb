@@ -7,14 +7,36 @@ class PaymentController < ApplicationController
 
   def to_pay
     order_id = params[:order_id]
-      user_id = ''
-      user_agent = ''
-      amount =''
-      product_name= ''
-      product_description = ''
-      product_log =''
-      sign = ''
-      redirect_to payment_require_pay_back_path+'?order_id='+order_id+"&user_id="+user_id+"&user_agent="+user_agent+"&amount="+amount+"&product_name="+product_name+"&product_description"+product_description+"&product_log"+product_log 
+    order = Order.find(order_id)
+  
+    identity_id = order.user_id.to_s
+     user_ip = request.remote_ip
+     user_ua = request.user_agent
+     transtime = Time.now.to_i
+      if  session[:progress_id]
+       @product_line = ProductLine.where(cart_id: session[:cart_id]).first
+        @product = Product.find(@product_line.product_id)
+    end
+      product_name="uboss-"+@product.name
+      quantity = @product_line.quantity.to_i
+      current_price = @product_line.current_price.to_f
+      amount = ((quantity*current_price)*100).to_i
+      product_catalog = @product.catalog_id
+      product_desc = @product.description
+      sign = order_id
+      sign += 7.to_s
+      sign += identity_id
+      sign += user_ip.to_s
+      sign += user_ua
+      sign += transtime.to_s+product_name+product_desc+amount.to_s
+      sign =  Digest::MD5.hexdigest(sign)
+      url = URI.parse('http://183.57.43.251/toMobilepay.php')
+      response = Net::HTTP.post_form(url,{'order_id' => order_id, 'transtime' => transtime.to_s, 'identity_id' => identity_id, 'user_ip' => user_ip.to_s, 'user_ua' => user_ua, 'amount' => amount.to_s,  'product_name' => product_name, 'product_desc' => product_desc, 'product_catalog' => '7', 'sign' => sign})
+      to_jump = response.body
+      #render plain: to_jump
+     to_jump[0,9] = ''
+     redirect_to 'https://'+to_jump.to_s
+     # redirect_to "http://183.57.43.251/toMobilepay.php"+'?order_id='+order_id+"&transtime="+transtime.to_s+"&identity_id="+identity_id+"&user_ip="+user_ip.to_s+"&user_ua="+user_ua+"&amount="+amount.to_s+"&product_name="+product_name+"&product_desc="+product_desc+"&product_catalog="+product_catalog+"&sign="+sign
   end
 
   def pay_success
@@ -43,15 +65,17 @@ class PaymentController < ApplicationController
       @notice = '支付成功'
       end
       
-  end
+   end
 
   def pay_fail
      @notice = '支付失败'
   end
 
   def require_pay_back
-    if params[:order_id]
-      redirect_to action: "pay_success", order_id: params[:order_id]
+    if params[:status] == '1'
+      redirect_to action: 'pay_success' , order_id: params[:order_id]
+    else
+      redirect_to action: 'pay_fail', order_id: params[:order_id]
     end
   end
 end

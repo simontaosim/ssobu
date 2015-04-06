@@ -1,1 +1,16 @@
-<h1><%= @notice %></h1>
+<script language="javascript" type="text/javascript">
+ var hwd;
+ var intSec = 3;//这里定义时间：秒
+ function reHandle()
+ {
+  if(intSec==0)
+  window.location.href = 'http://edwin.jkqun.com/blog/article.asp?id=245';
+  else
+  {
+  intSec--;
+  }
+  hwd = setTimeout(reHandle,1000);
+ }
+  reHandle();
+  document.write('<p><span id="tiao">'+intSec+'</span>秒后自动跳转…</p>')
+</script>

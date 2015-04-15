@@ -1,6 +1,7 @@
 class RolesController < ApplicationController
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_role #, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token, only: [:destroy, :create, :remote_register]
+  layout 'admin'
   # GET /roles
   # GET /roles.json
   def index
@@ -64,7 +65,15 @@ class RolesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_role
-      @role = Role.find(params[:id])
+      if session[:adminname] == nil and session[:username] == nil
+        respond_to do |format|
+          format.html { redirect_to admins_path }
+        end
+      else
+        if params[:action].to_s == 'show' or params[:action].to_s == 'edit' or params[:action].to_s == 'update' or params[:action].to_s == 'destroy'
+          @role = Role.find(params[:id])
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

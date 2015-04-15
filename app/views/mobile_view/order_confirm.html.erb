@@ -19,16 +19,16 @@
 </style>
 <%= image_tag 'rabbit_logo.png', alt:"uboss" ,width: '100%' %>
 <br/><hr/>
-<form method="POST" action="">
+<form method="POST" action="<%= payment_to_pay_url %>">
 <div style="width:100%">
 	<div style="text-align:center; font-size:18px; font-weight:bold" class="fontColor1">购买清单</div>
     <ul style="list-style: none;" class="pure-menu-list fontColor">
-        <li class="lipadding" >名 称: 奔跑吧！兔子</li>
+        <li class="lipadding" >名 称: <%=  @product.name %></li>
         <li class="lipadding" >
-            单 价:<span style="color:red;font-size: 120%;">¥ 68.00</span></li>
-                <li class="lipadding">运 费: ¥ 0.00</li>
-                <li class="lipadding">数 量: 100</li>
-                <li class="lipadding"><span style="color:red"><font style="color:#57403b;">合 计: </font><label style="font-size: 150%;">¥ </label><label id="total" style="font-size: 150%;">6800.00</label></span>
+            单 价:<span style="color:red;font-size: 120%;">¥ <%= format("%.2f",@product_line.current_price.to_f) %></span></li>
+                <li class="lipadding">运 费: ¥ <%= format("%.2f",@product.express_price.to_f) %></li>
+                <li class="lipadding">数 量: <%= @product_line.quantity %></li>
+                <li class="lipadding"><span style="color:red"><font style="color:#57403b;">合 计: </font><label style="font-size: 150%;">¥ </label><label id="total" style="font-size: 150%;"><%= format("%.2f",@order.amount.to_f) %></label></span>
                 </li>
             </ul>
         </div>
@@ -36,16 +36,20 @@
 	<div style="text-align:center; font-size:18px; font-weight:bold" class="fontColor1">收货信息</div>
     <div style="width:100%">
     <ul style="list-style: none;" class="pure-menu-list fontColor">
-        <li class="lipadding" >收货人: 傻逼</li>
-        <li class="lipadding" >手机号码: 13838383388</li>
-        <li class="lipadding">收货地址: 地球</li>
-        <li class="lipadding">邮政编码: 000000</li>
+        <li class="lipadding" >收货人: <%= @order.receiver_name %></li>
+        <li class="lipadding" >手机号码: <%= @order.receiver_mobile %></li>
+        <% 
+        address = @order.receiver_address
+         %>
+        <div class="lipadding">收货地址: <%= address %></div>
+        <li class="lipadding">邮政编码: <%= @order.receiver_postcode %></li>
         <li class="lipadding"><textarea rows="1" cols="20" class="pure-input-1" placeholder="备注："></textarea></li>
     </ul>
     </div>
 <hr/>
-        <div style="padding:2% 2%"><button class="pure-button button-success" type="submit" style="font-size: 140%; padding:2% 2%">微信支付</button></div>
+<input type="hidden" value="<%= @order.id %>" name="order_id" />
+        <div style="padding:2% 2%"><button class="pure-button button-success" type="submit" style="font-size: 140%; padding:2% 2%">易宝支付</button></div>
         </form>
 <script type="text/javascript">
-
+ window.history.forword(1);
 </script>

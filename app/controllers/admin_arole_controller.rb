@@ -1,0 +1,3 @@
+class AdminAroleController < ApplicationController
+
+end

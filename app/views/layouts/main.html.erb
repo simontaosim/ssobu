@@ -56,7 +56,7 @@
                     <% if session[:username] %>
                      <li id="tab_login">
                     <%= link_to "退出账号",
-                      session_path(Session.find(session[:progress_id])),
+                      session_path(Session.find(session[:progress_id]["$oid"])),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }  %>
                       </li>

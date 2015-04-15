@@ -1,0 +1,591 @@
+<%= javascript_include_tag "md5.js" %>
+
+<link rel="stylesheet" href="http://cdn.bootcss.com/pure/0.5.0/forms-min.css">
+<style>
+    html,body{ margin:0px; height:100%;} 
+</style>
+
+<br/>
+
+<div style="text-align:center">
+    <%= image_tag 'uboss_logo_100x179.png', alt:"uboss", width: '20%' %>
+</div>
+
+<br/>
+
+<div style="width:80%; padding:5% 10%; margin:0">
+    <div style="border:1px solid #9a9a9a; padding:5% 10%">
+        <div>
+            <%= form_for @user, url: users_register_path, :html => {:class => "pure-form pure-g-r", :id => "resetpwdForm"} do |f| %>
+
+                    <div id="tips_mobile" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                    <div id="input_mobile" class="pure-u-1" style="padding:4% 0">
+                        <div class="pure-u-1-7"></div>
+                        <div class="pure-u-5-7">
+                            <%= f.text_field :mobile, 
+                                class: "pure-u-1 auto_hide_footer_for_ios",
+                                id:"mobile",
+                                placeholder:"手机号码" ,
+                                onblur: "onBlur(this)", 
+                                onkeyup: "onKeyUp(this)" %>
+                        </div>
+                        <div class="pure-u-1-7"></div>    
+                    </div>
+
+                    <div id="tips_verifycode" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                    <div id="input_verifycode" class="pure-u-1" style="padding:4% 0">
+                        <div class="pure-u-1-7"></div>
+                        <div class="pure-u-5-7">
+                            <div class="pure-u-1">
+                                <div class="pure-u-2-5" style="float:left">
+                                    <input class="pure-u-1 auto_hide_footer_for_ios" id="verifycode" placeholder="验证码" onblur="onBlur(this)" onkeyup="onKeyUp(this)" type="text">
+                                </div>
+                                <div class="pure-u-3-5" style="float:right">
+                                    <button id="btn_verifycode" type="button" class="pure-button pure-u-1 pure-button-primary" style="padding:10px" onclick='checkExist("mobile")'>获取验证码</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pure-u-1-7"></div>    
+                    </div>
+
+                    <div id="tips_pwd" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                    <div id="input_pwd" class="pure-u-1" style="padding:4% 0">
+                        <div class="pure-u-1-7"></div>
+                        <div class="pure-u-5-7">
+                            <%= f.password_field :encrypt_password, 
+                                class: "pure-u-1 auto_hide_footer_for_ios", 
+                                id: "pwd", 
+                                placeholder: "新密码(8~20个数字和字母，必须包含数字和字母)", 
+                                onblur: "onBlur(this)", 
+                                onkeyup: "onKeyUp(this)" %>
+                        </div>
+                        <div class="pure-u-1-7"></div>    
+                    </div>
+
+                    <div id="tips_pwd2" class="pure-u-1" style="color: #ff0000; padding: 0"></div>
+                    <div id="input_pwd2" class="pure-u-1 auto_hide_footer_for_ios" style="padding:4%0">
+                        <div class="pure-u-1-7"></div>
+                        <div class="pure-u-5-7">
+                            <%= f.password_field :password_confirm, 
+                                class: "pure-u-1 auto_hide_footer_for_ios", 
+                                id: "pwd2", 
+                                placeholder: "确认密码",
+                                onblur: "onBlur(this)", 
+                                onkeyup: "onKeyUp(this)" %>
+                        </div>
+                        <div class="pure-u-1-7"></div>    
+                    </div>
+
+                <div class="pure-u-1" style="padding:5% 0">
+                    <div class="pure-u-1-7"></div>
+                    <div class="pure-u-5-7">
+                        <button id="btn_regist" type="button" class="pure-button pure-u-1 pure-button-primary" onclick="registOnTouch()" style="padding:10px">重置密码</button>     
+                    </div>
+                    <div class="pure-u-1-7"></div>    
+                </div>
+                
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<script>
+    var rules = {
+        pwd: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/, 
+        mobile: /^0?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/
+    };
+
+    var errorTips = {
+        pwd: '由8～20个数字和字母组成，必须包含数字和字母',
+        mobile: '请输入正确手机号',
+        verifycode: '验证码错误'
+    };
+
+    var emptyTips = {
+        pwd: '密码不能为空',
+        mobile: '手机号不能为空',
+        verifycode: '验证码不能为空'
+    };
+
+    var existTips = {
+        mobile: '手机号已存在',
+        unknown: '未知错误',
+    };
+
+    var ajaxAddr = {
+        mobile: 'http://uboss.me/users/mobile_is_exist',
+        send_verifycode: 'http://uboss.me/mobile_view/send_verifycode',
+        check_verifycode: 'http://uboss.me/mobile_view/check_verifycode'
+    };
+
+    var allKey = ["mobile", "verifycode", "pwd", "pwd2"];
+    var targetKey = {
+        mobile: ["mobile", "verifycode", "pwd", "pwd2"],
+        all: ["mobile", "verifycode", "pwd", "pwd2"]
+    };
+
+    var formValue = {};
+    var formDiv = {
+        mobile: {},
+        all: {}
+    };
+    var tipsDiv = {
+        mobile: {},
+        all: {}
+    };
+
+    var numValidate = 5;
+    var numVerifyCodeDigit = 6;
+    var numVerifyCd = 60;
+
+    var validate = {
+        mobile: {},
+        all: {}
+    };
+
+    var btnResetpwd;
+    var btnVerifyCode;
+    var currentTarget;
+    // var verifyMobile;
+    var verifyCd;
+
+    addOnLoadEventHandler(function(){
+        for (eachTarget in targetKey){
+            for (eachKey in targetKey[eachTarget]){
+                var key = targetKey[eachTarget][eachKey];
+                if (formDiv[eachTarget] == null){
+                    formDiv[eachTarget] = {};
+                }
+                formDiv[eachTarget][key] = document.getElementById("input_" + key);
+                if (tipsDiv[eachTarget] == null){
+                    tipsDiv[eachTarget] = {};
+                }
+                tipsDiv[eachTarget][key] = document.getElementById("tips_" + key);
+            }
+        }
+        btnResetpwd = document.getElementById("btn_regist");
+        btnVerifyCode = document.getElementById("btn_verifycode");
+
+        resetpwdFor("mobile");
+    });
+
+    function setObjectValue(key, value){
+        if (objectForSet == null){
+            objectForSet = {};
+        }
+        objectForSet[key] = value;
+    }
+
+    function resetpwdFor(target){
+        if (currentTarget == target){
+            return;
+        }
+        currentTarget = target;
+        hideDiv(formDiv["all"]);
+        hideDiv(tipsDiv["all"]);
+        displayDiv(formDiv[currentTarget]);
+        displayDiv(tipsDiv[currentTarget]);
+        copyValidateInfo();
+        checkAllAndSetBtn();
+
+        if (verifyCd > 0){
+            btnVerifyCode.disabled = true;
+        }
+    }
+
+    function copyValidateInfo(){
+        for (eachTypeKey in targetKey[currentTarget]){
+            var type = targetKey[currentTarget][eachTypeKey];
+            if (validate["all"][type] != null){
+                validate[currentTarget][type] = validate["all"][type];
+            }
+        }
+    }
+
+    function displayDiv(divs){
+        for (eachDivKey in divs){
+            if (eachDivKey == "agree"){
+                return;
+            }
+            divs[eachDivKey].style.display = "block";
+        }
+    }
+
+    function hideDiv(divs){
+        for (eachDivKey in divs){
+            if (eachDivKey == "agree"){
+                return;
+            }
+            divs[eachDivKey].style.display = "none";
+        }
+    }
+
+    function setValidate(target, type, value){
+        validate["all"][type] = value;
+        validate[currentTarget][type] = value;
+    }
+
+    function onBlur(e){
+        var value = e.value;
+        var type = e.id;
+
+        if (footer != null){
+            footer.style.display = "block";
+        }
+
+        //输入为空时
+        if (isInputEmpty(value)){
+            setValidate(currentTarget, type, false);
+            tryShowTips(emptyTips, type);
+            checkAllAndSetBtn();
+            return;
+        }
+
+        //输入不合法时
+        if (!isInputLegal(value, type)){
+            setValidate(currentTarget, type, false);
+            tryShowTips(errorTips, type);
+            checkAllAndSetBtn();
+            return;
+        }
+
+        setValidate(currentTarget, type, true);
+        hideTips(type);
+
+        switch (type)
+        {
+            case "username":
+            case "email":
+                formValue[type] = value;
+                checkExist(type);
+                break;
+            case "pwd":
+            case "pwd2":
+                formValue[type] = value;
+                if (!checkPwdEquals()){
+                    checkAllAndSetBtn();
+                    return;
+                }
+                break;
+            case "mobile":
+                formValue[type] = value;
+                break;
+            case "verifycode":
+                formValue[type] = value;
+                checkVerifyCode();
+                break;
+        }
+
+        checkAllAndSetBtn();
+        return;
+    }
+
+    function onKeyUp(e){
+        var value = e.value;
+        var type = e.id;
+
+        //输入为空
+        if (isInputEmpty(value)){
+            setValidate(currentTarget, type, false);
+            tryShowTips(emptyTips, type);
+            checkAllAndSetBtn();
+            return;
+        }
+
+        //输入不合法时
+        if (!isInputLegal(value, type)){
+            setValidate(currentTarget, type, false);
+            tryShowTips(errorTips, type);
+            checkAllAndSetBtn();
+            return;
+        }
+
+        //确认密码
+        if (type == "pwd" || type == "pwd2"){
+            formValue[type] = value;
+            if (!checkPwdEquals()){
+                checkAllAndSetBtn();
+                return;
+            }    
+        }
+
+        setValidate(currentTarget, type, true);
+        hideTips(type);
+        checkAllAndSetBtn();
+        return;
+    }
+
+    function onChangeAgree(){
+        setValidate(currentTarget, "agree", formDiv["all"]["agree"].checked);
+        checkAllAndSetBtn();
+    }
+
+    function sendVerifyCode(){
+        if (btnVerifyCode.disabled){
+            return;
+        }
+        btnVerifyCode.innerHTML = '<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">';
+        btnVerifyCode.style.padding = 0;
+        btnVerifyCode.disabled = true;
+        var xmlhttp;
+        var addr = ajaxAddr["send_verifycode"];
+        if (window.XMLHttpRequest){
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("POST",addr);
+        xmlhttp.setRequestHeader("cache-control","no-cache");  
+        xmlhttp.setRequestHeader("contentType","text/html;charset=uft-8"); //指定发送的编码  
+        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");   //设置请求头信息  
+        xmlhttp.onreadystatechange = function() { 
+            if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+                btnVerifyCode.innerHTML = "获取验证码";
+                btnVerifyCode.style.padding = "10px";
+                if (eval(xmlhttp.responseText) == 1){
+                    startVerifyCd();
+                    hideTips("verifycode");
+                }
+                else
+                {
+                    tryShowTips(errorTips, "verifycode");
+                }
+            }
+            tryShowTips(errorTips, "verifycode");
+        }
+        xmlhttp.send("mobile=" + formValue["mobile"]);
+        
+    }
+
+    function startVerifyCd(){
+        verifyCd = 60;
+        btnVerifyCode.style.padding = "10px";
+        setVerifyCd();
+    }
+
+    function setVerifyCd(){
+        if (verifyCd <= 0){
+            btnVerifyCode.innerHTML = "获取验证码";
+            btnVerifyCode.disabled = false;
+        }
+        else{
+            btnVerifyCode.innerHTML = "获取验证码(" + verifyCd + ")";
+            verifyCd--;
+            setTimeout(setVerifyCd, 1000);
+        }
+    }
+
+    function checkVerifyCode(){
+        btnResetpwd.innerHTML = '<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">';
+        btnResetpwd.style.padding = 0;
+
+        var validateResult = true;
+        var xmlhttp;        
+        var addr = ajaxAddr["check_verifycode"];
+        addr += "?verifycode=" + formValue["verifycode"] + "&mobile=" + formValue["mobile"];
+        if (window.XMLHttpRequest){
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET",addr);
+        
+        xmlhttp.onreadystatechange = function() { 
+            if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) { 
+                switch (eval(xmlhttp.responseText)){
+                    case 0:
+                        setValidate(currentTarget, "verifycode", false);
+                        tryShowTips(errorTips, "verifycode");
+                        validateResult = false;
+                        break;
+                    case 1:
+                        setValidate(currentTarget, "verifycode", true);
+                        hideTips("verifycode");
+                        validateResult = true;
+                        break;
+                    case 2:
+                        setValidate(currentTarget, "verifycode", false);
+                        tryShowTips(errorTips, "verifycode", "请重新获取验证码");
+                        validateResult = false;
+                        break;
+                    default:
+                        setValidate(currentTarget, "verifycode", false);
+                        tryShowTips(errorTips, "verifycode", "未知错误");
+                        validateResult = false;
+                        break;
+                }
+            }
+            else { 
+                setValidate("verifycode", "verifycode", false);
+                tryShowTips(errorTips, "verifycode", "未知错误");
+                validateResult = false;
+            }
+            btnResetpwd.innerHTML = "注 册";
+            btnResetpwd.style.padding = "10px";
+            checkAllAndSetBtn();
+
+            console.log("onCheckVerifyCode");
+        }
+        xmlhttp.send();
+    }
+
+    function checkExist(type){
+        btnResetpwd.innerHTML = '<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">';
+        btnResetpwd.style.padding = 0;
+
+        if (type == "mobile"){
+            btnVerifyCode.innerHTML = '<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">';
+            btnVerifyCode.style.padding = 0;
+            btnVerifyCode.disabled = true;
+        }
+
+        var validateResult = false;
+        var xmlhttp;        
+        var addr = ajaxAddr[type];
+        addr += "?" + type + "=" + formValue[type];
+        if (window.XMLHttpRequest){
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET",addr);
+        
+        xmlhttp.onreadystatechange = function() { 
+            if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) { 
+                switch (eval(xmlhttp.responseText)){
+                    case 0:
+                        setValidate(currentTarget, type, false);
+                        tryShowTips(existTips, type);
+                        validateResult = true;
+                        break;
+                    case 1:
+                        setValidate(currentTarget, type, true);
+                        hideTips(type);
+                        validateResult = false;
+                        break;
+                    default:
+                        setValidate(currentTarget, type, false);
+                        tryShowTips(existTips, type, true);
+                        validateResult = true;
+                        break;
+                }
+            }
+            else { 
+                setValidate(currentTarget, type, false);
+                tryShowTips(existTips, type, true);
+                validateResult = true;
+            }
+            btnResetpwd.innerHTML = "注 册";
+            btnResetpwd.style.padding = "10px";
+
+            checkAllAndSetBtn();
+
+            if (type == "mobile"){
+                btnVerifyCode.innerHTML = "获取验证码";
+                btnVerifyCode.style.padding = "10px";
+                if (!validateResult){
+                    sendVerifyCode();
+                }
+            }
+
+
+            console.log("onCheckExist");
+        }
+        xmlhttp.send();
+    }
+
+    function checkAllAndSetBtn(){
+        if (currentTarget == "mobile"){
+            btnVerifyCode.disabled = (!(validate["all"]["mobile"] == true)) || (verifyCd > 0);
+        }
+        if (isAllLegal()){
+            btnResetpwd.disabled = false;
+            return;
+        }
+        btnResetpwd.disabled = true;
+    }
+
+    function checkPwdEquals(){
+        if (formValue["pwd"] != formValue["pwd2"] && formValue["pwd2"] != ""){
+            tryShowTips(errorTips, "pwd2");
+            setValidate(currentTarget, "pwd2", false);
+            return false;
+        }
+        hideTips("pwd2");
+        setValidate(currentTarget, "pwd2", true);
+        return true;
+    }
+
+    function isInputEmpty(value){
+
+        return value == null || value == "";
+    }
+
+    function isInputLegal(value, type){
+        if (rules[type] != null){
+            return rules[type].test(value);
+        }
+        return true;
+    }
+
+    function isAllLegal(){
+        var count = 0;
+        for (eachVal in validate[currentTarget]){
+            if (validate[currentTarget][eachVal] != true){
+                return false;
+            }
+            count++;
+        }
+        if (count < numValidate){
+            return false;
+        }
+        // if (currentTarget == "mobile")
+        // {
+        //     if (verifyMobile != formValue["mobile"]){
+        //         return false;    
+        //     }
+        // }
+        return true;
+    }
+
+    function tryShowTips(tips, type, special){
+        if (validate[currentTarget][type] == null){
+            hideTips(type);
+            return;
+        }
+        var tip = special ? special : tips[type];
+        if (tips[type] != null){
+            tipsDiv["all"][type].innerHTML = tip;
+            return;
+        }
+        hideTips(type);
+    }
+
+    function hideTips(type){
+        if (tipsDiv[currentTarget][type] == null){
+            return;
+        }
+        tipsDiv[currentTarget][type].innerHTML = "";
+    }
+
+    function registOnTouch(){
+        if (btnResetpwd.disabled){
+            return;
+        }
+        var input_pwd = document.getElementById("pwd");
+        input_pwd.value = hex_md5(input_pwd.value);
+        var input_pwd2 = document.getElementById("pwd2");
+        input_pwd2.value = hex_md5(input_pwd2.value);
+        var input_reg_for = document.getElementById("reg_for");
+        input_reg_for.value = currentTarget;
+        document.getElementById("registForm").submit();
+        btnResetpwd.disabled = true;
+    }
+    
+</script>

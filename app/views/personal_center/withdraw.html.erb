@@ -1,0 +1,75 @@
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <%= stylesheet_link_tag "bootstrap_and_overrides", :media => "all" %>
+ <div class="container-fluid">
+	 <div class="row">
+	<ul class="nav nav-tabs">
+	  <li role="presentation"><a href="<%= personal_center_index_path %>">我的UBOSS</a></li>
+	  <li role="presentation"><a href="<%= personal_center_my_income_path %>">收入</a></li>
+	  <li role="presentation"  class="active" ><a href="<%= personal_center_withdraw_path %>">提现</a></li>
+	</ul>
+	</div>
+</div>
+    <%= javascript_include_tag "application" %>
+ <%= javascript_include_tag "bootstrap.js" %>
+
+ <div>最低提现金额100元。</div>
+ <div>每月20号到月底才能申请提现哦～5个工作日内到账～～亲请耐心等待！</div>
+ <div class="container">
+ <%= form_for @withdraw_record , :html => { :class => "form-horizontal" } do |f| %>
+  <div class="control-group">
+    <%= f.label :银行卡号, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :bank_card, :class => 'form-control' %>
+    </div>
+  </div>
+    <div class="control-group">
+    <%= f.label :提现金额（最低100元）, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :amount, :class => 'form-control' %>
+    </div>
+  </div>
+  <%= hidden_field_tag :from_mobile_personal_center, value: '1' %>
+  <%= f.hidden_field :user_id, value: @user.id %>
+  <%= f.hidden_field :done, value: 0 %>
+  <br>
+  <%= f.submit :立即申请, :class => 'btn btn-primary' %>
+
+<% end %>
+</div>
+<br>
+<div class="container-fluid">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          我的提现申请
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <% @withdraw_records.each do |record| %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          提现成功纪录
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+       暂无
+      </div>
+    </div>
+  </div>
+
+</div></div>
+<%= javascript_include_tag "application" %>
+ <%= javascript_include_tag "bootstrap.js" %>

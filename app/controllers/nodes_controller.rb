@@ -1,6 +1,6 @@
 class NodesController < ApplicationController
   before_action :set_node, only: [:show, :edit, :update, :destroy]
-
+  layout 'admin'
   # GET /nodes
   # GET /nodes.json
   def index
@@ -70,6 +70,6 @@ class NodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def node_params
-      params.require(:node).permit(:name)
+      params.require(:node).permit(:user_id, :order_id, :is_origin, :name, :origin_node, :a_node, :b_node, :c_node, :level)
     end
 end

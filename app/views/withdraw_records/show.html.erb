@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Bank name:</strong>
+  <%= @withdraw_record.bank_name %>
+</p>
+
+<p>
+  <strong>Bank card:</strong>
+  <%= @withdraw_record.bank_card %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @withdraw_record.amount %>
+</p>
+
+<%= link_to 'Edit', edit_withdraw_record_path(@withdraw_record) %> |
+<%= link_to 'Back', withdraw_records_path %>

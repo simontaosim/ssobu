@@ -15,13 +15,13 @@ html,body{ margin:0px; height:100%;}
 <div style="width:80%; padding:1% 10%; margin:0" class="fontColor">
 <div style="border:1px solid #9a9a9a; padding:5% 10%" class="fontColor">
 <div>
-<form class="pure-form pure-g fontColor" method="GET" action="<%= mobile_view_go_order_path %>">
+<form name="addrForm" id="addrForm" onsubmit="return false;" class="pure-form pure-g fontColor" method="POST" action="<%= mobile_view_go_order_path %>">
     <div class="pure-u-1" style="padding:2% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
-            收货人<input id="receiver" name="recevier" type="text" placeholder="收货人" class="pure-u-1">
+            收货人<input id="receiver" name="receiver_name" type="text" placeholder="收货人" class="pure-u-1 auto_hide_footer_for_ios">
         </div>
-        <div class="pure-u-1-7"></div> 
+        <div class="pure-u-1-7"></div> 	
     </div>
 
     <br/>
@@ -30,7 +30,7 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" style="padding:2% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
-            手机号码<input id="telephone" name="telephone" type="number" placeholder="手机号码" class="pure-u-1">
+            手机号码<input id="telephone" name="receiver_mobile" type="text" placeholder="手机号码" class="pure-u-1 auto_hide_footer_for_ios" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
         </div>
         <div class="pure-u-1-7"></div>    
     </div>
@@ -40,14 +40,14 @@ html,body{ margin:0px; height:100%;}
 
     <div class="pure-u-1" style="padding:2% 0">
         <div class="pure-u-1-7"></div>
-        <div class="pure-u-5-7">
-        选择地区<br/><select class="select" name="province" id="s1">
+        <div class="pure-u-5-7 auto_hide_footer_for_ios">
+        选择地区<br/><select class="select auto_hide_footer_for_ios" name="province" id="s1">
               <option></option>
             </select>
-            <select class="select" name="city" id="s2">
+            <select class="select auto_hide_footer_for_ios" name="city" id="s2">
               <option></option>
             </select>
-            <select class="select" name="town" id="s3">
+            <select class="select auto_hide_footer_for_ios" name="town" id="s3">
               <option></option>
             </select>
         <!--
@@ -63,7 +63,7 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" style="padding:2% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
-            详细地址<input id="detailAddr" name="detailAddr" type="number" placeholder="详细地址" class="pure-u-1">
+            详细地址<input id="detailAddr" name="address" type="text" placeholder="详细地址" class="pure-u-1 auto_hide_footer_for_ios">
         </div>
         <div class="pure-u-1-7"></div>    
     </div>
@@ -71,18 +71,21 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" style="padding:2% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
-            邮政编码<input id="postal" name="postal" type="number" placeholder="邮政编码" class="pure-u-1">
+            邮政编码<input id="postal" name="receiver_postcode" type="text" placeholder="邮政编码" class="pure-u-1 auto_hide_footer_for_ios" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
         </div>
         <div class="pure-u-1-7"></div>    
     </div>
 
     <br/>
     <br/>
-
+     
+     <input id="wholeAddr" type="hidden" name="receiver_address" type="text" placeholder="隐藏的详细地址" class="pure-u-1">
+    
+	<div style="letter-spacing:normal;color:#F00;display:none" id="show_warning" >我是警告</div>
     <div class="pure-u-1" style="padding:5% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
-            <button type="submit" class="pure-button pure-u-1 pure-button-primary">确 认</button>     
+            <button type="button" class="pure-button pure-u-1 pure-button-primary" ontouchstart="confirm()">确 认</button>     
         </div>
         <div class="pure-u-1-7"></div>    
     </div>
@@ -95,19 +98,101 @@ html,body{ margin:0px; height:100%;}
 </div>
 
 <script>
+
+window.history.forward(1);
+window.history.go(1);
+
 function checkReceiver(){
     var receiver = "";
     setup();
-    preselect('广东省');
-    promptinfo();
+    preselect('省份');
+    //promptinfo();
 }
-function promptinfo()
-{
-    var address = document.getElementById('addr');
-    var s1 = document.getElementById('s1');
-    var s2 = document.getElementById('s2');
-    var s3 = document.getElementById('s3');
-    address.value = s1.value + s2.value + s3.value;
+
+
+addOnLoadEventHandler(checkReceiver);
+
+function confirm(){
+	warning_text = "";
+	if(!isAllCorrect()) {
+		var warning = document.getElementById('show_warning');
+		warning.innerHTML=warning_text;
+		warning.style.display='';
+		return false;
+	}
+	var wholeAddr = document.getElementById('wholeAddr');
+    wholeAddr.value = document.getElementById('s1').value
+    				+document.getElementById('s2').value
+    				+document.getElementById('s3').value
+    				+document.getElementById('detailAddr').value;
+    				//+" 邮编 "+document.getElementById('postal').value;
+	//alert(document.addrForm.elements.length);
+	document.getElementById('addrForm').submit();
+		
 }
-window.onload = checkReceiver;
+function isAllCorrect(){ 
+	if(document.getElementById('receiver').value == ""){ 
+		warning_text = "请填写收货人";
+  	return false;
+	}
+	if (!isPhoneNum()) {
+		return false;
+	}
+	if (!isAreaSetted()) {
+	return false;
+	}
+	return true;
+}
+
+function isPhoneNum(){
+	var phoneNum = document.getElementById('telephone').value;
+	 if(phoneNum.length==0)
+        {
+           warning_text = "请输入手机号码";
+           return false;
+        }
+     if(phoneNum.length!=11)
+    	{
+        warning_text = "请输入完整11位手机号码！";
+        //document.form1.mobile.focus();
+        return false;
+   		}  
+   	 //var myreg = /^(((13[0-9]{1})|159|153)+\d{8})$/;
+   	 var myreg = /^0?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;
+   	 if(!myreg.test(phoneNum)){	
+   	 	 warning_text = "请输入有效的手机号码！";
+         return false;
+   	 }
+   	 return true;
+}
+function isAreaSetted(){
+	var province= document.getElementById('s1');
+    var city = document.getElementById('s2');
+    var town = document.getElementById('s3');
+    var detailAddr = document.getElementById('detailAddr');
+    var postal = document.getElementById("postal");
+    
+    if(province.selectedIndex ==0 ){
+    	warning_text = "请选择省份";
+    	return false;
+    }
+    if(city.selectedIndex == 0){
+    	warning_text = "请选择市";
+    	return false;
+    }
+    if (town.selectedIndex == 0) {
+    	warning_text ="请选择区/县";
+    	return false;
+    }
+    if(detailAddr.value == ""){
+    	warning_text = "请输入详细地址";
+    	return false;
+    }
+    if(postal.value != "" && postal.value.length != 6 ){
+    	warning_text = "请输入正确6位邮编";
+    	return false;
+    }
+    return true;
+}
+	
 </script>

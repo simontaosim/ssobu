@@ -16,11 +16,32 @@
   <% end %>
 
   <div class="control-group">
+    <%= f.label :role_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :role_id, :class => 'form-control' %>
+    </div>
+    <%= error_span(@user[:role_id]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :nickname, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :nickname, :class => 'form-control' %>
+    </div>
+    <%= error_span(@user[:nickname]) %>
+  </div>
+  <div class="control-group">
     <%= f.label :email, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :email, :class => 'form-control' %>
     </div>
     <%= error_span(@user[:email]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :mobile, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :mobile, :class => 'form-control' %>
+    </div>
+    <%= error_span(@user[:mobile]) %>
   </div>
   <div class="control-group">
     <%= f.label :third_party, :class => 'control-label' %>
@@ -37,25 +58,25 @@
     <%= error_span(@user[:username]) %>
   </div>
   <div class="control-group">
-    <%= f.label :password, :class => 'control-label' %>
+    <%= f.label :is_boss, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :password, :class => 'form-control' %>
+      <%= f.text_field :is_boss, :class => 'form-control' %>
+    </div>
+    <%= error_span(@user[:is_boss]) %>
+  </div>
+ <div class="control-group">
+    <%= f.label :密码, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password, :class => 'form-control' %>
     </div>
     <%= error_span(@user[:password]) %>
   </div>
   <div class="control-group">
-    <%= f.label :password_confirm, :class => 'control-label' %>
+    <%= f.label :密码确认, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :password_confirm, :class => 'form-control' %>
+      <%= f.password_field :password_confirm, :class => 'form-control' %>
     </div>
     <%= error_span(@user[:password_confirm]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :encrypt_password, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :encrypt_password, :class => 'form-control' %>
-    </div>
-    <%= error_span(@user[:encrypt_password]) %>
   </div>
 
 

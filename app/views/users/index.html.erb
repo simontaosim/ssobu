@@ -1,18 +1,23 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h1><%=I18n.t(:Users) %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<div style="text-align:right">
+<a href="<%= users_path %>">首页</a> <a href="<%= users_path %>?curPageNo=<%= (@curPageNo.to_i <= 1) ? 1 : @curPageNo.to_i - 1 %>&pageup=1">上一页</a> <a href="<%= users_path %>?curPageNo=<%= (@curPageNo.to_i >= @totalPages.to_i) ? @totalPages.to_i : @curPageNo.to_i + 1 %>&pagedown=1">下一页</a> <a href="<%= users_path %>?lastPage=1">尾页</a> 当前第 <%= @curPageNo %> 页 共 <%= @totalPages %> 页 共 <%= @totalUsers %> 用户，每页显示<%= @perNum %>名用户
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(t("user.email")) %></th>
-      <th><%= model_class.human_attribute_name(t("user.third_party")) %></th>
-      <th><%= model_class.human_attribute_name(t("user.username")) %></th>
-      <th><%= model_class.human_attribute_name(t("user.password")) %></th>
-      <th><%= model_class.human_attribute_name(t("user.password_confirm")) %></th>
-      <th><%= model_class.human_attribute_name(t("user.encrypt_password")) %></th>
-      <th><%= model_class.human_attribute_name(t("user.created_at")) %></th>
+      <th><%= model_class.human_attribute_name(:role_id) %></th>
+      <th><%= model_class.human_attribute_name(:nickname) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th><%= model_class.human_attribute_name(:mobile) %></th>
+      <th><%= model_class.human_attribute_name(:third_party) %></th>
+      <th><%= model_class.human_attribute_name(:username) %></th>
+      <th><%= model_class.human_attribute_name(:is_boss) %></th>
+      <th><%= model_class.human_attribute_name(:encrypt_password) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -20,13 +25,15 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.id, user_path(user) %></td>
+        <td><%= user.role_id %></td>
+        <td><%= user.nickname %></td>
         <td><%= user.email %></td>
+        <td><%= user.mobile %></td>
         <td><%= user.third_party %></td>
         <td><%= user.username %></td>
-        <td><%= user.password %></td>
-        <td><%= user.password_confirm %></td>
+        <td><%= user.is_boss %></td>
         <td><%= user.encrypt_password %></td>
-        <td><%= I18n.l(user.created_at) %></td>
+        <td><%=l user.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_path(user), :class => 'btn btn-default btn-xs' %>
@@ -40,11 +47,9 @@
     <% end %>
   </tbody>
 </table>
-
+<div style="text-align:right">
+<a href="<%= users_path %>">首页</a> <a href="<%= users_path %>?curPageNo=<%= (@curPageNo.to_i <= 1) ? 1 : @curPageNo.to_i - 1 %>&pageup=1">上一页</a> <a href="<%= users_path %>?curPageNo=<%= (@curPageNo.to_i >= @totalPages.to_i) ? @totalPages.to_i : @curPageNo.to_i + 1 %>&pagedown=1">下一页</a> <a href="<%= users_path %>?lastPage=1">尾页</a> 当前第 <%= @curPageNo %> 页 共 <%= @totalPages %> 页 共 <%= @totalUsers %> 用户，每页显示<%= @perNum %>名用户
+</div>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_user_path,
             :class => 'btn btn-primary' %>
-            <br>
-            <br>
-            <br>
-            <br>

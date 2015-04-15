@@ -8,8 +8,12 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:order_id) %></th>
+      <th><%= model_class.human_attribute_name(:is_origin) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:fnode) %></th>
+      <th><%= model_class.human_attribute_name(:origin_node) %></th>
+      <th><%= model_class.human_attribute_name(:a_node) %></th>
+      <th><%= model_class.human_attribute_name(:b_node) %></th>
+      <th><%= model_class.human_attribute_name(:c_node) %></th>
       <th><%= model_class.human_attribute_name(:level) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -21,8 +25,12 @@
         <td><%= link_to node.id, node_path(node) %></td>
         <td><%= node.user_id %></td>
         <td><%= node.order_id %></td>
+        <td><%= node.is_origin %></td>
         <td><%= node.name %></td>
-        <td><%= node.fnode %></td>
+        <td><%= node.origin_node %></td>
+        <td><%= node.a_node %></td>
+        <td><%= node.b_node %></td>
+        <td><%= node.c_node %></td>
         <td><%= node.level %></td>
         <td><%=l node.created_at %></td>
         <td>

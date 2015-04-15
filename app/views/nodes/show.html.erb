@@ -8,10 +8,18 @@
   <dd><%= @node.user_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:order_id) %>:</strong></dt>
   <dd><%= @node.order_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:is_origin) %>:</strong></dt>
+  <dd><%= @node.is_origin %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @node.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:fnode) %>:</strong></dt>
-  <dd><%= @node.fnode %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:origin_node) %>:</strong></dt>
+  <dd><%= @node.origin_node %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:a_node) %>:</strong></dt>
+  <dd><%= @node.a_node %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:b_node) %>:</strong></dt>
+  <dd><%= @node.b_node %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:c_node) %>:</strong></dt>
+  <dd><%= @node.c_node %></dd>
   <dt><strong><%= model_class.human_attribute_name(:level) %>:</strong></dt>
   <dd><%= @node.level %></dd>
 </dl>

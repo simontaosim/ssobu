@@ -1,0 +1,27 @@
+<div>
+	<p style="color:#CB1B45; font-weight: bolder;padding:2px;">复制下面的文字，保存下面的三张图片（二维码很重要哟）！分享到朋友圈和你的社交软件，让你的兔子跑起来吧，不仅免费吃兔子，还天天都有零花钱哟！
+	</p>
+	<section style="color:#BF6766; padding:2px;">
+	贱兔即将开“炮”，约吗？
+	小贱兔家族一向是内敛而又闷骚的，所以只有在每年春暖花开的时候才能出现，来到你面前，我不在的日子里，你无需牵挂，也无需思念，我会为你阳光灿烂地生长，固执如我，伴随着花生和川椒浓郁的香气，努力翻滚着吸收着，只为你的期待，是唤醒你味蕾最美妙的时刻，任性如我，不顾一切地拼命蜕变破锅而出，一切都是为了和你相见。
+	切记：一定要按住二维码图片点击“识别图中二维码”我才能向你奔跑哦…<br>
+	固定分享链接：
+	</section>
+	<section style="width:auto">
+		<a style="width:100%" href="<%= personal_center_node_sessions_url %>?user_id=<%= @user.id.to_s %>" >
+
+		<%= personal_center_node_sessions_url %>?user_id=<%= @user.id.to_s %>
+
+		</a>
+	</section>
+	
+	<br>
+	<section>
+		<%= image_tag 'share_main.png', width: '100%' %>
+	</section>
+	<section>
+		<%= image_tag '8.png', width: '100%' %>
+	</section>
+	<div><img src="/images/node_<%= @user.id.to_s %>.png", width="100%"   /></div>
+	
+</div>	

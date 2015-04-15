@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product #, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, only: [:destroy, :create]
   layout 'admin.html.erb'
 
@@ -65,12 +65,28 @@ class ProductsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def is_login
+      if session[:adminname] == nil
+        respond_to do |format|
+          format.html { redirect_to admins_path }
+        end
+      end
+    end
+
     def set_product
-      @product = Product.find(params[:id])
+      if session[:adminname] == nil and session[:username] == nil
+        respond_to do |format|
+          format.html { redirect_to admins_path }
+        end
+      else
+        if params[:action].to_s == 'show' or params[:action].to_s == 'edit' or params[:action].to_s == 'update' or params[:action].to_s == 'destroy'
+          @product = Product.find(params[:id])
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :price, :boss_price, :origin_price, :contract_person, :express_price, :address, :post_address, :user_id)
+      params.require(:product).permit(:name, :price, :boss_price, :origin_price, :contract_person, :express_price, :address, :post_address, :user_id,:catalog_id, :is_pass, :description,:contract_person_mobile)
     end
 end

@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://ruby.taobao.org'
 
 gem 'mongoid'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -25,6 +25,11 @@ gem 'weixin_rails_middleware', git: "https://github.com/lanrion/weixin_rails_mid
 
 gem 'rails_kindeditor'
 
+gem 'rqrcode_png'
+
+gem 'dragonfly', '~> 1.0.7'
+
+gem 'thin'
 
 #gem 'community_engine', '~> 3.0.0'
 
@@ -49,6 +54,6 @@ group :development, :test do
 end
 
 gem "therubyracer"
-gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails"
+
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 

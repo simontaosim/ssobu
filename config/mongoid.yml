@@ -9,9 +9,9 @@ development:
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - 183.57.43.252:27017
-      username: 'simon_development'
-      password: 'xsq@519'  
+        - localhost:27017
+      username: ''
+      password: ''  
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:

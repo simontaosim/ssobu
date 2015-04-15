@@ -1,0 +1,123 @@
+<%= javascript_include_tag "jquery.md5.js" %>
+<div class="container-fluid" style="min-height: 100%;height: 100%">
+    <div class="col-sm-14">
+        <div class="login_div login_register_div bs-example">
+            <%= form_for @admin_session, url:admin_sessions_auth_admin_remote_path,:html => { :class => "form-horizontal group_top", :id => "loginForm"} do |f|  %>
+                <div class="form-group">
+                    <label for="inputuser" class="col-sm-3 control-label">用户名</label>
+                    <div class="col-sm-8" style="position: relative">
+                    <%= text_field_tag :adminname, nil, :class => "form-control" , id: "inputuser", placeholder: "用户名", onblur: "login_user()", onkeydown: "hide_name_span()" %>
+                    </div>
+                    <div class="col-sm-offset-4 span name_span">用户名不能为空</div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-3 control-label">密码</label>
+                    <div class="col-sm-8">
+                    <%= password_field_tag :encrypt_password, nil, :class => "form-control", id: "inputPassword", placeholder: "请输入密码", onblur: "login_pwd()", onkeydown: "hide_pwd_span()"  %>
+                    </div>
+                    <div class="col-sm-offset-4 span pwd_span">密码不能为空</div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="button" class="btn btn-default sub_sty" id="login_btn" style="height: 100%; padding: 7" onclick="loginOnClick()" >
+                        登 录           
+                        </button>
+                </div>
+
+           <% end %>
+            <!--<input tabindex="0" id="qwe" class="form-control col-sm-3" role="button" data-toggle="popover" data-trigger="focus"  data-content="用户名不能为空，长度为5-10个字符">-->
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+    $("#tab_login").ready(function($) {
+          $(this).addClass('active');
+          $(this).click(function(event) {
+            $(this).addClass('active');
+          });
+        });
+    $(function(){
+        $("title").html('登录uboss');
+        $(".nav li").removeClass('active');
+        $("#inputuser").focus(function(){
+            $(".name_span").show();
+            $(".name_span").html("用户名不能为空");
+
+        })
+        $("#inputPassword").focus(function(){
+            $(".pwd_span").show();
+            $(".pwd_span").html("密码不能为空");
+
+        });
+
+
+    });
+    function login_user(){
+        var input1 = $("#inputuser").val();
+            if(null == input1 || "" == input1){
+                //判断用户名是否为空
+                $(".name_span").html("用户名不能为空");
+                $(".name_span").show();
+                return false;
+            }else{
+                var str = /^[\u4e00-\u9fa5A-Za-z0-9\-\_\*]{5,}$/;
+                if(!str.test(input1)){
+                 //如果不满足正则表达式
+                    $(".name_span").html("用户名不能为空");
+                    $(".name_span").show();
+                    return false;
+                }else{
+                //满足规则
+                    $(".name_span").html("用户名不能为空");
+                    $(".name_span").hide();
+                    return true;
+                }
+            }
+    }
+    function hide_name_span(){
+        $(".name_span").hide();
+    }
+    function hide_pwd_span(){
+        $(".pwd_span").hide();
+    }
+    function login_pwd(){
+        var input2 = $("#inputPassword").val();
+        if(null == input2 || "" == input2){
+            //判断用户名是否为空
+            $(".pwd_span").html("密码不能为空");
+            $(".pwd_span").show();
+            return false;
+        }else{
+            var str = /^[\u4e00-\u9fa5A-Za-z0-9\-\_\*]{5,}$/;
+            if(!str.test(input2)){
+                //如果不满足正则表达式
+                $(".pwd_span").html("密码不能为空");
+                $(".pwd_span").show();
+                return false;
+            }else{
+                //满足规则
+                $(".pwd_span").html("密码不能为空");
+                $(".pwd_span").hide();
+                return true;
+            }
+        }
+    }
+    function validateAll(){
+        var flag = true;
+        if(login_user() && login_pwd()){
+            flag = true;
+        }else{
+            alert("你输入的用户名或则密码有问题")
+            return flag;
+        }
+    }
+
+    function loginOnClick(){
+        var input_pwd = document.getElementById("inputPassword");
+        input_pwd.value = $.md5(input_pwd.value);
+        document.getElementById("loginForm").submit();
+    }
+</script>
+

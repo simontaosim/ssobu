@@ -4,12 +4,16 @@
 </div>
 
 <dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:catalog_id) %>:</strong></dt>
+  <dd><%= @product.catalog_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
   <dd><%= @product.user_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:post_address_id) %>:</strong></dt>
   <dd><%= @product.post_address_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @product.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @product.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
   <dd><%= @product.price %></dd>
   <dt><strong><%= model_class.human_attribute_name(:boss_price) %>:</strong></dt>
@@ -18,10 +22,14 @@
   <dd><%= @product.origin_price %></dd>
   <dt><strong><%= model_class.human_attribute_name(:contract_person) %>:</strong></dt>
   <dd><%= @product.contract_person %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:contract_person_mobile) %>:</strong></dt>
+  <dd><%= @product.contract_person_mobile %></dd>
   <dt><strong><%= model_class.human_attribute_name(:express_price) %>:</strong></dt>
   <dd><%= @product.express_price %></dd>
   <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
   <dd><%= @product.address %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:is_pass) %>:</strong></dt>
+  <dd><%= @product.is_pass %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

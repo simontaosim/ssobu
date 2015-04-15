@@ -1,0 +1,32 @@
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <%= stylesheet_link_tag "bootstrap_and_overrides", :media => "all" %>
+ <div class="container-fluid">
+ <div class="row">
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="<%= personal_center_index_path %>">我的UBOSS</a></li>
+  <li role="presentation"><a href="#">收入</a></li>
+  <li role="presentation"><a href="#">提现</a></li>
+</ul>
+</div>
+<h5 style="text-align:center;">请选择一个产品您已经购买的产品分享吧</h2>
+<hr>
+<% products = [] %>
+<% @orders_paid.each do |order| %>
+          <% cart =  Cart.where(order_id: order.id).first %>
+          <% if cart %>
+          <% product_line =ProductLine.where(cart_id: cart.id).first %>
+          <% else %>
+          <% next %>
+          <% end %>
+          <% product = Product.find(product_line.product_id) %>
+		  <% products.push(product) %>
+ <% end %>
+ <% products.each do |p| %>
+<a href="<%= personal_center_share_order_path %>?product_id=<%= p.id %>">
+	<div class="row" style="text-align:center;font-size:large;"><%= p.name %></div>
+</a>
+<hr>
+<% end %>
+</div>
+   <%= javascript_include_tag "application" %>
+ <%= javascript_include_tag "bootstrap.js" %>

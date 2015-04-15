@@ -1,5 +1,6 @@
 class PersonalController < ApplicationController
   def index
+      
   end
 
   def my_account

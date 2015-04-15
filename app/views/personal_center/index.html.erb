@@ -1,0 +1,167 @@
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <%= stylesheet_link_tag "bootstrap_and_overrides", :media => "all" %>
+ <div class="container-fluid">
+ <div class="row">
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="<%= personal_center_index_path %>">我的UBOSS</a></li>
+  <li role="presentation"><a href="<%= personal_center_my_income_path %>">收入</a></li>
+  <li role="presentation"><a href="<%= personal_center_withdraw_path %>">提现</a></li>
+</ul>
+</div>
+<div class="row">
+	<div class="row">
+	  <div class="col-xs-2 col-xs-offset-1">  
+    <%= image_tag("head.png", width: "170%" ) %>   
+        </div>
+        <div class="col-xs-3" style="text-align: center;"> 
+             <p> <%= session[:username] %></p>
+             <%  account = Account.where(user_id: @user._id).first %>
+             <% if account.nil?
+                    account = Account.new
+                    account.user_id = @user.id
+                    account.amount = 0
+                    account.save
+              end %>
+             <p>余额：<%= format("%.2f",account.amount.to_f) %></p>
+             <p></p>
+               
+        </div>
+	  <div class="col-xs-6">
+                <% if @user.is_boss == 1 %>
+                          <span>您是东家</span><br>
+                          <a href="<%= personal_center_show_products_path %>">
+                              <span class="btn btn-success btn-sm">立刻分享挣钱</span>
+                          </a>
+                          
+                <% else %>
+                            <span>您还不是东家,不能分享挣钱</span><br>
+                            <a href="<%= mobile_view_show_product_path  %>">
+                          <span class="btn btn-success btn-sm">立刻购买一份商品</span>
+                          </a>
+                <% end %>
+        </div>
+	</div>
+  <hr>
+	<div class="panel-group" id="accordion" role="tablist" >
+		  <div class="panel panel-default">
+		    <div class="panel-heading" role="tab" id="headingOne">
+		      <h4 class="panel-title">
+		        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="text-align:center; text-decoration:none;width:100%;">
+		        <span style="width: 40%;">&nbsp;</span> <span>未付款订单</span>
+		        </a>
+		      </h4>
+		    </div>
+		    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+		      <div class="panel-body">
+           <% if @orders_unpaid.count > 0 %>
+		      <table class="table table-hover">
+         
+		      <% @orders_unpaid.each do |uo| %>
+          
+                     
+ 			<tr>
+                              <% cart = Cart.where(order_id: uo._id).first %>
+                               <% if cart %>
+                                          <% product_lines = ProductLine.where(cart_id: cart._id)   %>
+                                          <span>
+                                           <td>
+                                                  <% product_lines.each do |line| %>
+                                                              <span>【<%= Product.find(line.product_id).name %>】</span>:<span><%= line.current_price %></span>×
+                                                              <span><%= line.quantity%></span>
+                                                  <% end %>
+                                           </td>
+                                          </span>
+                                  <% else %>
+                                   <%= uo.destroy %>
+                                  <%  end %>
+                            
+ 				<td>￥<%= uo.amount %></td>
+ 				<td width="40%">
+ 				<a href="<%= mobile_view_order_confirm_path %>?order_id=<%= uo._id %>" class="btn btn-primary btn-xs">付款</a>&nbsp;|&nbsp;
+                               <%= link_to "撤单",  order_path(uo)+"?from_my_boss=1",  :method => :delete,  :data => {:confirm => '您确定要撤消此订单？'  },   :class => 'btn btn-primary btn-xs' %>
+ 				</td>
+ 			</tr>
+                  
+                      
+ 		     <% end %>
+                 
+		       </table>
+            <% else %>
+                    <span>
+                    暂无
+                    </span>
+            <% end %>
+		      </div>
+		    </div>
+		  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="text-align:center; text-decoration:none;width:100%;">
+           <span style="width: 40%;">&nbsp;</span><span> 已付款订单</span>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+       <% if @orders_paid.count > 0 %>
+          <table class="table table-hover">
+         
+          <% @orders_paid.each do |uo| %>
+                     
+      <tr>
+                              <% cart = Cart.where(order_id: uo._id).first %>
+                               <% if cart %>
+                                          <% product_lines = ProductLine.where(cart_id: cart._id)   %>
+                                          <span>
+                                           <td>
+                                                  <% product_lines.each do |line| %>
+                                                  <%
+                                                  
+                                                  %>
+                                                              <span>【<%= Product.find(line.product_id).name %>】</span>:<span><%= line.current_price %></span>×
+                                                              <span><%= line.quantity%></span>
+                                                  <% end %>
+                                           </td>
+                                          </span>
+                                  <% else %>
+                                  <%  end %>
+                            
+        <td>￥<%= uo.amount %></td>
+        <td width="40%">
+        <a href="<%= mobile_view_show_product_path %>?order_id=<%= uo._id %>&again=1" class="btn btn-primary btn-xs">再次购买</a>
+                              
+        </td>
+      </tr>
+                  
+                      
+         <% end %>
+                 
+           </table>
+            <% else %>
+                    <span>
+                    暂无
+                    </span>
+            <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="text-align:center; text-decoration:none;width:100%;">
+          <span style="width: 40%;">&nbsp;&nbsp;</span><span>收入动态</span>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+       暂无
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+    <%= javascript_include_tag "application" %>
+ <%= javascript_include_tag "bootstrap.js" %>

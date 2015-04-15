@@ -1,5 +1,51 @@
 Rails.application.routes.draw do
 
+  get 'error_report/with404'
+
+  get 'error_report/with500'
+
+  get 'error_report/with422'
+
+  resources :withdraw_records
+
+  resources :qrcodes
+
+  resources :bank_cards
+
+  get 'personal_center/withdraw'
+
+  get 'personal_center/my_income'
+
+  get 'personal_center/node_sessions'
+
+  get 'personal_center/share_order'
+
+  get 'personal_center/show_products'
+
+  get 'personal_center/index'
+
+  get 'personal_center', to: 'personal_center#index'
+
+  get 'personal_center/my_commission'
+
+  get 'personal_center/apply_cash'
+
+  post 'payment/to_pay'
+
+  get 'payment/index'
+
+  get 'payment/to_pay'
+
+  get 'payment/pay_success'
+
+  post 'payment/pay_success'
+
+  get 'payment/pay_fail'
+
+  get 'payment/require_pay_back'
+
+  resources :carts
+
   resources :catalogs
 
   resources :public_accounts
@@ -8,19 +54,19 @@ Rails.application.routes.draw do
 
   resources :accounts
 
-  get 'admin', to: 'admin#index'
+  get 'admins', to: 'admins#index'
 
-  get 'admin/product_admin'
+  get 'admins/product_admin'
 
-  get 'admin/users_admin'
+  get 'admins/users_admin'
 
-  get 'admin/order_admin'
+  get 'admins/order_admin'
 
-  get 'admin/address_admin'
+  get 'admins/address_admin'
 
-  get 'admin/role_admin'
+  get 'admins/role_admin'
 
-  get 'admin/node_admin'
+  get 'admins/node_admin'
 
   resources :product_images
 
@@ -42,12 +88,42 @@ Rails.application.routes.draw do
 
   resources :orders
 
-  get 'sessions/auth_user_remote'
+  post 'orders/delivery'
 
-  get 'mobile_view/about_boss'
+  post 'sessions/auth_user_remote'
+
+  post 'admin_sessions/new'
+
+  get 'admin_sessions/new'
+
+  post 'admin_sessions/auth_admin_remote'
+
+  get 'admin_sessions/destroy'
+
+  post 'admin_sessions/destroy'
+
+  get 'mobile_view/protocol'
+
+  get 'mobile_view/about'
+
+  get 'mobile_view/boss_school'
+
+  get 'mobile_view/require_pay_back'
+
+  get 'mobile_view/yeepay_school'
+
+  post 'mobile_view/send_verifycode'
+
+  get 'mobile_view/check_verifycode'
+
+  post 'mobile_view/to_pay'
+
+  get 'mobile_view/pay_success'
 
   get 'mobile_view/global_notice'
   post 'mobile_view/global_notice'
+
+  post 'mobile_view/auth_login'
 
   get 'mobile_view/product_apply'
 
@@ -121,7 +197,13 @@ Rails.application.routes.draw do
 
   resources :users
 
-  
+  get 'admins/new_register'
+
+  post 'admins/new_register'
+
+  post 'admins/register'
+
+  get 'admins/register'
 
   post 'sessions/create'
 

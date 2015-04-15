@@ -1,6 +1,32 @@
 <%- model_class = Order -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+    <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<div style="text-align:right">
+  <%= 
+    if session[:admin_is_paid] == "1"
+      if session[:admin_wait_to_delivery] == "1"
+        "待发货订单"
+      else
+        "已付款订单"
+      end
+    else
+      if session[:admin_is_paid] == "2"
+        "未付款订单"
+      else
+        "所有订单"
+      end
+    end
+  %>
+  <a href="<%= orders_path %>">首页
+  </a>  <a href="<%= orders_path %>?is_paid=0&wait_to_delivery=0">所有订单</a> <a href="<%= orders_path %>?is_paid=2">未付款订单</a> <a href="<%= orders_path %>?is_paid=1">已付款订单</a> <a href="<%= orders_path %>?is_paid=1&wait_to_delivery=1">待发货订单</a> 
+  <a href="<%= orders_path %>?curPageNo=<%= (@curPageNo.to_i <= 1) ? 1 : @curPageNo.to_i - 1 %>&pageup=1">上一页
+  </a> 
+  <a href="<%= orders_path %>?curPageNo=<%= (@curPageNo.to_i >= @totalPages.to_i) ? @totalPages.to_i : @curPageNo.to_i + 1 %>&pagedown=1">下一页
+  </a> 
+  <a href="<%= orders_path %>?lastPage=1">尾页
+  </a>
+  当前第 <%= @curPageNo %> 页 共 <%= @totalPages %> 页 共 <%= @totalOrders %> 条订单，每页显示<%= @perNum %>条订单
 </div>
 <table class="table table-striped">
   <thead>
@@ -8,8 +34,12 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:post_address_id) %></th>
-      <th><%= model_class.human_attribute_name(:massage) %></th>
-      <th><%= model_class.human_attribute_name(:total_price) %></th>
+      <th><%= model_class.human_attribute_name(:receiver_name) %></th>
+      <th><%= model_class.human_attribute_name(:receiver_mobile) %></th>
+      <th><%= model_class.human_attribute_name(:receiver_address) %></th>
+      <th><%= model_class.human_attribute_name(:receiver_postcode) %></th>
+      <th><%= model_class.human_attribute_name(:amount) %></th>
+      <th><%= model_class.human_attribute_name(:is_paid) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -17,11 +47,15 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= link_to order.id, order_path(order) %></td>
+        <td class="order_id"><%= link_to order.id, order_path(order) %></td>
         <td><%= order.user_id %></td>
         <td><%= order.post_address_id %></td>
-        <td><%= order.massage %></td>
-        <td><%= order.total_price %></td>
+        <td><%= order.receiver_name %></td>
+        <td><%= order.receiver_mobile %></td>
+        <td><%= order.receiver_address %></td>
+        <td><%= order.receiver_postcode %></td>
+        <td><%= order.amount %></td>
+        <td><%= order.is_paid %></td>
         <td><%=l order.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -32,11 +66,91 @@
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
         </td>
+        <td class="delivery" style="display:<%=
+          if order.is_paid == 1
+            "block"
+          else
+            "none"
+          end
+        %>">
+          <form>
+            <input type="text" class="delivery_company" placeholder="快递公司（默认全峰）" value="<%= order.delivery_company %>">
+            <input type="text" class="delivery_number" placeholder="快递单号" value="<%= order.delivery_number %>">
+            <div class="delivery_time"><%= order.delivery_time %></div>
+            <button type="button" class="btn btn-primary btn_delivery" onclick="onClickDelivery(this)"><%= 
+            if order.delivery_time
+              "修改"
+            else
+              "发货"
+            end
+            %></button>
+          </form> 
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_order_path,
-            :class => 'btn btn-primary' %>
+<div style="text-align:right">
+<a href="<%= orders_path %>">首页</a> <a href="<%= orders_path %>?is_paid=0&wait_to_delivery=0">所有订单</a> <a href="<%= orders_path %>?is_paid=2">未付款订单</a> <a href="<%= orders_path %>?is_paid=1">已付款订单</a> <a href="<%= orders_path %>?is_paid=1&wait_to_delivery=1">待发货订单</a> <a href="<%= orders_path %>?curPageNo=<%= (@curPageNo.to_i <= 1) ? 1 : @curPageNo.to_i - 1 %>&pageup=1">上一页</a> <a href="<%= orders_path %>?curPageNo=<%= (@curPageNo.to_i >= @totalPages.to_i) ? @totalPages.to_i : @curPageNo.to_i + 1 %>&pagedown=1">下一页</a> <a href="<%= orders_path %>?lastPage=1">尾页</a> 当前第 <%= @curPageNo %> 页 共 <%= @totalPages %> 页 共 <%= @totalOrders %> 条订单，每页显示<%= @perNum %>条订单
+</div>
+
+<%= link_to t('.new', :default => t("helpers.links.new")), new_order_path, :class => 'btn btn-primary' %>
+
+<script type="text/javascript">
+  const classname_delivery = "delivery";
+  const classname_order_id = "order_id";
+  const classname_input_delivery_company = "delivery_company";
+  const classname_input_delivery_number = "delivery_number";
+  const className_display_delivery_time = "delivery_time";
+
+  function onClickDelivery(btn){
+    var company = getChildByClassName(btn.parentNode, classname_input_delivery_company).value;
+    company = company == "" ? "全峰" : company;
+    var number = getChildByClassName(btn.parentNode, classname_input_delivery_number).value;
+    var order_id = getChildByClassName(btn.parentNode.parentNode.parentNode, classname_order_id).firstChild.innerHTML;
+
+    btn.disabled = true;
+    var xmlhttp;
+    var addr = "http://uboss.me/orders/delivery"
+    if (window.XMLHttpRequest){
+      xmlhttp=new XMLHttpRequest();
+    }
+    else {
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.open("POST",addr);
+    xmlhttp.setRequestHeader("cache-control","no-cache");  
+    xmlhttp.setRequestHeader("contentType","text/html;charset=uft-8");  
+    xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;"); 
+    xmlhttp.onreadystatechange = function() { 
+      if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+        switch (eval(xmlhttp.responseText)){
+          case 0:
+          alert("记录成功");
+          location.reload(true);
+          break;
+          case 1:
+          alert("参数不完整");
+          break;
+          case 2:
+          alert("存储失败，请于管理员联系");
+          break;
+        }
+      }
+    }
+    xmlhttp.send("order_id=" + order_id + "&delivery_company=" + company + "&delivery_number=" + number);
+  }
+
+  function getChildByClassName(parent, className){
+    for (var eachChildIndex in parent.children){
+      var eachChild = parent.children[eachChildIndex];
+      if (eachChild.className != null){
+        if (eachChild.className.indexOf(className) >= 0){
+          return eachChild;
+        }
+      }
+    }
+    return null;
+  }
+</script>

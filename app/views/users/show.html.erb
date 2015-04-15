@@ -4,16 +4,20 @@
 </div>
 
 <dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:role_id) %>:</strong></dt>
+  <dd><%= @user.role_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:nickname) %>:</strong></dt>
+  <dd><%= @user.nickname %></dd>
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @user.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:mobile) %>:</strong></dt>
+  <dd><%= @user.mobile %></dd>
   <dt><strong><%= model_class.human_attribute_name(:third_party) %>:</strong></dt>
   <dd><%= @user.third_party %></dd>
   <dt><strong><%= model_class.human_attribute_name(:username) %>:</strong></dt>
   <dd><%= @user.username %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:password) %>:</strong></dt>
-  <dd><%= @user.password %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:password_confirm) %>:</strong></dt>
-  <dd><%= @user.password_confirm %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:is_boss) %>:</strong></dt>
+  <dd><%= @user.is_boss %></dd>
   <dt><strong><%= model_class.human_attribute_name(:encrypt_password) %>:</strong></dt>
   <dd><%= @user.encrypt_password %></dd>
 </dl>

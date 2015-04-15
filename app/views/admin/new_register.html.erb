@@ -1,0 +1,324 @@
+
+<%= javascript_include_tag "jquery.md5.js" %>
+<div class="container-fluid" style="min-height: 100%;height: 100%">
+    <div class="col-sm-14">
+        <div class="register_div login_register_div bs-example">
+        <%= form_for @admin, url: admin_register_path, :html => {:class => "form-horizontal group_top", :id => "registForm"} do |f| %>
+           
+                <div class="form-group">
+                    <label for="input_adminname" class="col-sm-3 control-label">用户名</label>
+                    <div class="col-sm-8" style="position: relative">
+                    <%= f.text_field :adminname, 
+                        class: "form-control", 
+                        id: "adminname",
+                        placeholder: "由5～20个数字或字母组成", 
+                        inputtype: "adminname",
+                        onblur: 'checkOnBlur(this)', 
+                        onkeyup: 'checkOnKeyUp(this)'  %>
+                    </div>
+                    <div class="col-sm-offset-4 span tips_adminname"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input_group" class="col-sm-3 control-label">用户名</label>
+                    <div class="col-sm-8" style="position: relative">
+                    <%= f.select(:group_id, class: "form-control", id:"group_id", inputtype: "group_id", onblur: 'checkOnBlur(this)', onkeyup: 'checkOnKeyUp(this)') do %>
+  						<% [['超级管理员', 0], ['订单管理员', 1], ['商品管理员', 2]].each do |c| -%>
+    						<%= content_tag(:option, c.first, value: c.last) %>
+  						<% end %>
+					<% end %>
+                    <div class="col-sm-offset-4 span tips_group_id"></div>
+                </div>
+               	
+                <div class="form-group">
+                    <label for="input_pwd" class="col-sm-3 control-label">密码</label>
+                    <div class="col-sm-8">
+                    <%= f.password_field :encrypt_password, 
+                        class: "form-control", 
+                        id: "pwd", 
+                        placeholder: "由8～20个数字和字母组成", 
+                        inputtype: "pwd",
+                        onblur: "checkOnBlur(this)", 
+                        onkeyup: "checkOnKeyUp(this)" %>
+                       
+                    </div>
+                    <div class="col-sm-offset-4 span tips_pwd"></div>
+                </div>
+                <div class="form-group">
+                    <label for="input_pwd2" class="col-sm-3 control-label">确认密码</label>
+                    <div class="col-sm-8">
+                    <%= f.password_field :password_confirm, 
+                        class: "form-control", 
+                        id: "pwd2", 
+                        placeholder: "确认密码",
+                        inputtype: "pwd2", 
+                        onblur: "checkOnBlur(this)",
+                        onkeyup: "checkOnKeyUp(this)" %>
+                    </div>
+                    <div class="col-sm-offset-4 span tips_pwd2"></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="button" class="btn btn-default sub_sty" id="btn_regist" style="height: 100%; padding: 7" onclick="registOnClick()" >添加管理员</button>
+                    </div>
+
+                </div>
+                
+
+           <% end %>
+
+
+        </div>
+    </div>
+</div>
+<script>
+
+    var rules = {
+        adminname: /^[0-9A-Za-z]{5,16}$/, 
+        pwd: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/
+    };
+
+    var inputErrorTips = {
+        adminname: '由5～16个数字或字母组成',
+        pwd: '由8～20个数字和字母组成，必须包含数字和字母',
+        pwd2: '两次密码输入不相符'
+    };
+
+    var emptyTips = {
+        adminname: '用户名不能为空',
+        pwd: '密码不能为空'
+    };
+
+    var blurErrorTips = {
+        adminname: '由5～26个数字或字母组成',
+        pwd: '由8～20个数字和字母组成，必须包含数字和字母',
+        pwd2: '两次密码输入不相符'
+    };
+
+    var existTips = {
+        adminname: '用户名已存在',
+        unknown: '未知错误'
+    };
+
+    var checkExistAddr = {
+        adminname: 'http://uboss.me/users/adminname_is_exist'
+    };
+
+    var form = {
+        adminname: '',
+        pwd: '',
+        pwd2: ''
+    };
+
+    var num = 5;
+
+    var tipsDiv = {};
+
+    var validate = {};
+
+    var btnRegist;
+    var checkboxAgree;
+
+    $(function(){
+        tipsDiv['adminname'] = $(".tips_adminname");
+        tipsDiv['pwd'] = $(".tips_pwd");
+        tipsDiv['pwd2'] = $(".tips_pwd2");
+        btnRegist = $("#btn_regist");
+        checkboxAgree = $("#checkbox_agree");
+        validate["agree"] = checkboxAgree.prop('checked');
+        checkAllAndSetBtnRegist();
+        checkboxAgree.change(checkBoxOnChange);
+    });
+
+    function checkBoxOnChange(){
+        validate["agree"] = checkboxAgree.prop('checked');
+        checkAllAndSetBtnRegist();
+    }
+
+    function checkOnBlur(e){
+        // var jqElement = $(e);
+        // var value = jqElement.val();
+        // var type = jqElement.attr("inputtype");
+
+        // //输入为空时
+        // if (isInputEmpty(value)){
+        //     tryShowTips(emptyTips, type);
+        //     validate[type] = false;
+        //     checkAllAndSetBtnRegist();
+        //     return;
+        // }
+
+        // //输入不合法时
+        // if (!isInputLegal(value, type)){
+        //     tryShowTips(blurErrorTips, type);
+        //     validate[type] = false;
+        //     checkAllAndSetBtnRegist();
+        //     return;
+        // }
+
+        // hideTips(type);
+
+        // switch (type)
+        // {
+        //     case "adminname":
+        //         form[type] = value;
+        //         if (checkExist(type)){
+        //             checkAllAndSetBtnRegist();
+        //             return;
+        //         }
+        //         break;
+        //     case "pwd":
+        //     case "pwd2":
+        //         form[type] = value;
+        //         if (!checkPwdEquals()){
+        //             checkAllAndSetBtnRegist();
+        //             return;
+        //         }
+        //         break;
+        // }
+
+        // hideTips(type);
+        // validate[type] = true;
+        // form[type] = value;
+        // checkAllAndSetBtnRegist();
+        // return;
+    }
+
+    function checkOnKeyUp(e){
+    //     var jqElement = $(e);
+    //     var value = jqElement.val();
+    //     var type = jqElement.attr("inputtype");
+
+    //     //输入为空
+    //     if (isInputEmpty(value)){
+    //         tryShowTips(emptyTips, type);
+    //         validate[type] = false;
+    //         checkAllAndSetBtnRegist();
+    //         return;
+    //     }
+
+    //     //输入不合法时
+    //     if (!isInputLegal(value, type)){
+    //         tryShowTips(inputErrorTips, type);
+    //         validate[type] = false;
+    //         checkAllAndSetBtnRegist();
+    //         return;
+    //     }
+
+    //     //确认密码
+    //     if (type == "pwd" || type == "pwd2"){
+    //         form[type] = value;
+    //         if (!checkPwdEquals()){
+    //             checkAllAndSetBtnRegist();
+    //             return;
+    //         }    
+    //     }
+
+    //     hideTips(type);
+    //     validate[type] = true;
+    //     checkAllAndSetBtnRegist();
+    //     return;
+    // }
+
+    // function checkExist(type){
+    //     btnRegist.html('<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">');
+    //     btnRegist.css("padding", 0);
+    //     var validateResult = false;
+    //     var checkData = {};
+    //     checkData[type] = form[type];
+    //     $.ajax({
+    //         type:'get', 
+    //         async:false, 
+    //         url:checkExistAddr[type],
+    //         data:checkData, 
+    //         success:function(data){
+    //             switch (eval(data)){
+    //                 case 0:
+    //                     validate[type] = false;
+    //                     tryShowTips(existTips, type);
+    //                     validateResult = true;
+    //                     break;
+    //                 case 1:
+    //                     validate[type] = true;
+    //                     hideTips(type);
+    //                     validateResult = false;
+    //                     break;
+    //                 default:
+    //                     validate[type] = false;
+    //                     tryShowTips(existTips, "unknown");
+    //                     validateResult = true;
+    //                     break;
+    //             }
+    //         }
+    //     });
+
+    //     btnRegist.html("注 册");
+    //     btnRegist.css("padding", 7);
+    //     return validateResult;
+    }
+
+    function checkPwdEquals(){
+        // if (form["pwd"] != form["pwd2"] && form["pwd2"] != ""){
+        //     tryShowTips(inputErrorTips, "pwd2");
+        //     validate["pwd2"] = false;
+        //     return false;
+        // }
+        // hideTips("pwd2");
+        // validate["pwd2"] = true;
+        // return true;
+    }
+
+    function checkAllAndSetBtnRegist(){
+        // if (isAllLegal()){
+        //     btnRegist.disabled = false;
+        //     return;
+        // }
+        // btnRegist.disabled = true;
+    }
+
+    function isAllLegal(){
+        // var count = 0;
+        // for (eachVal in validate){
+        //     if (validate[eachVal] != true){
+        //         return false;
+        //     }
+        //     count++;
+        // }
+        // if (count < num){
+        //     return false;
+        // }
+        // return true;
+    }
+
+    function isInputEmpty(value){
+        return value == null || value == "";
+    }
+
+    function isInputLegal(value, type){
+        if (rules[type] != null){
+            return rules[type].test(value);
+        }
+        return true;
+    }
+
+    function tryShowTips(tips, type){
+        if (tips[type] != null){
+            tipsDiv[type].html(tips[type]);
+            tipsDiv[type].show();
+            return;
+        }
+        hideTips(type);
+    }
+
+    function hideTips(type){
+        tipsDiv[type].hide();
+    }
+
+    function registOnClick(){
+        var input_pwd = document.getElementById("pwd");
+        input_pwd.value = $.md5(input_pwd.value);
+        var input_pwd2 = document.getElementById("pwd2");
+        input_pwd2.value = $.md5(input_pwd2.value);
+        document.getElementById("registForm").submit();
+    }
+</script>

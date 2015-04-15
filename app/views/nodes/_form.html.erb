@@ -30,6 +30,13 @@
     <%= error_span(@node[:order_id]) %>
   </div>
   <div class="control-group">
+    <%= f.label :is_origin, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :is_origin, :class => 'form-control' %>
+    </div>
+    <%= error_span(@node[:is_origin]) %>
+  </div>
+  <div class="control-group">
     <%= f.label :name, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :name, :class => 'form-control' %>
@@ -37,11 +44,32 @@
     <%= error_span(@node[:name]) %>
   </div>
   <div class="control-group">
-    <%= f.label :fnode, :class => 'control-label' %>
+    <%= f.label :origin_node, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :fnode, :class => 'form-control' %>
+      <%= f.text_field :origin_node, :class => 'form-control' %>
     </div>
-    <%= error_span(@node[:fnode]) %>
+    <%= error_span(@node[:origin_node]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :a_node, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :a_node, :class => 'form-control' %>
+    </div>
+    <%= error_span(@node[:a_node]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :b_node, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :b_node, :class => 'form-control' %>
+    </div>
+    <%= error_span(@node[:b_node]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :c_node, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :c_node, :class => 'form-control' %>
+    </div>
+    <%= error_span(@node[:c_node]) %>
   </div>
   <div class="control-group">
     <%= f.label :level, :class => 'control-label' %>

@@ -11,13 +11,11 @@ class Node
   field :c_node, type: String #表示这个node是谁的C
   field :level, type: Integer
 
-  def add_node(user,node,order)
+  def add_node(user)
+      node = Node.new
   	node.user_id = user._id
-  	node.order_id = order._id
   	node.level = self.level + 1
-  	if node
-  		node.a_node = self._id
-  	end
+  	node.a_node = self._id
   	if self.a_node
   		node.b_node = self.a_node		
   	end
@@ -35,7 +33,6 @@ class Node
   end
 
   def generate_origin_node
-  	if self.order
   		origin_node = Node.new
   		t = Time.now
   		t = t.to_i
@@ -48,13 +45,12 @@ class Node
   		user.encrypt_password = user.md5('12345678')
   		if user.save
   			origin_node.user_id = user._id
+        origin_node.is_origin = 1 
   			origin_node.level = 0
   			if origin_node.save
   				self.origin_node = origin_node._id
   				return origin_node
   			end
   		end
-  		
-  	end
   end
 end

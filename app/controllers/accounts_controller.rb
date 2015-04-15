@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_account #, only: [:show, :edit, :update, :destroy]
+  layout 'admin'
   # GET /accounts
   # GET /accounts.json
   def index
@@ -64,11 +64,19 @@ class AccountsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_account
-      @account = Account.find(params[:id])
+      if session[:adminname] == nil
+        respond_to do |format|
+          format.html { redirect_to admins_path }
+        end
+      else
+        if params[:action].to_s == 'show' or params[:action].to_s == 'edit' or params[:action].to_s == 'update' or params[:action].to_s == 'destroy'
+          @account = Account.find(params[:id])
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def account_params
-      params.require(:account).permit(:total, :currency, :other, :plus, :massage)
+      params.require(:account).permit(:amount, :currency, :other, :plus, :massage, :user_id)
     end
 end

@@ -1,0 +1,36 @@
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <%= stylesheet_link_tag "bootstrap_and_overrides", :media => "all" %>
+ <div class="container-fluid">
+	 <div class="row">
+	<ul class="nav nav-tabs">
+	  <li role="presentation"><a href="<%= personal_center_index_path %>">我的UBOSS</a></li>
+	  <li role="presentation" class="active"><a href="<%= personal_center_my_income_path %>">收入</a></li>
+	  <li role="presentation"><a href="<%= personal_center_withdraw_path %>">提现</a></li>
+	</ul>
+	</div>
+	<div class="row">
+	<%
+		if @node
+      @nodes_a = Node.where(a_node: @node.id)
+      @nodes_b = Node.where(b_node: @node.id)
+      @nodes_c =  Node.where(c_node: @node.id)
+    else
+%>   
+<% if @user.is_boss == 1 %>
+                          <span>您是东家</span><br>
+                          <a href="<%= personal_center_show_products_path %>">
+                              <span class="btn btn-success btn-sm">立刻分享挣钱</span>
+                          </a>
+                          
+                <% else %>
+                            <span>您还不是东家,不能分享挣钱</span><br>
+                            <a href="<%= mobile_view_show_product_path  %>">
+                          <span class="btn btn-success btn-sm">立刻购买一份商品</span>
+                          </a>
+                <% end %>   
+   <% end
+    %>
+	</div>
+</div>
+    <%= javascript_include_tag "application" %>
+ <%= javascript_include_tag "bootstrap.js" %>

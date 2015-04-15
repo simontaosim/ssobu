@@ -6,11 +6,12 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:total) %></th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:amount) %></th>
       <th><%= model_class.human_attribute_name(:currency) %></th>
       <th><%= model_class.human_attribute_name(:other) %></th>
       <th><%= model_class.human_attribute_name(:plus) %></th>
-      <th><%= model_class.human_attribute_name(:massage) %></th>
+      <th><%= model_class.human_attribute_name(:message) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -19,11 +20,12 @@
     <% @accounts.each do |account| %>
       <tr>
         <td><%= link_to account.id, account_path(account) %></td>
-        <td><%= account.total %></td>
+        <td><%= account.user_id %></td>
+        <td><%= account.amount %></td>
         <td><%= account.currency %></td>
         <td><%= account.other %></td>
         <td><%= account.plus %></td>
-        <td><%= account.massage %></td>
+        <td><%= account.message %></td>
         <td><%=l account.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

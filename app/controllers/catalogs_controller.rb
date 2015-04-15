@@ -1,5 +1,6 @@
 class CatalogsController < ApplicationController
   before_action :set_catalog, only: [:show, :edit, :update, :destroy]
+    skip_before_filter :verify_authenticity_token, only: [:destroy, :create]
 
   # GET /catalogs
   # GET /catalogs.json

@@ -6,15 +6,19 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:catalog_id) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:post_address_id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:price) %></th>
       <th><%= model_class.human_attribute_name(:boss_price) %></th>
       <th><%= model_class.human_attribute_name(:origin_price) %></th>
       <th><%= model_class.human_attribute_name(:contract_person) %></th>
+      <th><%= model_class.human_attribute_name(:contract_person_mobile) %></th>
       <th><%= model_class.human_attribute_name(:express_price) %></th>
       <th><%= model_class.human_attribute_name(:address) %></th>
+      <th><%= model_class.human_attribute_name(:is_pass) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -23,15 +27,19 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= link_to product.id, product_path(product) %></td>
+        <td><%= product.catalog_id %></td>
         <td><%= product.user_id %></td>
         <td><%= product.post_address_id %></td>
         <td><%= product.name %></td>
-        <td><%= format("%.2f",product.price.to_f) %></td>
+        <td><%= product.description %></td>
+        <td><%= product.price %></td>
         <td><%= product.boss_price %></td>
         <td><%= product.origin_price %></td>
         <td><%= product.contract_person %></td>
+        <td><%= product.contract_person_mobile %></td>
         <td><%= product.express_price %></td>
         <td><%= product.address %></td>
+        <td><%= product.is_pass %></td>
         <td><%=l product.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

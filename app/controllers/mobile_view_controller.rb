@@ -1,15 +1,11 @@
 class MobileViewController < ApplicationController
   layout 'purestyle'
-<<<<<<< HEAD
+
   before_action :check_user_session, except: [:login, :regist, :index, :about_boss, :send_verifycode, :check_verifycode,:yeepay_school,:about, :protocol, :auth_login]
  # before_action :get_user_agent#, only: [:index]
   skip_before_filter :verify_authenticity_token, only: [:buy_where, :go_order, :order_confirm, :to_pay, :send_verifycode, :check_verifycode, :auth_login ]
   
-=======
-  before_action :check_user_session, except: [:login, :regist, :index, :about_boss, :send_verifycode, :check_verifycode,:yeepay_school,:about]
-  #before_action :get_user_agent, only: [:index]
-  skip_before_filter :verify_authenticity_token, only: [:buy_where, :go_order, :order_confirm, :to_pay, :send_verifycode, :check_verifycode]
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
+
   def index
       if params[:notice]
         notice = params[:notice]
@@ -78,17 +74,13 @@ class MobileViewController < ApplicationController
          @order.receiver_mobile =  params[:receiver_mobile]
          @order.receiver_address = params[:receiver_address]
          @order.receiver_postcode = params[:receiver_postcode]
-<<<<<<< HEAD
+
          @session = Session.find(session[:progress_id]["$oid"].to_s)
          @order.user_id = @session.user_id
          @order.is_paid = 0
          @cart = Cart.find(session[:cart_id])
          @cart.update_attributes(:order_id => @order.id)
-=======
-         @order.user_id = session[:progress_id]
-         @order.is_paid = 0
-         @cart = Cart.find(session[:cart_id])
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
+
          @product_lines = ProductLine.where(:cart_id => @cart.id)
          amount = 0.to_f
          @product_lines.each do |product_line|
@@ -119,7 +111,7 @@ class MobileViewController < ApplicationController
   end
 
   def order_confirm
-<<<<<<< HEAD
+
     #render json: params[:order_id]
     @order = Order.find(params[:order_id])
     if params[:again]
@@ -163,25 +155,18 @@ class MobileViewController < ApplicationController
            @product_line = ProductLine.where(cart_id: session[:cart_id]).first
       end
       
-=======
-    @order = Order.find(params[:order_id])
-    if  session[:progress_id]
-       @product_line = ProductLine.where(cart_id: session[:cart_id]).first
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
+
       @product = Product.find(@product_line.product_id)
     else
        redirect_to root_url
     end
-<<<<<<< HEAD
+
 
     end
     
    
     #  #render json: @order
-=======
-   
-     #render json: @order
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
+
   end
 
   def regist
@@ -396,12 +381,11 @@ class MobileViewController < ApplicationController
   end
 
   def yeepay_school
-<<<<<<< HEAD
+
   end
 
   def protocol
-=======
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
+
   end
 
    

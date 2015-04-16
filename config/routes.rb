@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-<<<<<<< HEAD
   get 'error_report/with404'
 
   get 'error_report/with500'
@@ -27,12 +26,6 @@ Rails.application.routes.draw do
 
   get 'personal_center', to: 'personal_center#index'
 
-=======
-  resources :bank_cards
-
-  get 'personal_center/index'
-
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
   get 'personal_center/my_commission'
 
   get 'personal_center/apply_cash'
@@ -45,11 +38,8 @@ Rails.application.routes.draw do
 
   get 'payment/pay_success'
 
-<<<<<<< HEAD
   post 'payment/pay_success'
 
-=======
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
   get 'payment/pay_fail'
 
   get 'payment/require_pay_back'
@@ -118,13 +108,6 @@ Rails.application.routes.draw do
 
   get 'mobile_view/boss_school'
 
-<<<<<<< HEAD
-=======
-  get 'mobile_view/about'
-
-  get 'mobile_view/boss_school'
-
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
   get 'mobile_view/require_pay_back'
 
   get 'mobile_view/yeepay_school'

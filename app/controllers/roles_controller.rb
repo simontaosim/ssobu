@@ -1,5 +1,9 @@
 class RolesController < ApplicationController
+<<<<<<< HEAD
   before_action :set_role #, only: [:show, :edit, :update, :destroy]
+=======
+  before_action :set_role, only: [:show, :edit, :update, :destroy]
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
   skip_before_filter :verify_authenticity_token, only: [:destroy, :create, :remote_register]
   layout 'admin'
   # GET /roles

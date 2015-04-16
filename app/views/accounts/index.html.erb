@@ -26,7 +26,15 @@
         <td><%= account.other %></td>
         <td><%= account.plus %></td>
         <td><%= account.message %></td>
+<<<<<<< HEAD
+=======
+        <% if account.created_at %>
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         <td><%=l account.created_at %></td>
+        <% else %>
+        <td></td>
+        <% end %>
+        
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_account_path(account), :class => 'btn btn-default btn-xs' %>

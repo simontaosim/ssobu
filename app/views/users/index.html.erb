@@ -1,9 +1,12 @@
 <%- model_class = User -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+<<<<<<< HEAD
 </div>
 <div style="text-align:right">
 <a href="<%= users_path %>">首页</a> <a href="<%= users_path %>?curPageNo=<%= (@curPageNo.to_i <= 1) ? 1 : @curPageNo.to_i - 1 %>&pageup=1">上一页</a> <a href="<%= users_path %>?curPageNo=<%= (@curPageNo.to_i >= @totalPages.to_i) ? @totalPages.to_i : @curPageNo.to_i + 1 %>&pagedown=1">下一页</a> <a href="<%= users_path %>?lastPage=1">尾页</a> 当前第 <%= @curPageNo %> 页 共 <%= @totalPages %> 页 共 <%= @totalUsers %> 用户，每页显示<%= @perNum %>名用户
+=======
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
 </div>
 <table class="table table-striped">
   <thead>

@@ -8,7 +8,11 @@ class User
   field :third_party, type: String
   field :username, type: String
   field :is_boss, type: Integer
+<<<<<<< HEAD
   attr_accessor :password, :password_confirm, :from_mobile, :reg_for, :login_by, :verifycode
+=======
+  attr_accessor :password, :password_confirm, :from_mobile, :reg_for
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
   field :encrypt_password, type: String
  
   def md5(pass)

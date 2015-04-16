@@ -32,7 +32,11 @@
                             <%= f.text_field :username, 
                                 class: "pure-u-1 auto_hide_footer_for_ios", 
                                 id: "username",
+<<<<<<< HEAD
                                 placeholder: "用户名(5～16个数字或字母 首字符必须为字母)",
+=======
+                                placeholder: "用户名(5～16个数字或字母)",
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
                                 onblur: 'onBlur(this)', 
                                 onkeyup: 'onKeyUp(this)'  %>
                         </div>
@@ -58,7 +62,11 @@
                         <div class="pure-u-1-7"></div>
                         <div class="pure-u-5-7">
                             <%= f.text_field :mobile, 
+<<<<<<< HEAD
                                 class: "pure-u-1 auto_hide_footer_for_ios",
+=======
+                                class: "pure-u-1",
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
                                 id:"mobile",
                                 placeholder:"手机号码" ,
                                 onblur: "onBlur(this)", 
@@ -72,11 +80,19 @@
                         <div class="pure-u-1-7"></div>
                         <div class="pure-u-5-7">
                             <div class="pure-u-1">
+<<<<<<< HEAD
                                 <div class="pure-u-2-5" style="float:left">
                                     <input class="pure-u-1 auto_hide_footer_for_ios" id="verifycode" placeholder="验证码" onblur="onBlur(this)" onkeyup="onKeyUp(this)" type="text">
                                 </div>
                                 <div class="pure-u-3-5" style="float:right">
                                     <button id="btn_verifycode" type="button" class="pure-button pure-u-1 pure-button-primary" style="padding:10px" ontouchstart='checkExist("mobile")'>获取验证码</button>
+=======
+                                <div class="pure-u-2-5">
+                                    <input class="pure-u-1" id="verifycode" placeholder="验证码" onblur="onBlur(this)" onkeyup="onKeyUp(this)" type="text">
+                                </div>
+                                <div class="pure-u-3-5" style="float:right">
+                                    <button id="btn_verifycode" type="button" class="pure-button pure-u-1 pure-button-primary" style="padding:10px" onclick='checkExist("mobile")'>获取验证码</button>
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
                                 </div>
                             </div>
                         </div>
@@ -121,14 +137,18 @@
                 
                     
                 <div class="pure-u-1">
+<<<<<<< HEAD
                     <input type="checkbox" id="input_agree" onchange="onChangeAgree()">&nbsp;已阅读并同意
                     <div><a href="<%= mobile_view_protocol_path %>">&nbsp;&nbsp;&nbsp;《Uboss用户协议》</a></div>
                     </div>
+=======
+                    <input type="checkbox" id="input_agree" onchange="onChangeAgree()">服务协议</div>
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
 
                 <div class="pure-u-1" style="padding:5% 0">
                     <div class="pure-u-1-7"></div>
                     <div class="pure-u-5-7">
-                        <button id="btn_regist" type="button" class="pure-button pure-u-1 pure-button-primary" ontouchstart="registOnTouch()" style="padding:10px">注 册</button>     
+                        <button id="btn_regist" type="button" class="pure-button pure-u-1 pure-button-primary" onclick="registOnTouch()" style="padding:10px">注 册</button>     
                     </div>
                     <div class="pure-u-1-7"></div>    
                 </div>
@@ -153,7 +173,11 @@
         username: /^[a-zA-Z]{1}([a-zA-Z0-9]){4,19}$/, 
         pwd: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/, 
         email: /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/,
+<<<<<<< HEAD
         mobile: /^0?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/
+=======
+        mobile: /^0?(13[0-9]|15[0-9]|18[0-9]|14[0-9])[0-9]{8}$/
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
     };
 
     var errorTips = {
@@ -220,12 +244,19 @@
 
     var btnRegist;
     var btnVerifyCode;
+<<<<<<< HEAD
     var inputMobile;
+=======
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
     var currentTarget;
     // var verifyMobile;
     var verifyCd;
 
+<<<<<<< HEAD
     addOnLoadEventHandler(function(){
+=======
+    window.onload = function(){
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         for (eachTarget in targetKey){
             for (eachKey in targetKey[eachTarget]){
                 var key = targetKey[eachTarget][eachKey];
@@ -242,10 +273,15 @@
         }
         btnRegist = document.getElementById("btn_regist");
         btnVerifyCode = document.getElementById("btn_verifycode");
+<<<<<<< HEAD
         inputMobile = document.getElementById("mobile");
 
         regFor("mobile");
     });
+=======
+        regFor("mobile");
+    }
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
 
     function setObjectValue(key, value){
         if (objectForSet == null){
@@ -315,9 +351,12 @@
     }
 
     function setValidate(target, type, value){
+<<<<<<< HEAD
         if (type == "undefined" || type == null){
             return;
         }
+=======
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         validate["all"][type] = value;
         validate[currentTarget][type] = value;
     }
@@ -435,7 +474,11 @@
         }
         xmlhttp.open("POST",addr);
         xmlhttp.setRequestHeader("cache-control","no-cache");  
+<<<<<<< HEAD
         xmlhttp.setRequestHeader("contentType","text/html;charset=uft-8"); //指定发送的编码  
+=======
+        xmlhttp.setRequestHeader("contentType","text/html;charset=uft-8") //指定发送的编码  
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");   //设置请求头信息  
         xmlhttp.onreadystatechange = function() { 
             if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
@@ -469,7 +512,10 @@
         }
         else{
             btnVerifyCode.innerHTML = "获取验证码(" + verifyCd + ")";
+<<<<<<< HEAD
             btnVerifyCode.disabled = true;
+=======
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
             verifyCd--;
             setTimeout(setVerifyCd, 1000);
         }
@@ -539,7 +585,10 @@
             btnVerifyCode.innerHTML = '<img alt="uboss" width="34px" height="34px" src="/assets/loading2-a58ad9937c8c60f1579b0d599b9f940e.gif">';
             btnVerifyCode.style.padding = 0;
             btnVerifyCode.disabled = true;
+<<<<<<< HEAD
             formValue[type] = inputMobile.value;
+=======
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         }
 
         var validateResult = false;
@@ -570,14 +619,22 @@
                         break;
                     default:
                         setValidate(currentTarget, type, false);
+<<<<<<< HEAD
                         tryShowTips(existTips, type, "未知错误");
+=======
+                        tryShowTips(existTips, type, true);
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
                         validateResult = true;
                         break;
                 }
             }
             else { 
                 setValidate(currentTarget, type, false);
+<<<<<<< HEAD
                 tryShowTips(existTips, type, "未知错误");
+=======
+                tryShowTips(existTips, type, true);
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
                 validateResult = true;
             }
             btnRegist.innerHTML = "注 册";
@@ -591,9 +648,12 @@
                 if (!validateResult){
                     sendVerifyCode();
                 }
+<<<<<<< HEAD
                 else{
                     btnVerifyCode.disabled = false;
                 }
+=======
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
             }
 
 
@@ -614,7 +674,11 @@
     }
 
     function checkPwdEquals(){
+<<<<<<< HEAD
         if (formValue["pwd"] != formValue["pwd2"] && formValue["pwd2"] != "" && formValue["pwd2"] != null){
+=======
+        if (formValue["pwd"] != formValue["pwd2"] && formValue["pwd2"] != ""){
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
             tryShowTips(errorTips, "pwd2");
             setValidate(currentTarget, "pwd2", false);
             return false;
@@ -690,4 +754,8 @@
         btnRegist.disabled = true;
     }
     
+<<<<<<< HEAD
+=======
+    
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
 </script>

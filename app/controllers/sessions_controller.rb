@@ -4,6 +4,8 @@ class SessionsController < ApplicationController
 
   layout 'admin'
 
+  layout 'admin'
+
   # GET /sessions
   # GET /sessions.json
   def index

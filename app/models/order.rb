@@ -9,8 +9,11 @@ class Order
   field :receiver_postcode, type: String
   field :amount, type: Float
   field :is_paid, type: Integer
+<<<<<<< HEAD
   field :transtime, type: Integer
   field :delivery_company, type: String
   field :delivery_number, type: String
   field :delivery_time, type: String
+=======
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
 end

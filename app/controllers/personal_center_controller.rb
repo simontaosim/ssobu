@@ -1,4 +1,5 @@
 class PersonalCenterController < ApplicationController
+<<<<<<< HEAD
   before_action :get_user, only: [:share_order, :my_income, :withdraw]
 
 	 layout 'purestyle'
@@ -12,6 +13,10 @@ class PersonalCenterController < ApplicationController
         @orders_unpaid = Order.where(user_id: @user._id, is_paid: 0 )
         @orders_paid = Order.where(:user_id => @user._id, :is_paid => 1)
       end
+=======
+	 layout 'purestyle'
+  def index
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
   end
 
   def my_commission
@@ -19,6 +24,7 @@ class PersonalCenterController < ApplicationController
 
   def apply_cash
   end
+<<<<<<< HEAD
 
   def show_products
     if session[:progress_id].nil?
@@ -95,4 +101,6 @@ end
     notice = ''
   end
 
+=======
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
 end

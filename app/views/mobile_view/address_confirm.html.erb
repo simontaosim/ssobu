@@ -19,7 +19,11 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" style="padding:2% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
+<<<<<<< HEAD
             收货人<input id="receiver" name="receiver_name" type="text" placeholder="收货人" class="pure-u-1 auto_hide_footer_for_ios">
+=======
+            收货人<input id="receiver" name="receiver_name" type="text" placeholder="收货人" class="pure-u-1">
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         </div>
         <div class="pure-u-1-7"></div> 	
     </div>
@@ -30,7 +34,11 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" style="padding:2% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
+<<<<<<< HEAD
             手机号码<input id="telephone" name="receiver_mobile" type="text" placeholder="手机号码" class="pure-u-1 auto_hide_footer_for_ios" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+=======
+            手机号码<input id="telephone" name="receiver_mobile" type="text" placeholder="手机号码" class="pure-u-1" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         </div>
         <div class="pure-u-1-7"></div>    
     </div>
@@ -63,7 +71,11 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" style="padding:2% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
+<<<<<<< HEAD
             详细地址<input id="detailAddr" name="address" type="text" placeholder="详细地址" class="pure-u-1 auto_hide_footer_for_ios">
+=======
+            详细地址<input id="detailAddr" name="address" type="text" placeholder="详细地址" class="pure-u-1">
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         </div>
         <div class="pure-u-1-7"></div>    
     </div>
@@ -71,7 +83,11 @@ html,body{ margin:0px; height:100%;}
     <div class="pure-u-1" style="padding:2% 0">
         <div class="pure-u-1-7"></div>
         <div class="pure-u-5-7">
+<<<<<<< HEAD
             邮政编码<input id="postal" name="receiver_postcode" type="text" placeholder="邮政编码" class="pure-u-1 auto_hide_footer_for_ios" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+=======
+            邮政编码<input id="postal" name="receiver_postcode" type="text" placeholder="邮政编码" class="pure-u-1" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         </div>
         <div class="pure-u-1-7"></div>    
     </div>
@@ -107,6 +123,7 @@ function checkReceiver(){
     setup();
     preselect('省份');
     //promptinfo();
+<<<<<<< HEAD
 }
 
 
@@ -194,5 +211,94 @@ function isAreaSetted(){
     }
     return true;
 }
+=======
+}
+
+
+window.onload = checkReceiver;
+
+function confirm(){
+	warning_text = "";
+	if(!isAllCorrect()) {
+		var warning = document.getElementById('show_warning');
+		warning.innerHTML=warning_text;
+		warning.style.display='';
+		return false;
+	}
+	var wholeAddr = document.getElementById('wholeAddr');
+    wholeAddr.value = document.getElementById('s1').value
+    				+document.getElementById('s2').value
+    				+document.getElementById('s3').value
+    				+document.getElementById('detailAddr').value;
+    				//+" 邮编 "+document.getElementById('postal').value;
+	//alert(document.addrForm.elements.length);
+	document.getElementById('addrForm').submit();
+		
+}
+function isAllCorrect(){ 
+	if(document.getElementById('receiver').value == ""){ 
+		warning_text = "请填写收货人";
+  	return false;
+	}
+	if (!isPhoneNum()) {
+		return false;
+	}
+	if (!isAreaSetted()) {
+	return false;
+	}
+	return true;
+}
+
+function isPhoneNum(){
+	var phoneNum = document.getElementById('telephone').value;
+	 if(phoneNum.length==0)
+        {
+           warning_text = "请输入手机号码";
+           return false;
+        }
+     if(phoneNum.length!=11)
+    	{
+        warning_text = "请输入完整11位手机号码！";
+        //document.form1.mobile.focus();
+        return false;
+   		}  
+   	 //var myreg = /^(((13[0-9]{1})|159|153)+\d{8})$/;
+   	 var myreg = /^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/;
+   	 if(!myreg.test(phoneNum)){	
+   	 	 warning_text = "请输入有效的手机号码！";
+         return false;
+   	 }
+   	 return true;
+}
+function isAreaSetted(){
+	var province= document.getElementById('s1');
+    var city = document.getElementById('s2');
+    var town = document.getElementById('s3');
+    var detailAddr = document.getElementById('detailAddr');
+    var postal = document.getElementById("postal");
+    
+    if(province.selectedIndex ==0 ){
+    	warning_text = "请选择省份";
+    	return false;
+    }
+    if(city.selectedIndex == 0){
+    	warning_text = "请选择市";
+    	return false;
+    }
+    if (town.selectedIndex == 0) {
+    	warning_text ="请选择区/县";
+    	return false;
+    }
+    if(detailAddr.value == ""){
+    	warning_text = "请输入详细地址";
+    	return false;
+    }
+    if(postal.value != "" && postal.value.length != 6 ){
+    	warning_text = "请输入正确6位邮编";
+    	return false;
+    }
+    return true;
+}
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
 	
 </script>

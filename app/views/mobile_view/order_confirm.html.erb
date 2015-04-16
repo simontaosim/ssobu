@@ -39,15 +39,26 @@
         <li class="lipadding" >收货人: <%= @order.receiver_name %></li>
         <li class="lipadding" >手机号码: <%= @order.receiver_mobile %></li>
         <% 
+<<<<<<< HEAD
         address = @order.receiver_address
          %>
         <div class="lipadding">收货地址: <%= address %></div>
+=======
+                address = @order.receiver_address
+                address[address.length-6, address.length] = ''
+         %>
+        <li class="lipadding">收货地址: <%= address %></li>
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         <li class="lipadding">邮政编码: <%= @order.receiver_postcode %></li>
         <li class="lipadding"><textarea rows="1" cols="20" class="pure-input-1" placeholder="备注："></textarea></li>
     </ul>
     </div>
 <hr/>
+<<<<<<< HEAD
 <input type="hidden" value="<%= @order.id %>" name="order_id" />
+=======
+<input type="hidden" value="<%= @order._id %>" name="order_id" />
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
         <div style="padding:2% 2%"><button class="pure-button button-success" type="submit" style="font-size: 140%; padding:2% 2%">易宝支付</button></div>
         </form>
 <script type="text/javascript">

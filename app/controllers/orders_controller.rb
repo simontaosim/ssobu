@@ -1,6 +1,11 @@
 class OrdersController < ApplicationController
+<<<<<<< HEAD
   before_action :set_order #, only: [:show, :edit, :update, :destroy]
 skip_before_filter :verify_authenticity_token, only: [:destroy, :delivery]
+=======
+  before_action :set_order, only: [:show, :edit, :update, :destroy]
+skip_before_filter :verify_authenticity_token, only: [:destroy]
+>>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
   layout 'admin'
   # GET /orders
   # GET /orders.json

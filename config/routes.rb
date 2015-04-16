@@ -54,7 +54,7 @@ Rails.application.routes.draw do
 
   resources :accounts
 
-  get 'admins', to: 'admins#index'
+  get 'admin', to: 'admins#index'
 
   get 'admins/product_admin'
 

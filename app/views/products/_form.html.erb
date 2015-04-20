@@ -20,7 +20,7 @@
     <div class="controls">
       <%= f.select :catalog_id, Catalog.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
     </div>
-    <%= error_span(@product[:catalog_id]) %>
+    
   </div>
   <div class="control-group">
     <%= f.label :user_id, :class => 'control-label' %>

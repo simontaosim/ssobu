@@ -27,7 +27,7 @@ class WithdrawRecordsController < ApplicationController
     @withdraw_record = WithdrawRecord.new(withdraw_record_params)
       if @withdraw_record.save
         if params[:from_mobile_personal_center]
-          redirect_to personal_center_withdraw_path
+          redirect_to personal_center_withdraw_path, notice: '您的申请已经提交！请耐心等候'
         else
           format.html { redirect_to @withdraw_record, notice: 'Withdraw record was successfully created.' }
           format.json { render :show, status: :created, location: @withdraw_record }

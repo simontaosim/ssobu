@@ -1,5 +1,6 @@
 class WithdrawRecord
   include Mongoid::Document
+  include Mongoid::Timestamps
   belongs_to :user
   field :bank_name, type: String
   field :bank_card, type: String

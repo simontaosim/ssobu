@@ -30,9 +30,10 @@ class WithdrawRecordsController < ApplicationController
       if @withdraw_record.save
         if params[:from_mobile_personal_center]
           redirect_to personal_center_withdraw_path
+        else
+          format.html { redirect_to @withdraw_record, notice: 'Withdraw record was successfully created.' }
+          format.json { render :show, status: :created, location: @withdraw_record }
         end
-        format.html { redirect_to @withdraw_record, notice: 'Withdraw record was successfully created.' }
-        format.json { render :show, status: :created, location: @withdraw_record }
       else
         format.html { render :new }
         format.json { render json: @withdraw_record.errors, status: :unprocessable_entity }

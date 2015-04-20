@@ -32,17 +32,16 @@ class MobileViewController < ApplicationController
       @product = Product.find(params[:product_id])
     end
     if session[:from_index]
-      @product = Product.where(name: /#{'奔跑吧！兔子'}/)
+      @product = Product.where(name: /#{'奔跑吧！兔子'}/).first
     end
 
     if session[:username]
-       @product = Product.where(name: /#{'奔跑吧！兔子'}/)
+       @product = Product.where(name: /#{'奔跑吧！兔子'}/).first
     else
-      # respond_to do |format|
-      #   format.html { redirect_to mobile_view_login_path }
-      # end
+      respond_to do |format|
+        format.html { redirect_to mobile_view_login_path }
+      end
     end
-    render json: @product
   end
 
   def buy_where

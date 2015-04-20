@@ -20,14 +20,14 @@
     <div class="controls">
       <%= f.text_field :name, :class => 'form-control' %>
     </div>
-    <%= error_span(@catalog[:name]) %>
+    
   </div>
   <div class="control-group">
     <%= f.label :fid, :class => 'control-label' %>
     <div class="controls">
       <%= f.select :fid, Catalog.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
     </div>
-    <%= error_span(@catalog[:fid]) %>
+    
   </div>
 
 

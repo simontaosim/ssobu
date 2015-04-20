@@ -32,11 +32,11 @@ class MobileViewController < ApplicationController
     end
     if session[:from_index]
       param_product_name = "奔跑吧，兔子"
-      @product = Product.where(:name => /#param_product_name/ ).first
+      @product = Product.where(:name => param_product_name ).first
     end
 
     if session[:username]
-       @product = Product.where(:name => /#param_product_name/ ).first
+       @product = Product.where(:name => param_product_name ).first
     else
       # respond_to do |format|
       #   format.html { redirect_to mobile_view_login_path }

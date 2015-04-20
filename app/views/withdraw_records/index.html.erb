@@ -24,7 +24,11 @@
         <td><%= withdraw_record.bank_card %></td>
         <td><%= withdraw_record.amount %></td>
         <td><%= withdraw_record.done %></td>
+        <% if withdraw_record.created_at %>
         <td><%=l withdraw_record.created_at %></td>
+        <% else %>
+        <td></td>
+        <% end %>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_withdraw_record_path(withdraw_record), :class => 'btn btn-default btn-xs' %>

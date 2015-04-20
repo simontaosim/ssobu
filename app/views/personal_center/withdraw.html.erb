@@ -14,6 +14,9 @@
 
  <div>最低提现金额100元。</div>
  <div>每月20号到月底才能申请提现哦～5个工作日内到账～～亲请耐心等待！</div>
+ <% if notice %>
+ <p><%= notice %></p>
+ <% end %>
  <div class="container">
  <%= form_for @withdraw_record , :html => { :class => "form-horizontal" } do |f| %>
   <div class="control-group">

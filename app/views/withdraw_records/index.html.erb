@@ -1,31 +1,44 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Withdraw Records</h1>
-
-<table>
+<%- model_class = WithdrawRecord -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Bank name</th>
-      <th>Bank card</th>
-      <th>Amount</th>
-      <th colspan="3"></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:bank_name) %></th>
+      <th><%= model_class.human_attribute_name(:bank_card) %></th>
+      <th><%= model_class.human_attribute_name(:amount) %></th>
+      <th><%= model_class.human_attribute_name(:done) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @withdraw_records.each do |withdraw_record| %>
       <tr>
+        <td><%= link_to withdraw_record.id, withdraw_record_path(withdraw_record) %></td>
+        <td><%= withdraw_record.user_id %></td>
         <td><%= withdraw_record.bank_name %></td>
         <td><%= withdraw_record.bank_card %></td>
         <td><%= withdraw_record.amount %></td>
-        <td><%= link_to 'Show', withdraw_record %></td>
-        <td><%= link_to 'Edit', edit_withdraw_record_path(withdraw_record) %></td>
-        <td><%= link_to 'Destroy', withdraw_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= withdraw_record.done %></td>
+        <td><%=l withdraw_record.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_withdraw_record_path(withdraw_record), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      withdraw_record_path(withdraw_record),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Withdraw record', new_withdraw_record_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_withdraw_record_path,
+            :class => 'btn btn-primary' %>

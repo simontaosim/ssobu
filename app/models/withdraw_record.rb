@@ -4,5 +4,5 @@ class WithdrawRecord
   field :bank_name, type: String
   field :bank_card, type: String
   field :amount, type: Float
-  attr_accessor :done
+  field :done, type: Integer
 end

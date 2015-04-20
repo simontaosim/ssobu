@@ -1,29 +1,62 @@
-<%= form_for(@withdraw_record) do |f| %>
-  <% if @withdraw_record.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@withdraw_record.errors.count, "error") %> prohibited this withdraw_record from being saved:</h2>
+<%= form_for @withdraw_record, :html => { :class => "form-horizontal withdraw_record" } do |f| %>
 
-      <ul>
-      <% @withdraw_record.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <% if @withdraw_record.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@withdraw_record.errors.count, "error") %> prohibited this withdraw_record from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @withdraw_record.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :bank_name %><br>
-    <%= f.text_field :bank_name %>
+  <div class="form-group">
+    <%= f.label :user_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :user_id, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:user_id) %>
   </div>
-  <div class="field">
-    <%= f.label :bank_card %><br>
-    <%= f.text_field :bank_card %>
+  <div class="form-group">
+    <%= f.label :bank_name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :bank_name, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:bank_name) %>
   </div>
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.text_field :amount %>
+  <div class="form-group">
+    <%= f.label :bank_card, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :bank_card, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:bank_card) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <%= f.label :amount, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :amount, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:amount) %>
   </div>
+  <div class="form-group">
+    <%= f.label :done, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :done, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:done) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                withdraw_records_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
 <% end %>

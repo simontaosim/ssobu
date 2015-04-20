@@ -32,11 +32,11 @@ class MobileViewController < ApplicationController
       @product = Product.find(params[:product_id])
     end
     if session[:from_index]
-      @product = Product.where(name: '奔跑吧，兔子')
+      @product = Product.find_by(name: '奔跑吧，兔子')
     end
 
     if session[:username]
-       @product = Product.where(name: '奔跑吧，兔子')
+       @product = Product.find_by(name: '奔跑吧，兔子')
     else
       # respond_to do |format|
       #   format.html { redirect_to mobile_view_login_path }

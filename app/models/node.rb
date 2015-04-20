@@ -33,10 +33,6 @@ class Node
   end
 
   def generate_origin_node
-<<<<<<< HEAD
-=======
-  	if self.order_id
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
   		origin_node = Node.new
   		t = Time.now
   		t = t.to_i
@@ -49,11 +45,7 @@ class Node
   		user.encrypt_password = user.md5('12345678')
   		if user.save
   			origin_node.user_id = user._id
-<<<<<<< HEAD
         origin_node.is_origin = 1 
-=======
-                      origin_node.is_origin = 1 
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
   			origin_node.level = 0
   			if origin_node.save
   				self.origin_node = origin_node._id

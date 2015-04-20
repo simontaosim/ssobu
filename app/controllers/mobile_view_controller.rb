@@ -38,10 +38,11 @@ class MobileViewController < ApplicationController
     if session[:username]
        @product = Product.where(:name => /#param_product_name/ ).first
     else
-      respond_to do |format|
-        format.html { redirect_to mobile_view_login_path }
-      end
+      # respond_to do |format|
+      #   format.html { redirect_to mobile_view_login_path }
+      # end
     end
+    render @product.to_json
   end
 
   def buy_where

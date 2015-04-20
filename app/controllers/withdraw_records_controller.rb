@@ -25,8 +25,6 @@ class WithdrawRecordsController < ApplicationController
   # POST /withdraw_records.json
   def create
     @withdraw_record = WithdrawRecord.new(withdraw_record_params)
-
-    respond_to do |format|
       if @withdraw_record.save
         if params[:from_mobile_personal_center]
           redirect_to personal_center_withdraw_path
@@ -38,7 +36,6 @@ class WithdrawRecordsController < ApplicationController
         format.html { render :new }
         format.json { render json: @withdraw_record.errors, status: :unprocessable_entity }
       end
-    end
   end
 
   # PATCH/PUT /withdraw_records/1

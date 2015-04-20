@@ -42,7 +42,7 @@ class MobileViewController < ApplicationController
       #   format.html { redirect_to mobile_view_login_path }
       # end
     end
-    render @product.to_json
+    render json: @product
   end
 
   def buy_where

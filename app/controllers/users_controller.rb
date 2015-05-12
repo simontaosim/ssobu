@@ -123,10 +123,7 @@ class UsersController < ApplicationController
     if user_register_params[:reg_for] == 'mobile'
       @user.username = user_register_params[:mobile]
       @user.email = ''
-<<<<<<< HEAD
       @user.mobile = user_register_params[:mobile]
-=======
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
     else
       @user.mobile = ''
     end

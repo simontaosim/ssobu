@@ -89,12 +89,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-<<<<<<< HEAD
-    @user = User.new
-    @user.email = user_register_params[:email]
-    @user.username = user_register_params[:username]
-    @user.encrypt_password = user_register_params[:encrypt_password]
-=======
+
         @user = User.new
     @user.email = user_register_params[:email]
     @user.username = user_register_params[:username]
@@ -103,7 +98,7 @@ class UsersController < ApplicationController
     else
       @user.encrypt_password = user_register_params[:encrypt_password]
     end
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
+
     respond_to do |format|
       if @user.save
         create_account(@user.id)
@@ -212,7 +207,6 @@ class UsersController < ApplicationController
 
      def user_register_params
       params.require(:user).permit(:role_id, :email, :third_party, :password, :password_confirm, :username, :from_mobile, :encrypt_password, :reg_for, :mobile)
-<<<<<<< HEAD
     end
 
     def create_account(user_id)
@@ -225,7 +219,5 @@ class UsersController < ApplicationController
 
     def perNum
       20
-=======
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
     end
 end

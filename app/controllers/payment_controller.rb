@@ -1,10 +1,7 @@
 class PaymentController < ApplicationController
 
-<<<<<<< HEAD
    skip_before_filter :verify_authenticity_token, only: [:to_pay, :pay_success]
-=======
-   skip_before_filter :verify_authenticity_token, only: [:to_pay]
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
+
      layout 'purestyle'
   def index
   end
@@ -16,15 +13,11 @@ class PaymentController < ApplicationController
     identity_id = order.user_id.to_s
      user_ip = request.remote_ip
      user_ua = request.user_agent
-<<<<<<< HEAD
      if order.transtime.nil?
        transtime = Time.now.to_i
        order.update_attributes(transtime: transtime)
      end
      transtime = order.transtime
-=======
-     transtime = Time.now.to_i
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
       if  session[:progress_id]
        @product_line = ProductLine.where(cart_id: session[:cart_id]).first
         @product = Product.find(@product_line.product_id)
@@ -52,7 +45,7 @@ class PaymentController < ApplicationController
   end
 
   def pay_success
-<<<<<<< HEAD
+
       @session = Session.find(session[:progress_id]["$oid"].to_s)
       #render json: @session
       @order = Order.find(params[:order_id])
@@ -126,34 +119,7 @@ class PaymentController < ApplicationController
       
 
      #============================================
-      
-=======
-    @session = Session.find(session[:progress_id])
-      @order = Order.find(params[:order_id])
-      @user = User.find(@session.user_id)
-      node = Node.new
-      node.order_id = @order._id
-      node.user_id  = @user._id
-      node.is_origin = 0
-      if params[:node_id]
-      else
-        node.level = 0
-      origin_node = node. generate_origin_node
-      origin_user = User.find(origin_node.user_id)
-      account = Account.new
-      account.user_id = origin_user._id
-      amount = @order.amount.to_f
-      split_cut = account.origin_split_cut
-      account.amount = 0
-      origin_amount = account.amount.to_f
-      origin_amount = amount*split_cut
-      account.amount = origin_amount
-      account.save
-      node.save
-      @notice = '支付成功'
-      end
-      
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
+
    end
 
   def pay_fail
@@ -167,7 +133,7 @@ class PaymentController < ApplicationController
       redirect_to action: 'pay_fail', order_id: params[:order_id]
     end
   end
-<<<<<<< HEAD
+
   private
 
   def create_new_acccount(user_id)
@@ -178,6 +144,5 @@ class PaymentController < ApplicationController
     account
   end
 
-=======
->>>>>>> c6fe1f39e8332af8f745c0def6da8431bbe15e1e
+
 end

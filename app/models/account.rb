@@ -1,27 +1,28 @@
 class Account
+  #用户账户类
   include Mongoid::Document
   include Mongoid::Timestamps
-  belongs_to :user
-  field :amount, type: Float
-  field :currency, type: String
-  field :other, type: String
-  field :plus, type: String
-  field :message, type: String
+  belongs_to :user#属于一个用户
+  field :amount, type: Float#账户余额
+  field :currency, type: String#货币类型，如人民币
+  field :other, type: String#其他
+  field :plus, type: String#其他备选字段
+  field :message, type: String#备注
 
-  def a_split_cut
+  def a_split_cut#定义A级别分账比例
     0.20
   end
-  def b_split_cut
+  def b_split_cut#定义B级别分账比例
     0.10
   end
-  def c_split_cut
+  def c_split_cut#定义C级别分账比例
     0.05
   end
-  def origin_split_cut
+  def origin_split_cut#定义原点级别分账比例
     0.05
   end
 
-  def split_bill(user,order_id)
+  def split_bill(user,order_id)#开始分账单
     order = Order.find(order_id)
   	amount = order.amount.to_f
   	node = Node.where(order_id: order_id).first
